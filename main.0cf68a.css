@@ -1,3 +1,6 @@
+* {
+font-family: Microsoft Yahei!important;
+}
 .clearfix:after,
 .clearfix:before {
   content: "";
@@ -364,7 +367,7 @@ html {
 body {
   margin: 0;
   font-size: 14px;
-  font-family: YaHei Consolas Hybrid!important;
+  font-family: Helvetica Neue, Helvetica, STHeiTi, Arial, sans-serif;
   line-height: 1.5;
   color: #333;
   background-color: #fff;
