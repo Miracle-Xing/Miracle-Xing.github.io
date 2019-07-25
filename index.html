@@ -167,6 +167,92 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-SparkCore-知识点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/25/SparkCore-知识点/">SparkCore 知识点</a>
+    </h1>
+  
+
+        
+        
+
+<a href="/2019/07/25/SparkCore-知识点/" class="archive-article-date">
+  	<time datetime="2019-07-25T06:06:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-25</time>
+</a>
+        
+      </header>
+
+
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-Spark-共享变量实战"><a href="#1-Spark-共享变量实战" class="headerlink" title="1. Spark 共享变量实战"></a>1. Spark 共享变量实战</h1><p>通常，Spark 程序计算的时候，我们传递的函数时在远程集群节点上执行的，在函数中使用的所有<strong>变量副本</strong>会传递到远程节点，计算任务使用<strong>变量副本</strong>进行计算。这些变量被复制到每台机器上，对远程机器上的变量的更新不会返回 driver 程序。</p>
+<p>跨任务支持通用的读写共享变量将是低效的。但是，Spark 为两种常见的使用模式提供了两种有限 功能的共享变量：<strong>广播变量</strong> 和 <strong>累加器</strong>。</p>
+        
+          <a class="article-more-a" href="/2019/07/25/SparkCore-知识点/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/25/SparkCore-知识点/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Spark-编程核心抽象——RDD" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
