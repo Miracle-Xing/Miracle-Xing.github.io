@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://miracle-xing.github.io/"/>
-  <updated>2019-08-08T15:04:30.047Z</updated>
+  <updated>2019-08-09T03:59:29.329Z</updated>
   <id>https://miracle-xing.github.io/</id>
   
   <author>
@@ -21,15 +21,16 @@
     <link href="https://miracle-xing.github.io/2019/08/08/%E6%B5%8B%E8%AF%95%E6%B5%8B%E8%AF%95%E5%AE%A4/"/>
     <id>https://miracle-xing.github.io/2019/08/08/测试测试室/</id>
     <published>2019-08-08T14:53:58.000Z</published>
-    <updated>2019-08-08T15:04:30.047Z</updated>
+    <updated>2019-08-09T03:59:29.329Z</updated>
     
-    <content type="html"><![CDATA[<video src="/videos/20190509_193850.mp4" controls="controls" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;">your browser does not support the video tag</video>]]></content>
+    <content type="html"><![CDATA[<a id="more"></a><video src="http://pvyawomsj.bkt.clouddn.com/20190509_193850.mp4" controls="controls" style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;">your browser does not support the video tag</video>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;video src=&quot;/videos/20190509_193850.mp4&quot; controls=&quot;controls&quot; style=&quot;max-width: 100%; display: block; margin-left: auto; margin-right: auto;&quot;
+        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;video src=&quot;http://pvyawomsj.bkt.clouddn.com/20190509_193850.mp4&quot; controls=&quot;controls&quot; style=&quot;max-width: 100%; display: blo
       
     
     </summary>
