@@ -25,7 +25,7 @@
 <meta property="og:image" content="https://miracle-xing.github.io/images/2019/07/24/a6005070-ad78-11e9-bb89-83337f9b9a34.png">
 <meta property="og:image" content="https://miracle-xing.github.io/images/2019/07/24/ab566f00-ad78-11e9-bb89-83337f9b9a34.png">
 <meta property="og:image" content="https://miracle-xing.github.io/images/2019/07/24/b9d781e0-ad78-11e9-bb89-83337f9b9a34.png">
-<meta property="og:updated_time" content="2019-07-23T18:47:27.198Z">
+<meta property="og:updated_time" content="2019-08-14T04:47:47.371Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark 编程核心抽象——RDD">
 <meta name="twitter:description" content="1. 什么是RDD？RDD 是 Resilient Distributed Dataset（弹性分布式数据集） 的简称。它是 Apache Spark 的基本数据结构。它是一个不可变的对象集合，在集群的不同节点上进行计算。  Resilient: 即在 RDD lineage(DAG) 的帮助下具有容错能力，能够重新计算由于节点故障而丢失或损坏的数据分区。 Distributed: 数据分布在多个">
@@ -642,7 +642,7 @@
 <li><p>WebUI 上查看任务执行，至少需要 100+ ms 时间。如果所用 时间少于 100ms，那么应用程序可能会花更多的时间来调度任务。此时就要减少 partition 的数量。</p>
 </li>
 </ol>
-<h2 id="8-7-Spark-中的分区器"><a href="#8-7-Spark-中的分区器" class="headerlink" title="8.7 Spark 中的分区器"></a>8.7 Spark 中的分区器</h2><p>要使用分区器，首先要创建 PairRDD类型的 RDD。<br>Spark 有两种类型的分区器。一个是 HashPartitioner，另一个是 RangePartitioner。</p>
+<h2 id="8-7-Spark-中的分区器"><a href="#8-7-Spark-中的分区器" class="headerlink" title="8.7 Spark 中的分区器"></a>8.7 Spark 中的分区器</h2><p>要使用分区器，首先要<strong>创建 PairRDD类型的 RDD</strong>。<br>Spark 有两种类型的分区器。一个是 HashPartitioner，另一个是 RangePartitioner。</p>
 <h3 id="8-7-1-HashPartitioner"><a href="#8-7-1-HashPartitioner" class="headerlink" title="8.7.1 HashPartitioner"></a>8.7.1 HashPartitioner</h3><p>HashPartitioner 基于 Java 的 Object.hashcode() 方法进行分区。</p>
 <h3 id="8-7-2-RangePartitioner"><a href="#8-7-2-RangePartitioner" class="headerlink" title="8.7.2 RangePartitioner"></a>8.7.2 RangePartitioner</h3><p>如果有可排序的记录，那么范围分区将几乎在相同的范围内划分记录。范围 Range 是 通过采样传入 RDD的数据内容来确定的。首先，RangePartitioner 将根据 key 对记录进行排序，然后根据给定的值将记录划分为 若干个分区。</p>
 <h3 id="8-7-3-自定义分区器"><a href="#8-7-3-自定义分区器" class="headerlink" title="8.7.3 自定义分区器"></a>8.7.3 自定义分区器</h3><p>还可以通过扩展 Spark 中的默认分区器类来定制 需要的分区数量和应该存储在这些分区中的内容。</p>
