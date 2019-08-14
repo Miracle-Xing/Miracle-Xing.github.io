@@ -52,7 +52,7 @@
 		  <h1 class="header-author"><a href="/">Miracle</a></h1>
 		</hgroup>
 		
-		<p class="header-subtitle">Stay hungry. Stay foolish.</p>
+		<p class="header-subtitle">日拱一卒，功不唐捐。</p>
 		
 
 		<nav class="header-menu">
@@ -116,7 +116,7 @@
 			  <h1 class="header-author js-header-author">Miracle</h1>
 			</hgroup>
 			
-			<p class="header-subtitle"><i class="icon icon-quo-left"></i>Stay hungry. Stay foolish.<i class="icon icon-quo-right"></i></p>
+			<p class="header-subtitle"><i class="icon icon-quo-left"></i>日拱一卒，功不唐捐。<i class="icon icon-quo-right"></i></p>
 			
 			
 			
@@ -166,6 +166,93 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-Spark-实践细节" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/14/Spark-实践细节/">Spark 实践细节</a>
+    </h1>
+  
+
+        
+        
+
+<a href="/2019/08/14/Spark-实践细节/" class="archive-article-date">
+  	<time datetime="2019-08-14T13:20:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-14</time>
+</a>
+        
+      </header>
+
+
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-使用-Yarn-Cluster-运行模式-代码无法控制-AppName"><a href="#1-使用-Yarn-Cluster-运行模式-代码无法控制-AppName" class="headerlink" title="1. 使用 Yarn Cluster 运行模式 代码无法控制 AppName"></a>1. 使用 Yarn Cluster 运行模式 代码无法控制 AppName</h1><p>今天使用 Yarn Cluster 运行模式提交 Spark 任务，在代码中设置了 AppName，但是在 WebUI 显示的【包名.类名】，Google 了之后才知道 Cluster 模式不会读取代码里配置，直接读取命令行配置，因此代码里面配置的 AppName 不起作用。</p>
+<p><strong>代码</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">val spark = SparkSession.builder()</span><br><span class="line">  .appName(&quot;Test Name&quot;)</span><br><span class="line">  .getOrCreate()</span><br><span class="line">val sc = spark.sparkContext</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2019/08/14/Spark-实践细节/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/14/Spark-实践细节/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-Spark-调优" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">

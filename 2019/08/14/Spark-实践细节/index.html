@@ -6,18 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://miracle-xing.github.io">
-  <title>Archives: 2019/8 | 邢大强的blog</title>
+  <title>Spark 实践细节 | 邢大强的blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我就是我，不一样的烟火。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="邢大强的blog">
-<meta property="og:url" content="https://miracle-xing.github.io/archives/2019/08/index.html">
+  <meta name="description" content="1. 使用 Yarn Cluster 运行模式 代码无法控制 AppName今天使用 Yarn Cluster 运行模式提交 Spark 任务，在代码中设置了 AppName，但是在 WebUI 显示的【包名.类名】，Google 了之后才知道 Cluster 模式不会读取代码里配置，直接读取命令行配置，因此代码里面配置的 AppName 不起作用。 代码： 1234val spark = Spa">
+<meta name="keywords" content="笔记,Spark">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark 实践细节">
+<meta property="og:url" content="https://miracle-xing.github.io/2019/08/14/Spark-实践细节/index.html">
 <meta property="og:site_name" content="邢大强的blog">
-<meta property="og:description" content="我就是我，不一样的烟火。">
+<meta property="og:description" content="1. 使用 Yarn Cluster 运行模式 代码无法控制 AppName今天使用 Yarn Cluster 运行模式提交 Spark 任务，在代码中设置了 AppName，但是在 WebUI 显示的【包名.类名】，Google 了之后才知道 Cluster 模式不会读取代码里配置，直接读取命令行配置，因此代码里面配置的 AppName 不起作用。 代码： 1234val spark = Spa">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/08/14/4fbf22a0-be9d-11e9-b6e9-91273bc4af1a.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/08/14/b8af8c90-bea3-11e9-b6e9-91273bc4af1a.png">
+<meta property="og:updated_time" content="2019-08-14T15:02:26.584Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="邢大强的blog">
-<meta name="twitter:description" content="我就是我，不一样的烟火。">
+<meta name="twitter:title" content="Spark 实践细节">
+<meta name="twitter:description" content="1. 使用 Yarn Cluster 运行模式 代码无法控制 AppName今天使用 Yarn Cluster 运行模式提交 Spark 任务，在代码中设置了 AppName，但是在 WebUI 显示的【包名.类名】，Google 了之后才知道 Cluster 模式不会读取代码里配置，直接读取命令行配置，因此代码里面配置的 AppName 不起作用。 代码： 1234val spark = Spa">
+<meta name="twitter:image" content="https://miracle-xing.github.io/images/2019/08/14/4fbf22a0-be9d-11e9-b6e9-91273bc4af1a.png">
   
     <link rel="alternative" href="/atom.xml" title="邢大强的blog" type="application/atom+xml">
   
@@ -165,38 +170,52 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-Spark-实践细节" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      Spark 实践细节
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
+
+        
+        
 
 <a href="/2019/08/14/Spark-实践细节/" class="archive-article-date">
   	<time datetime="2019-08-14T13:20:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-14</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/14/Spark-实践细节/">Spark 实践细节</a>
-    </h1>
-  
+        
+      </header>
 
-        <div class="article-info info-on-right">
-          
+
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-使用-Yarn-Cluster-运行模式-代码无法控制-AppName"><a href="#1-使用-Yarn-Cluster-运行模式-代码无法控制-AppName" class="headerlink" title="1. 使用 Yarn Cluster 运行模式 代码无法控制 AppName"></a>1. 使用 Yarn Cluster 运行模式 代码无法控制 AppName</h1><p>今天使用 Yarn Cluster 运行模式提交 Spark 任务，在代码中设置了 AppName，但是在 WebUI 显示的【包名.类名】，Google 了之后才知道 Cluster 模式不会读取代码里配置，直接读取命令行配置，因此代码里面配置的 AppName 不起作用。</p>
+<p><strong>代码</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">val spark = SparkSession.builder()</span><br><span class="line">  .appName(&quot;Test Name&quot;)</span><br><span class="line">  .getOrCreate()</span><br><span class="line">val sc = spark.sparkContext</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<p><strong>WebUI</strong>:</p>
+<p><img src="/images/2019/08/14/4fbf22a0-be9d-11e9-b6e9-91273bc4af1a.png" alt="20190814_22h07_43.png"></p>
+<p><strong>选择在 spark-submit 中参数设置 AppName</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">spark-submit \</span><br><span class="line">    --master yarn \</span><br><span class="line">    --deploy-mode cluster \</span><br><span class="line">    --class com.miracle.sparkcore_review.Test \</span><br><span class="line">    --name TestName \</span><br><span class="line">    /opt/sparkAPP/spark-1.0-SNAPSHOT-jar-with-dependencies.jar</span><br></pre></td></tr></table></figure>
+
+<p><strong>WebUI</strong>:</p>
+<p><img src="/images/2019/08/14/b8af8c90-bea3-11e9-b6e9-91273bc4af1a.png" alt="修改后.png"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -212,63 +231,139 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://miracle-xing.github.io/2019/08/14/Spark-实践细节/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
 
-<a href="/2019/08/02/Spark-调优/" class="archive-article-date">
-  	<time datetime="2019-08-02T04:49:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-02</time>
-</a>
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/02/Spark-调优/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spark 调优</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/02/Spark-调优/">Spark 调优</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
+  <div id="SOHUCS" sid="Spark-实践细节" ></div> 
+<script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+<script type="text/javascript">
+    window.changyan.api.config({
+        appid: "true",
+        conf: "true"
+    });
+</script>
+</script>
   
 
-    
+  
+
+  
+
+
+  <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: 'abd8d437b0756846f505',
+  	clientSecret: '51790d6ce6c336ad28f7b813346571938ac3a510',
+  	repo: 'gitalk_comment',
+  	owner: 'Miracle-Xing',
+  	admin: ['Miracle-Xing'],
+  	id: 'Wed Aug 14 2019 21:20:15 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+  
+  
 
 
           </div>
@@ -294,8 +389,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
