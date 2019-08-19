@@ -6,18 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://miracle-xing.github.io">
-  <title>Archives | 邢大强的blog</title>
+  <title>自定义分区器 + 二次排序 | 邢大强的blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我就是我，不一样的烟火。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="邢大强的blog">
-<meta property="og:url" content="https://miracle-xing.github.io/archives/index.html">
+  <meta name="description" content="1. 有一份数据，需求如下： 根据 Department 字段对数据进行分组，然后根据 Annual Salary 排序，然后根据 first name 排序。 将每个部门的工资最高的前三名，存入 Mysql 数据库，数据库表包括如下字段(Department, Annual Salary, Firstname)。">
+<meta name="keywords" content="笔记,Spark">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自定义分区器 + 二次排序">
+<meta property="og:url" content="https://miracle-xing.github.io/2019/08/18/自定义分区器-二次排序/index.html">
 <meta property="og:site_name" content="邢大强的blog">
-<meta property="og:description" content="我就是我，不一样的烟火。">
+<meta property="og:description" content="1. 有一份数据，需求如下： 根据 Department 字段对数据进行分组，然后根据 Annual Salary 排序，然后根据 first name 排序。 将每个部门的工资最高的前三名，存入 Mysql 数据库，数据库表包括如下字段(Department, Annual Salary, Firstname)。">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-08-19T03:30:00.303Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="邢大强的blog">
-<meta name="twitter:description" content="我就是我，不一样的烟火。">
+<meta name="twitter:title" content="自定义分区器 + 二次排序">
+<meta name="twitter:description" content="1. 有一份数据，需求如下： 根据 Department 字段对数据进行分组，然后根据 Annual Salary 排序，然后根据 first name 排序。 将每个部门的工资最高的前三名，存入 Mysql 数据库，数据库表包括如下字段(Department, Annual Salary, Firstname)。">
   
     <link rel="alternative" href="/atom.xml" title="邢大强的blog" type="application/atom+xml">
   
@@ -165,38 +167,70 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-自定义分区器-二次排序" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      自定义分区器 + 二次排序
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
+
+        
+        
 
 <a href="/2019/08/18/自定义分区器-二次排序/" class="archive-article-date">
   	<time datetime="2019-08-18T15:13:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-18</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/18/自定义分区器-二次排序/">自定义分区器 + 二次排序</a>
-    </h1>
-  
+        
+      </header>
 
-        <div class="article-info info-on-right">
-          
+
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-有一份数据，需求如下："><a href="#1-有一份数据，需求如下：" class="headerlink" title="1. 有一份数据，需求如下："></a>1. 有一份数据，需求如下：</h1><ol>
+<li>根据 Department 字段对数据进行分组，然后根据 Annual Salary 排序，然后根据 first name 排序。</li>
+<li>将每个部门的工资最高的前三名，存入 Mysql 数据库，数据库表包括如下字段(Department, Annual Salary, Firstname)。</li>
+</ol>
+<a id="more"></a>
+<p>数据格式如下：</p>
+<blockquote>
+<p>数据字段说明：<br>First name: 名<br>Last name: 姓<br>Job Title: 职称<br>Department: 部门<br>Full or Part-time: 全职或兼职<br>Salary: 工资<br>Typical Hours: 小时工<br>Annual Salary: 年薪<br>Hourly Rate: 时薪</p>
+</blockquote>
+<h2 id="1-1-根据-Department-字段对数据进行分组，然后根据-Annual-Salary-排序，然后根据-first-name-排序。"><a href="#1-1-根据-Department-字段对数据进行分组，然后根据-Annual-Salary-排序，然后根据-first-name-排序。" class="headerlink" title="1.1 根据 Department 字段对数据进行分组，然后根据 Annual Salary 排序，然后根据 first name 排序。"></a>1.1 根据 Department 字段对数据进行分组，然后根据 Annual Salary 排序，然后根据 first name 排序。</h2><p><strong>思路</strong>：</p>
+<ol>
+<li>使用 repartitionAndSortWithinPartitions(partitioner: Partitioner) 算子，可以自定义分区器，根据部门分区，并对分区内的数据排序；</li>
+<li>构造 EmployKey 实体类，属性有 Annual Salary, first name, Department，实现 Comparable 接口，重写 compareTo 方法，实现二次排序。</li>
+</ol>
+<p><strong>代码</strong>：</p>
+<p><strong>EmployKey</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">package com.miracle.sparkproject;</span><br><span class="line"></span><br><span class="line">import java.io.Serializable;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @program: sparkdemo</span><br><span class="line"> * @description:</span><br><span class="line"> * @author: Miracle</span><br><span class="line"> * @create: 2019-04-16 21:31</span><br><span class="line"> **/</span><br><span class="line">public class EmployKey implements Comparable&lt;EmployKey&gt;, Serializable &#123;</span><br><span class="line">    private static final long serialVersionUID = 6280745086974614533L;</span><br><span class="line">    private String name;</span><br><span class="line">    private String department;</span><br><span class="line">    private double salary;</span><br><span class="line"></span><br><span class="line">    public EmployKey(String name, String department, double salary) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">        this.department = department;</span><br><span class="line">        this.salary = salary;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static long getSerialVersionUID() &#123;</span><br><span class="line">        return serialVersionUID;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getName() &#123;</span><br><span class="line">        return name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setName(String name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getDepartment() &#123;</span><br><span class="line">        return department;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setDepartment(String department) &#123;</span><br><span class="line">        this.department = department;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public double getSalary() &#123;</span><br><span class="line">        return salary;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setSalary(double salary) &#123;</span><br><span class="line">        this.salary = salary;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public int compareTo(EmployKey o) &#123;</span><br><span class="line">        //先按salary排序</span><br><span class="line">        int compare=(int)o.getSalary()-(int)this.getSalary();</span><br><span class="line">        //如果salary相同，再按name排</span><br><span class="line">        if(compare==0)&#123;</span><br><span class="line">            compare=this.getName().compareTo(o.getName());</span><br><span class="line">        &#125;</span><br><span class="line">        return compare;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>EmployValue</strong>：存储其余信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">package com.miracle.sparkproject;</span><br><span class="line"></span><br><span class="line">import java.io.Serializable;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @program: sparkdemo</span><br><span class="line"> * @description:</span><br><span class="line"> * @author: Miracle</span><br><span class="line"> * @create: 2019-04-16 21:50</span><br><span class="line"> **/</span><br><span class="line">public class EmployValue implements Serializable &#123;</span><br><span class="line">    private static final long serialVersionUID = 5053727575607097704L;</span><br><span class="line">    private String jobTitle;</span><br><span class="line">    private String lastName;</span><br><span class="line"></span><br><span class="line">    public EmployValue(String jobTitle, String lastName) &#123;</span><br><span class="line">        this.jobTitle = jobTitle;</span><br><span class="line">        this.lastName = lastName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static long getSerialVersionUID() &#123;</span><br><span class="line">        return serialVersionUID;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getJobTitle() &#123;</span><br><span class="line">        return jobTitle;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setJobTitle(String jobTitle) &#123;</span><br><span class="line">        this.jobTitle = jobTitle;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getLastName() &#123;</span><br><span class="line">        return lastName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setLastName(String lastName) &#123;</span><br><span class="line">        this.lastName = lastName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>自定义分区器 Sec_Partitioner</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">package com.miracle.review;</span><br><span class="line"></span><br><span class="line">import com.miracle.sparkproject.EmployKey;</span><br><span class="line">import org.apache.spark.Partitioner;</span><br><span class="line"></span><br><span class="line">import java.util.List;</span><br><span class="line">import java.util.Map;</span><br><span class="line">import java.util.concurrent.ConcurrentHashMap;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @program: spark</span><br><span class="line"> * @description:</span><br><span class="line"> * @author: Miracle</span><br><span class="line"> * @create: 2019-08-19 02:02</span><br><span class="line"> **/</span><br><span class="line">public class Sec_Partitioner extends Partitioner &#123;</span><br><span class="line"></span><br><span class="line">    private Map&lt;String, Integer&gt; hashCodePartitionIndexMap = new ConcurrentHashMap();</span><br><span class="line"></span><br><span class="line">    private int numPartitions;</span><br><span class="line"></span><br><span class="line">    public int getNumPartitions() &#123;</span><br><span class="line">        return numPartitions;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setNumPartitions(int numPartitions) &#123;</span><br><span class="line">        this.numPartitions = numPartitions;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Sec_Partitioner(List&lt;EmployKey&gt; keyList) &#123;</span><br><span class="line">        super();</span><br><span class="line">        int flag =0;</span><br><span class="line">        for (int i = 0; i &lt; keyList.size(); i++) &#123;</span><br><span class="line">            if (hashCodePartitionIndexMap.get(keyList.get(i).getDepartment()) == null)&#123;</span><br><span class="line">                hashCodePartitionIndexMap.put(keyList.get(i).getDepartment(), flag);</span><br><span class="line">                flag++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        setNumPartitions(hashCodePartitionIndexMap.keySet().size());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public int numPartitions() &#123;</span><br><span class="line">        return getNumPartitions();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public int getPartition(Object key) &#123;</span><br><span class="line">        EmployKey employKey = (EmployKey) key;</span><br><span class="line">        return hashCodePartitionIndexMap.get(employKey.getDepartment());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public boolean equals(Object obj) &#123;</span><br><span class="line">        if (this == obj)</span><br><span class="line">            return true;</span><br><span class="line">        if (obj == null)</span><br><span class="line">            return false;</span><br><span class="line">        if (getClass() != obj.getClass())</span><br><span class="line">            return false;</span><br><span class="line">        Sec_Partitioner other = (Sec_Partitioner) obj;</span><br><span class="line">        if (other.getNumPartitions() == this.getNumPartitions())</span><br><span class="line">            return true;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>主类 SecondarySort</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">package com.miracle.review;</span><br><span class="line"></span><br><span class="line">import com.miracle.sparkproject.EmployKey;</span><br><span class="line">import com.miracle.sparkproject.EmployValue;</span><br><span class="line">import org.apache.spark.SparkConf;</span><br><span class="line">import org.apache.spark.api.java.JavaPairRDD;</span><br><span class="line">import org.apache.spark.api.java.JavaRDD;</span><br><span class="line">import org.apache.spark.api.java.JavaSparkContext;</span><br><span class="line">import scala.Tuple2;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @program: spark</span><br><span class="line"> * @description: 二次排序</span><br><span class="line"> * 需求1：根据Department字段对数据进行分组，然后根据Annual Salary排序，然后根据first name排序。</span><br><span class="line"> * 需求2：将每个部门的工资最高的前三名，存入Mysql数据库，数据库表包括如下字段(Department, Annual Salary, Firstname, )</span><br><span class="line"> * @author: Miracle</span><br><span class="line"> * @create: 2019-08-18 22:45</span><br><span class="line"> **/</span><br><span class="line">public class SecondarySort &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SparkConf conf = new SparkConf().setAppName(&quot;SecondarySort&quot;).setMaster(&quot;local[*]&quot;);</span><br><span class="line">        JavaSparkContext jsc = new JavaSparkContext(conf);</span><br><span class="line"></span><br><span class="line">        JavaRDD&lt;String&gt; javaRDD = jsc.textFile(&quot;in/employee_all.csv&quot;);</span><br><span class="line"></span><br><span class="line">        JavaPairRDD&lt;EmployKey, EmployValue&gt; pair = javaRDD.mapToPair(data -&gt; &#123;</span><br><span class="line">            String[] fields = data.split(&quot;,&quot;);</span><br><span class="line">            double salary = fields[7].length() &gt; 0 ? Double.parseDouble(fields[7]) : 0.00;</span><br><span class="line">            return new Tuple2&lt;&gt;(</span><br><span class="line">                    new EmployKey(fields[0], fields[3], salary),</span><br><span class="line">                    new EmployValue(fields[2], fields[1])</span><br><span class="line">            );</span><br><span class="line">        &#125;);</span><br><span class="line">        JavaPairRDD&lt;EmployKey, EmployValue&gt; employKeyEmployValueJavaPairRDD = pair.repartitionAndSortWithinPartitions(new Sec_Partitioner(pair.keys().collect()));</span><br><span class="line">        for (Tuple2&lt;EmployKey, EmployValue&gt; tuple2 : employKeyEmployValueJavaPairRDD.collect()) &#123;</span><br><span class="line">            System.out.println(tuple2._1.getDepartment() + &quot; &quot; + tuple2._1.getSalary() + &quot; &quot; + tuple2._1.getName() + &quot; &quot; + tuple2._2.getLastName() + &quot; &quot; + tuple2._2.getJobTitle());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        jsc.stop();</span><br><span class="line">        jsc.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-2-将每个部门的工资最高的前三名，存入-Mysql-数据库，数据库表包括如下字段-Department-Annual-Salary-Firstname"><a href="#1-2-将每个部门的工资最高的前三名，存入-Mysql-数据库，数据库表包括如下字段-Department-Annual-Salary-Firstname" class="headerlink" title="1.2 将每个部门的工资最高的前三名，存入 Mysql 数据库，数据库表包括如下字段(Department, Annual Salary, Firstname)"></a>1.2 将每个部门的工资最高的前三名，存入 Mysql 数据库，数据库表包括如下字段(Department, Annual Salary, Firstname)</h2><p><strong>代码</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">employKeyEmployValueJavaPairRDD.foreachPartition(partition -&gt; &#123;</span><br><span class="line">    int flag = 0;</span><br><span class="line"></span><br><span class="line">    // 存入 MySQL 数据库</span><br><span class="line">    Connection conn = JdbcUtils.getConnection();</span><br><span class="line">    PreparedStatement preparedStatement = null;</span><br><span class="line"></span><br><span class="line">    while (partition.hasNext() &amp;&amp; flag &lt; 3) &#123;</span><br><span class="line">        Tuple2&lt;EmployKey, EmployValue&gt; tuple2 = partition.next();</span><br><span class="line">        System.out.println(tuple2._1.getDepartment() + &quot; &quot; + tuple2._1.getSalary() + &quot; &quot; + tuple2._1.getName() + &quot; &quot; + tuple2._2.getLastName() + &quot; &quot; + tuple2._2.getJobTitle());</span><br><span class="line"></span><br><span class="line">        String sql = &quot;insert into employee (firstname,department,annual_salary) values(?,?,?)&quot;;</span><br><span class="line">        preparedStatement = conn.prepareStatement(sql);</span><br><span class="line">        preparedStatement.setString(1, tuple2._1.getName());</span><br><span class="line">        preparedStatement.setString(2, tuple2._1.getDepartment());</span><br><span class="line">        preparedStatement.setDouble(3, tuple2._1.getSalary());</span><br><span class="line">        preparedStatement.executeUpdate();</span><br><span class="line"></span><br><span class="line">        flag++;</span><br><span class="line">    &#125;</span><br><span class="line">    JdbcUtils.free(preparedStatement, conn);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><strong>JdbcUtils 工具类</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">package com.miracle.utils;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import java.sql.*;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @program: sparkdemo</span><br><span class="line"> * @description:</span><br><span class="line"> * @author: Miracle</span><br><span class="line"> * @create: 2019-03-31 13:24</span><br><span class="line"> **/</span><br><span class="line">public class JdbcUtils &#123;</span><br><span class="line"></span><br><span class="line">    private static String url=&quot;jdbc:mysql://master01:3306/test?characterEncoding=UTF-8&quot;;</span><br><span class="line">    private static String user=&quot;user&quot;;</span><br><span class="line">    private static String pwd=&quot;pwd&quot;;</span><br><span class="line"></span><br><span class="line">    private JdbcUtils()&#123;&#125;</span><br><span class="line"></span><br><span class="line">    // 1. 注册驱动 oracle.jdbc.driver.OracleDriver</span><br><span class="line">    static &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            Class.forName(&quot;com.mysql.jdbc.Driver&quot;);</span><br><span class="line">        &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            System.out.println(&quot;数据库驱动加载失败！&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 2.  建立一个连接</span><br><span class="line">    public static Connection getConnection() throws SQLException&#123;</span><br><span class="line">        return DriverManager.getConnection(url,user,pwd);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 3. 关闭资源</span><br><span class="line">    public static void free(Statement statement,Connection connection)&#123;</span><br><span class="line">        if(statement!=null)&#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                statement.close();</span><br><span class="line">            &#125; catch (SQLException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;finally &#123;</span><br><span class="line">                if(connection!=null)&#123;</span><br><span class="line">                    try &#123;</span><br><span class="line">                        connection.close();</span><br><span class="line">                    &#125; catch (SQLException e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 3. 关闭资源2</span><br><span class="line">    public static void free2(ResultSet rs,Statement statement,Connection connection)&#123;</span><br><span class="line">        if(rs!=null)&#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                rs.close();</span><br><span class="line">            &#125; catch (SQLException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;finally &#123;</span><br><span class="line">                free(statement,connection);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // main</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            Connection connection=getConnection();</span><br><span class="line">            String sql=&quot;insert into textFile (filename) values (?)&quot;;</span><br><span class="line">            PreparedStatement preparedStatement;</span><br><span class="line">            preparedStatement=(PreparedStatement)connection.prepareStatement(sql);</span><br><span class="line">            preparedStatement.setString(1,&quot;test&quot;);</span><br><span class="line">            preparedStatement.executeUpdate();</span><br><span class="line">            free(preparedStatement,connection);</span><br><span class="line">            System.out.println(&quot;**************&quot;+connection);</span><br><span class="line">        &#125; catch (SQLException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -212,283 +246,139 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://miracle-xing.github.io/2019/08/18/自定义分区器-二次排序/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
 
-<a href="/2019/08/14/Spark-实践细节/" class="archive-article-date">
-  	<time datetime="2019-08-14T13:20:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-14</time>
-</a>
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/14/Spark-实践细节/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spark 实践细节</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/14/Spark-实践细节/">Spark 实践细节</a>
-    </h1>
-  
+        
+        
+    </div>
+</aside>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-<a href="/2019/08/02/Spark-调优/" class="archive-article-date">
-  	<time datetime="2019-08-02T04:49:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/02/Spark-调优/">Spark 调优</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-<a href="/2019/07/25/SparkCore-知识点/" class="archive-article-date">
-  	<time datetime="2019-07-25T06:06:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/25/SparkCore-知识点/">SparkCore 知识点</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-<a href="/2019/07/24/Spark-编程核心抽象——RDD/" class="archive-article-date">
-  	<time datetime="2019-07-23T18:27:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/24/Spark-编程核心抽象——RDD/">Spark 编程核心抽象——RDD</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-<a href="/2019/07/23/Hadoop-集群-HA-架构配置/" class="archive-article-date">
-  	<time datetime="2019-07-22T20:42:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/23/Hadoop-集群-HA-架构配置/">Hadoop 集群 HA 架构配置</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Hadoop</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-
-<a href="/2019/07/22/Spark-概念及应用程序架构/" class="archive-article-date">
-  	<time datetime="2019-07-21T16:47:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/22/Spark-概念及应用程序架构/">Spark 概念及应用程序架构</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
+  
+  <div id="SOHUCS" sid="自定义分区器-二次排序" ></div> 
+<script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+<script type="text/javascript">
+    window.changyan.api.config({
+        appid: "true",
+        conf: "true"
+    });
+</script>
+</script>
+  
+
+  
+
+  
+
+
+  <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: 'abd8d437b0756846f505',
+  	clientSecret: '51790d6ce6c336ad28f7b813346571938ac3a510',
+  	repo: 'gitalk_comment',
+  	owner: 'Miracle-Xing',
+  	admin: ['Miracle-Xing'],
+  	id: 'Sun Aug 18 2019 23:13:09 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+  
+  
 
 
           </div>
@@ -514,8 +404,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
