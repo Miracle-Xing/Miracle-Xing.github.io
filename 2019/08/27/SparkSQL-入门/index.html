@@ -6,18 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://miracle-xing.github.io">
-  <title>邢大强的blog</title>
+  <title>SparkSQL 入门 | 邢大强的blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我就是我，不一样的烟火。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="邢大强的blog">
-<meta property="og:url" content="https://miracle-xing.github.io/index.html">
+  <meta name="description" content="1. 概览1.1 简述SparkSQL 是 Spark 计算框架的一个模块。与基础的 Spark RDD API 不同，SparkSQL 为 Spark 提供了更多的数据结构 schema 信息。在内部，SparkSQL 使用这些额外的数据结构信息做进一步的优化操作。与 SparkSQL 交互的方式有多种，包括SQL 语句交互、Dataset API 交互。当使用 SparkSQL 获取数据处理结">
+<meta name="keywords" content="笔记,Spark">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SparkSQL 入门">
+<meta property="og:url" content="https://miracle-xing.github.io/2019/08/27/SparkSQL-入门/index.html">
 <meta property="og:site_name" content="邢大强的blog">
-<meta property="og:description" content="我就是我，不一样的烟火。">
+<meta property="og:description" content="1. 概览1.1 简述SparkSQL 是 Spark 计算框架的一个模块。与基础的 Spark RDD API 不同，SparkSQL 为 Spark 提供了更多的数据结构 schema 信息。在内部，SparkSQL 使用这些额外的数据结构信息做进一步的优化操作。与 SparkSQL 交互的方式有多种，包括SQL 语句交互、Dataset API 交互。当使用 SparkSQL 获取数据处理结">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/08/27/6e0cbcb0-c878-11e9-a36a-35ce21c8b830.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/08/27/8f63f9d0-c87a-11e9-a36a-35ce21c8b830.png">
+<meta property="og:updated_time" content="2019-08-27T10:53:51.430Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="邢大强的blog">
-<meta name="twitter:description" content="我就是我，不一样的烟火。">
+<meta name="twitter:title" content="SparkSQL 入门">
+<meta name="twitter:description" content="1. 概览1.1 简述SparkSQL 是 Spark 计算框架的一个模块。与基础的 Spark RDD API 不同，SparkSQL 为 Spark 提供了更多的数据结构 schema 信息。在内部，SparkSQL 使用这些额外的数据结构信息做进一步的优化操作。与 SparkSQL 交互的方式有多种，包括SQL 语句交互、Dataset API 交互。当使用 SparkSQL 获取数据处理结">
+<meta name="twitter:image" content="https://miracle-xing.github.io/images/2019/08/27/6e0cbcb0-c878-11e9-a36a-35ce21c8b830.png">
   
     <link rel="alternative" href="/atom.xml" title="邢大强的blog" type="application/atom+xml">
   
@@ -165,16 +170,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-SparkSQL-入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-SparkSQL-入门" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/27/SparkSQL-入门/">SparkSQL 入门</a>
+    <h1 class="article-title" itemprop="name">
+      SparkSQL 入门
     </h1>
   
 
@@ -193,619 +196,71 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="1-概览"><a href="#1-概览" class="headerlink" title="1. 概览"></a>1. 概览</h1><h2 id="1-1-简述"><a href="#1-1-简述" class="headerlink" title="1.1 简述"></a>1.1 简述</h2><p>SparkSQL 是 Spark 计算框架的一个模块。与基础的 Spark RDD API 不同，SparkSQL 为 Spark 提供了更多的<strong>数据结构 schema</strong> 信息。在内部，SparkSQL 使用这些额外的数据结构信息做进一步的<strong>优化操作</strong>。与 SparkSQL 交互的方式有多种，包括<strong>SQL 语句交互</strong>、<strong>Dataset API 交互</strong>。当使用 SparkSQL 获取数据处理结果时，无论使用什么样的交互方式，无论什么样的语言编写的程序，其底层的执行引擎都是相同的。这就意味着，Spark 开发人员可以很容易在不同 API 之间来回切换，而不同担心性能方面的问题。</p>
-        
-          <a class="article-more-a" href="/2019/08/27/SparkSQL-入门/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/27/SparkSQL-入门/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-自定义分区器-二次排序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/18/自定义分区器-二次排序/">自定义分区器 + 二次排序</a>
-    </h1>
-  
-
-        
-        
-
-<a href="/2019/08/18/自定义分区器-二次排序/" class="archive-article-date">
-  	<time datetime="2019-08-18T15:13:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-18</time>
-</a>
-        
-      </header>
-
-
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-有一份数据，需求如下："><a href="#1-有一份数据，需求如下：" class="headerlink" title="1. 有一份数据，需求如下："></a>1. 有一份数据，需求如下：</h1><ol>
-<li>根据 Department 字段对数据进行分组，然后根据 Annual Salary 排序，然后根据 first name 排序。</li>
-<li>将每个部门的工资最高的前三名，存入 Mysql 数据库，数据库表包括如下字段(Department, Annual Salary, Firstname)。</li>
-</ol>
-        
-          <a class="article-more-a" href="/2019/08/18/自定义分区器-二次排序/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/18/自定义分区器-二次排序/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Spark-实践细节" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/14/Spark-实践细节/">Spark 实践细节</a>
-    </h1>
-  
-
-        
-        
-
-<a href="/2019/08/14/Spark-实践细节/" class="archive-article-date">
-  	<time datetime="2019-08-14T13:20:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-14</time>
-</a>
-        
-      </header>
-
-
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-使用-Yarn-Cluster-运行模式-代码无法控制-AppName"><a href="#1-使用-Yarn-Cluster-运行模式-代码无法控制-AppName" class="headerlink" title="1. 使用 Yarn Cluster 运行模式 代码无法控制 AppName"></a>1. 使用 Yarn Cluster 运行模式 代码无法控制 AppName</h1><p>今天使用 Yarn Cluster 运行模式提交 Spark 任务，在代码中设置了 AppName，但是在 WebUI 显示的【包名.类名】，Google 了之后才知道 Cluster 模式不会读取代码里配置，直接读取命令行配置，因此代码里面配置的 AppName 不起作用。</p>
-<p><strong>代码</strong>：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">val spark = SparkSession.builder()</span><br><span class="line">  .appName(&quot;Test Name&quot;)</span><br><span class="line">  .getOrCreate()</span><br><span class="line">val sc = spark.sparkContext</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2019/08/14/Spark-实践细节/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/14/Spark-实践细节/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Spark-调优" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/02/Spark-调优/">Spark 调优</a>
-    </h1>
-  
-
-        
-        
-
-<a href="/2019/08/02/Spark-调优/" class="archive-article-date">
-  	<time datetime="2019-08-02T04:49:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-02</time>
-</a>
-        
-      </header>
-
-
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-Spark-调优"><a href="#1-Spark-调优" class="headerlink" title="1. Spark 调优"></a>1. Spark 调优</h1><p>参考链接：<a href="https://spark.apache.org/docs/latest/rdd-programming-guide.html#shuffle-operations" target="_blank" rel="noopener">https://spark.apache.org/docs/latest/rdd-programming-guide.html#shuffle-operations</a></p>
-<p><strong>spark core 调优</strong>：Spark 应用程序的优化涉及到多个方面，包括 Spark 应用程序调优，资源调优，网络调优，硬盘调优等多个方面。本节课主要关注 Spark 应用程序调优和资源调优方面的内容，这也是 Spark 开发工程师的主要工作之一。<br>Spark应用程序调优，在编写 Spark 应用程序时主要考虑以下几个方面：</p>
-        
-          <a class="article-more-a" href="/2019/08/02/Spark-调优/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/02/Spark-调优/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-SparkCore-知识点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/25/SparkCore-知识点/">SparkCore 知识点</a>
-    </h1>
-  
-
-        
-        
-
-<a href="/2019/07/25/SparkCore-知识点/" class="archive-article-date">
-  	<time datetime="2019-07-25T06:06:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-25</time>
-</a>
-        
-      </header>
-
-
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-Spark-共享变量实战"><a href="#1-Spark-共享变量实战" class="headerlink" title="1. Spark 共享变量实战"></a>1. Spark 共享变量实战</h1><p>通常，Spark 程序计算的时候，我们传递的函数时在远程集群节点上执行的，在函数中使用的所有<strong>变量副本</strong>会传递到远程节点，计算任务使用<strong>变量副本</strong>进行计算。这些变量被复制到每台机器上，对远程机器上的变量的更新不会返回 driver 程序。</p>
-<p>跨任务支持通用的读写共享变量将是低效的。但是，Spark 为两种常见的使用模式提供了两种有限 功能的共享变量：<strong>广播变量</strong> 和 <strong>累加器</strong>。</p>
-        
-          <a class="article-more-a" href="/2019/07/25/SparkCore-知识点/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/07/25/SparkCore-知识点/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Spark-编程核心抽象——RDD" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/24/Spark-编程核心抽象——RDD/">Spark 编程核心抽象——RDD</a>
-    </h1>
-  
-
-        
-        
-
-<a href="/2019/07/24/Spark-编程核心抽象——RDD/" class="archive-article-date">
-  	<time datetime="2019-07-23T18:27:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-24</time>
-</a>
-        
-      </header>
-
-
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-什么是RDD？"><a href="#1-什么是RDD？" class="headerlink" title="1. 什么是RDD？"></a>1. 什么是RDD？</h1><p>RDD 是 Resilient Distributed Dataset（<strong>弹性分布式数据集</strong>） 的简称。它是 Apache Spark 的基本数据结构。它是一个不可变的对象集合，在集群的不同节点上进行计算。</p>
+<a id="more"></a>
+<p><img src="/images/2019/08/27/6e0cbcb0-c878-11e9-a36a-35ce21c8b830.png" alt="spark框架.png"></p>
+<h2 id="1-2-SparkSQL-的用法之一：SQL-语句交互"><a href="#1-2-SparkSQL-的用法之一：SQL-语句交互" class="headerlink" title="1.2 SparkSQL 的用法之一：SQL 语句交互"></a>1.2 SparkSQL 的用法之一：SQL 语句交互</h2><p>SparkSQL 的用途之一是执行 SQL 查询。SparkSQL 也可以从已有 Hive数据仓库中读取数据(Spark on Hive)。SparkSQL 语句的执行结果是一个 <strong>DataFrame或Dataset</strong> 对象。同时支持命令行执行 SQL 和 JDBC/ODBC 连接。</p>
+<h2 id="1-3-SparkSQL-的用法之二：Dataset-API-交互"><a href="#1-3-SparkSQL-的用法之二：Dataset-API-交互" class="headerlink" title="1.3 SparkSQL 的用法之二：Dataset API 交互"></a>1.3 SparkSQL 的用法之二：Dataset API 交互</h2><p>Dataset 是一个<strong>分布式的数据集合</strong>。在 Spark 1.6 版本中，Dataset 作为一个新接口添加进来，兼具 RDD 的优点（强类型、使用强大的 lambda 函数的能力）和 SparkSQL 优化引擎的优势。Dataset 可以从 JVM 对象来构建，然后使用一系列转换函数（map、flatmap、filter等）进行计算。Dataset API 在 Scala 和 Java 语言中是支持的，Python 语言不支持 Dataset API。但是，由于 Python 的动态特性，Dataset API 的许多优势，Python 语言已经具备了。R 语言类似。</p>
+<p>DataFrame(Dataset<row>)是一个由<strong>命令列</strong>组成的 Dataset。<strong>概念上相当于关系型数据库中的一个表</strong>，但底层提供了更丰富的优化操作。DataFrames 可以从一系列广泛的数据来源中构建，如结构化数据文件，Hive 中的表、外部数据库、或者已有 RDD。</row></p>
+<p>DataFrame API 在 Scala、Java、Python、R 语言中都支持。在 Scala API 中，DataFrame 是 Dataset<row> 的类型别名。但是在 Java API 中，开发人员需要使用 Dataset<row> 来表示一个 DataFrame。</row></row></p>
+<h2 id="1-4-SparkSession"><a href="#1-4-SparkSession" class="headerlink" title="1.4 SparkSession"></a>1.4 SparkSession</h2><p>SparkSession 提供了与底层 Spark 功能交互的入口，允许使用 DataFrame 和 Dataset API 对 Spark 进行编程。最重要的是，<strong>它限制了概念的数量</strong>（SparkContext、SQLContext 和 HiveContext），并且构建了开发人员在与 Spark 交互时必须兼顾的结构。</p>
+<p>启动 spark-shell 控制台时，SparkSession 被实例化为 Spark 变量，可以直接使用。<br><img src="/images/2019/08/27/8f63f9d0-c87a-11e9-a36a-35ce21c8b830.png" alt="sparkshell.png"></p>
+<p>运行代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val myRange = spark.range(1000).toDF(&quot;number&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>我们创建了一个 DataFrame(Dataset<row>)，其中一个列包含 1000 行，值从 0 到 999。这一系列数字代表一个分布式集合。</row></p>
+<p><strong>注意</strong>：<br>DataFrame 的概念并不是 Spark 特有的。R 和 Python 都有类似的概念。然而，Python/R DataFrames（有一些列外）存在于一台机器上，而不是多台机器上。这限制了给定的 DataFrame 只能使用某一台特定机器上存在的资源 。但是，因为 Spark 具有 Python 和 R 的语言接口，很容易将 Pandas(Python) 的 DataFrames、R DataFrames 转换为 Spark DataFrames。</p>
+<p>DataFrame 和 Dataset 具有和 RDD 相同的概念。</p>
+<h2 id="1-5-Partition-分区"><a href="#1-5-Partition-分区" class="headerlink" title="1.5 Partition 分区"></a>1.5 Partition 分区</h2><p>为了使每个 executor 执行器并行执行任务，Spark 将数据分为 partition（分区）。每个分区是集群中的一个物理机器上的<strong>行集合</strong>。DataFrame 的分区表示了在执行过程中数据是如何在集群中物理分布的。</p>
+<p>需要注意的是，对于 DataFrames 操作，<strong>大多数情况下不需要手动或单独操作分区</strong>，因为使用 DataFrame 的高级 transformation 操作，底层会做一些优化操作，然后转化为 RDD 进行计算。</p>
+<h2 id="1-6-Transformation"><a href="#1-6-Transformation" class="headerlink" title="1.6 Transformation"></a>1.6 Transformation</h2><p>执行一个简单的转换，以在当前的 DataFrame 中找到所有偶数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 使用 Dataset API</span><br><span class="line">Dataset&lt;Row&gt; where = number.where(&quot;number % 2 = 0&quot;);</span><br><span class="line">// where.show();</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>：这些操作没有输出。这是因为我们只声明了一个抽象转换（Transformation) where。Spark 将不会对转换进行操作，知道我们调用一个 Action 操作。</p>
+<h2 id="1-7-延迟计算"><a href="#1-7-延迟计算" class="headerlink" title="1.7 延迟计算"></a>1.7 延迟计算</h2><p>延迟计算意味着 Spark 将等到最后一刻才执行一系列 Transformation。在 SparkSQL 中，不会在执行某个 Transformation 操作时立即修改数据，Spark 会构建一个应用于源数据的 Plan。直到最后 Action 时执行代码，Spark 将这个计划从原始的 DataFrame 转换为 Physical Plan，该计划将在整个集群中高效地运行，因为 Spark 可以从端到端优化整个数据流。</p>
+<p>例如 DataFrame 的<strong>谓词下推</strong> pushdown 优化方式：如果我们构建一个大型的 Spark 作业，在最后指定一个过滤器 where，只需要从源数据中获取一行。最有效的执行方式从数据源过滤所需的单个记录。Spark 实际上是通过自动将过滤器下推来优化的。</p>
+<h2 id="1-8-Action"><a href="#1-8-Action" class="headerlink" title="1.8 Action"></a>1.8 Action</h2><p>为了触发计算，需要运行一个 Action 操作。Action 操作使 Spark 通过执行一系列 Transformation 转换，得到计算结果。最简单的 Action 操作是 <strong>count</strong>，它给出了 DataFrame 中记录的总数（行数）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(where.count());</span><br></pre></td></tr></table></figure>
+
+<p>输出：500</p>
+<p>有三种类型的 Action：</p>
 <ul>
-<li>Resilient: 即在 RDD lineage(DAG) 的帮助下具有容错能力，能够重新计算由于节点故障而丢失或损坏的数据分区。</li>
-<li>Distributed: 数据分布在多个节点上。</li>
-<li>Dataset: 表示所操作的数据集。用户可以通过 JDBC 从外部加载数据集，数据集可以是 JSON 文件，CSV 文件，文本文件或数据库。<br>
-<br>
-        
-          <a class="article-more-a" href="/2019/07/24/Spark-编程核心抽象——RDD/#more">more >></a>
-        
-      
+<li>在控制台中查看数据的 Action</li>
+<li>数据收集的 Action 操作</li>
+<li>输出到第三方存储系统的 Action 操作</li>
+</ul>
+<p>在执行这个 count 操作时，启动了一个 Spark job，运行过滤器 where 转换（一个窄依赖转换），然后是一个聚合（一个宽依赖转换），它在每个分区基础上执行计数，然后是一个收集 Action，它将我们的结果返回到 driver 端。通过检查 Spark UI，可以看到所有这一切。</p>
+<h2 id="1-9-注册为表或视图"><a href="#1-9-注册为表或视图" class="headerlink" title="1.9 注册为表或视图"></a>1.9 注册为表或视图</h2><p>可以通过一个简单的方法 将任何 DataFrame 转换为一个表或视图：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">number.createOrReplaceTempView(&quot;number&quot;);</span><br><span class="line">Dataset&lt;Row&gt; sql = spark.sql(&quot;select * from number where number % 2 =0&quot;);</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/07/24/Spark-编程核心抽象——RDD/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Hadoop-集群-HA-架构配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/23/Hadoop-集群-HA-架构配置/">Hadoop 集群 HA 架构配置</a>
-    </h1>
-  
-
-        
-        
-
-<a href="/2019/07/23/Hadoop-集群-HA-架构配置/" class="archive-article-date">
-  	<time datetime="2019-07-22T20:42:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-23</time>
-</a>
-        
-      </header>
-
-
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-Linux-基础配置"><a href="#1-Linux-基础配置" class="headerlink" title="1. Linux 基础配置"></a>1. Linux 基础配置</h1><h2 id="1-1-设置静态IP："><a href="#1-1-设置静态IP：" class="headerlink" title="1.1 设置静态IP："></a>1.1 设置静态IP：</h2><p>宿主机配置：<br>VMware: NAT模式，不使用DHCP<br>VMnet8: IPv4使用固定ip，子网掩码</p>
-        
-          <a class="article-more-a" href="/2019/07/23/Hadoop-集群-HA-架构配置/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Hadoop</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/07/23/Hadoop-集群-HA-架构配置/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Spark-概念及应用程序架构" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/22/Spark-概念及应用程序架构/">Spark 概念及应用程序架构</a>
-    </h1>
-  
-
-        
-        
-
-<a href="/2019/07/22/Spark-概念及应用程序架构/" class="archive-article-date">
-  	<time datetime="2019-07-21T16:47:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-22</time>
-</a>
-        
-      </header>
-
-
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><ol>
-<li><p>Spark是计算框架，不是存储框架。类似Hadoop中的MR</p>
+<p>现在我们可以用 SQL 查询我们的数据了。使用 spark.sql(sqlString)，spark 是我们的 SparkSession 变量，返回一个新的 DataFrame。</p>
+<p>Spark 中的 DataFrames（和 SQL ) 已经有大量可用的操作。您可以使用和导入数百个函数来帮助您更快地解决大数据问题。</p>
+<h1 id="2-重要概念"><a href="#2-重要概念" class="headerlink" title="2. 重要概念"></a>2. 重要概念</h1><h2 id="2-1-DataFrame"><a href="#2-1-DataFrame" class="headerlink" title="2.1 DataFrame"></a>2.1 DataFrame</h2><ul>
+<li>SparkSQL 从 Spark 1.3 开始引入了一个名为 DataFrame 的表格式数据抽象。</li>
+<li>DataFrame 是用于处理结构化和半结构化的数据抽象。</li>
+<li>DataFrame 利用其 <strong>Schema</strong> 以比原始 RDDs 更有效的方式存储数据。</li>
+<li>DataFrame 利用 RDD 的不可变的、内存计算的、弹性的、分布式的和并行的特性，并对数据应用一个称为 Schema 的数据结构，允许 Spark 管理 Schema，以比 Java 序列化更有效的方式在集群节点之间传递数据。</li>
+<li>与 RDD 不同，DataFrame 中的数据被组织到指定的 columns 中，就像关系数据库中的表一样。</li>
+</ul>
+<h2 id="2-2-Dataset"><a href="#2-2-Dataset" class="headerlink" title="2.2 Dataset"></a>2.2 Dataset</h2><ul>
+<li>从 Spark 1.6 版本开始提供 Dataset API, Dataset API提供了：<ul>
+<li>面向对象的编程风格</li>
+<li>像 RDD API 一样的<strong>编译时类型安全，编译时异常，运行时异常</strong></li>
+<li>利用 Schema 处理结构化数据的优势</li>
+</ul>
 </li>
-<li><p>Spark是分布式的内存计算框架，Spark在计算的时候，内存不够用，数据会写到磁盘。</p>
-        
-          <a class="article-more-a" href="/2019/07/22/Spark-概念及应用程序架构/#more">more >></a>
-        
+<li>Dataset 是结构化数据集，数据集泛型可以是 Row(DataFrame)，也可以是特定的数据类型。</li>
+<li>Java 和 Spark 在编译时将指导数据集中数据的类型。</li>
+</ul>
+<h2 id="2-3-DataFrame-和-Dataset"><a href="#2-3-DataFrame-和-Dataset" class="headerlink" title="2.3 DataFrame 和 Dataset"></a>2.3 DataFrame 和 Dataset</h2><ul>
+<li>从 Spark 2.0 开始，DataFrame API 和 Dataset API 合并。</li>
+<li>Dataset 提供了两个截然不同的 API 特性：strong typed API 和 untyped API。</li>
+<li>可以将 DataFrame 看作是 Dataset 的 untyped 类型：Dataset<row>，Row 是一个 untyped 的 JVM 对象。</row></li>
+<li>Dataset 是强类型 JVM 对象的集合。</li>
+</ul>
+<h1 id="3-代码实战"><a href="#3-代码实战" class="headerlink" title="3. 代码实战"></a>3. 代码实战</h1><p>创建 DataFrame 方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 集合创建 DataFrame</span><br><span class="line">List&lt;Person&gt; personList = new ArrayList&lt;&gt;();</span><br><span class="line">personList.add(new Person(&quot;张三&quot;, 20, &quot;深圳&quot;));</span><br><span class="line">personList.add(new Person(&quot;李四&quot;, 22, &quot;天津&quot;));</span><br><span class="line">Dataset&lt;Row&gt; dataFrame = spark.createDataFrame(personList, Person.class);</span><br><span class="line">dataFrame.printSchema();</span><br><span class="line">dataFrame.show();</span><br><span class="line"></span><br><span class="line">// RDD 创建 DataFrame</span><br><span class="line">JavaSparkContext jsc = new JavaSparkContext(spark.sparkContext());</span><br><span class="line">JavaRDD&lt;Person&gt; parallelize = jsc.parallelize(personList);</span><br><span class="line">Dataset&lt;Row&gt; dataFrame1 = spark.createDataFrame(parallelize, Person.class);</span><br><span class="line">dataFrame1.printSchema();</span><br><span class="line">dataFrame1.show();</span><br></pre></td></tr></table></figure>
+
+
       
 
       
@@ -831,16 +286,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/07/22/Spark-概念及应用程序架构/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://miracle-xing.github.io/2019/08/27/SparkSQL-入门/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/18/自定义分区器-二次排序/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">自定义分区器 + 二次排序</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -860,7 +374,46 @@
 
 
 
+  
+  
+  
 
+  
+  <div id="SOHUCS" sid="SparkSQL-入门" ></div> 
+<script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+<script type="text/javascript">
+    window.changyan.api.config({
+        appid: "true",
+        conf: "true"
+    });
+</script>
+</script>
+  
+
+  
+
+  
+
+
+  <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: 'abd8d437b0756846f505',
+  	clientSecret: '51790d6ce6c336ad28f7b813346571938ac3a510',
+  	repo: 'gitalk_comment',
+  	owner: 'Miracle-Xing',
+  	admin: ['Miracle-Xing'],
+  	id: 'Tue Aug 27 2019 11:20:33 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
   
   
 
@@ -887,8 +440,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
