@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="https://miracle-xing.github.io">
   <title>DataFrame 操作详解 | 邢大强的blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="DataFrame 和 Dataset 是（分布式的）类似于表的集合，具有定义好的行和列。每个列必须具有与所有其他列相同的行数（尽管您可以使用 null 来指定值的缺失），并且每个列都有类型信息，这些信息必须与集合中的每一行一致。这是因为内部存在一个 schema 的概念，其定义了分布式集合中存储的数据的类型。 1. SchemaSchema 定义了 DataFrame 的列名和类型。您可以手动定">
+  <meta name="description" content="DataFrame 和 Dataset 是（分布式的）类似于表的集合，具有定义好的行和列。每个列必须具有与所有其他列相同的行数（尽管您可以使用 null 来指定值的缺失），并且每个列都有类型信息，这些信息必须与集合中的每一行一致。这是因为内部存在一个 schema 的概念，其定义了分布式集合中存储的数据的类型。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DataFrame 操作详解">
 <meta property="og:url" content="https://miracle-xing.github.io/2019/08/28/DataFrame-操作详解/index.html">
 <meta property="og:site_name" content="邢大强的blog">
-<meta property="og:description" content="DataFrame 和 Dataset 是（分布式的）类似于表的集合，具有定义好的行和列。每个列必须具有与所有其他列相同的行数（尽管您可以使用 null 来指定值的缺失），并且每个列都有类型信息，这些信息必须与集合中的每一行一致。这是因为内部存在一个 schema 的概念，其定义了分布式集合中存储的数据的类型。 1. SchemaSchema 定义了 DataFrame 的列名和类型。您可以手动定">
+<meta property="og:description" content="DataFrame 和 Dataset 是（分布式的）类似于表的集合，具有定义好的行和列。每个列必须具有与所有其他列相同的行数（尽管您可以使用 null 来指定值的缺失），并且每个列都有类型信息，这些信息必须与集合中的每一行一致。这是因为内部存在一个 schema 的概念，其定义了分布式集合中存储的数据的类型。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-28T11:56:39.299Z">
+<meta property="og:updated_time" content="2019-08-28T11:58:03.823Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DataFrame 操作详解">
-<meta name="twitter:description" content="DataFrame 和 Dataset 是（分布式的）类似于表的集合，具有定义好的行和列。每个列必须具有与所有其他列相同的行数（尽管您可以使用 null 来指定值的缺失），并且每个列都有类型信息，这些信息必须与集合中的每一行一致。这是因为内部存在一个 schema 的概念，其定义了分布式集合中存储的数据的类型。 1. SchemaSchema 定义了 DataFrame 的列名和类型。您可以手动定">
+<meta name="twitter:description" content="DataFrame 和 Dataset 是（分布式的）类似于表的集合，具有定义好的行和列。每个列必须具有与所有其他列相同的行数（尽管您可以使用 null 来指定值的缺失），并且每个列都有类型信息，这些信息必须与集合中的每一行一致。这是因为内部存在一个 schema 的概念，其定义了分布式集合中存储的数据的类型。">
   
     <link rel="alternative" href="/atom.xml" title="邢大强的blog" type="application/atom+xml">
   
@@ -192,6 +192,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>DataFrame 和 Dataset 是（分布式的）类似于表的集合，具有定义好的行和列。每个列必须具有与所有其他列相同的行数（尽管您可以使用 null 来指定值的缺失），并且每个列都有类型信息，这些信息必须与集合中的每一行一致。这是因为内部存在一个 schema 的概念，其定义了分布式集合中存储的数据的类型。</p>
+<a id="more"></a>
 <h1 id="1-Schema"><a href="#1-Schema" class="headerlink" title="1. Schema"></a>1. Schema</h1><p>Schema 定义了 DataFrame 的列名和类型。您可以手动定义 Schema 模式或从数据源读取 Schema 模式（通常称为读模式）。Schema 包含列类型，用于声明<strong>什么列存储了什么类型的数据</strong>。</p>
 <h1 id="2-Rows"><a href="#2-Rows" class="headerlink" title="2. Rows"></a>2. Rows</h1><p>一行（Row）只是表示数据的一条记录。DataFrame 中的每条数据记录必须是 Row 类型。我们可以从 SQL 、弹性分布式数据集（RDDs）、数据源或手动创建这些 Rows。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 返回 Row 对象数组</span><br><span class="line">Row[] collect = (Row[])spark.range(2).toDF().collect();</span><br><span class="line">for (Row r :</span><br><span class="line">        collect) &#123;</span><br><span class="line">    System.out.println(r);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
