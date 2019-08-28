@@ -6,23 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://miracle-xing.github.io">
-  <title>SparkSQL 入门 | 邢大强的blog</title>
+  <title>DataFrame 操作详解 | 邢大强的blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1. 概览1.1 简述SparkSQL 是 Spark 计算框架的一个模块。与基础的 Spark RDD API 不同，SparkSQL 为 Spark 提供了更多的数据结构 schema 信息。在内部，SparkSQL 使用这些额外的数据结构信息做进一步的优化操作。与 SparkSQL 交互的方式有多种，包括SQL 语句交互、Dataset API 交互。当使用 SparkSQL 获取数据处理结">
-<meta name="keywords" content="笔记,Spark">
+  <meta name="description" content="DataFrame 和 Dataset 是（分布式的）类似于表的集合，具有定义好的行和列。每个列必须具有与所有其他列相同的行数（尽管您可以使用 null 来指定值的缺失），并且每个列都有类型信息，这些信息必须与集合中的每一行一致。这是因为内部存在一个 schema 的概念，其定义了分布式集合中存储的数据的类型。 1. SchemaSchema 定义了 DataFrame 的列名和类型。您可以手动定">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SparkSQL 入门">
-<meta property="og:url" content="https://miracle-xing.github.io/2019/08/27/SparkSQL-入门/index.html">
+<meta property="og:title" content="DataFrame 操作详解">
+<meta property="og:url" content="https://miracle-xing.github.io/2019/08/28/DataFrame-操作详解/index.html">
 <meta property="og:site_name" content="邢大强的blog">
-<meta property="og:description" content="1. 概览1.1 简述SparkSQL 是 Spark 计算框架的一个模块。与基础的 Spark RDD API 不同，SparkSQL 为 Spark 提供了更多的数据结构 schema 信息。在内部，SparkSQL 使用这些额外的数据结构信息做进一步的优化操作。与 SparkSQL 交互的方式有多种，包括SQL 语句交互、Dataset API 交互。当使用 SparkSQL 获取数据处理结">
+<meta property="og:description" content="DataFrame 和 Dataset 是（分布式的）类似于表的集合，具有定义好的行和列。每个列必须具有与所有其他列相同的行数（尽管您可以使用 null 来指定值的缺失），并且每个列都有类型信息，这些信息必须与集合中的每一行一致。这是因为内部存在一个 schema 的概念，其定义了分布式集合中存储的数据的类型。 1. SchemaSchema 定义了 DataFrame 的列名和类型。您可以手动定">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://miracle-xing.github.io/images/2019/08/27/6e0cbcb0-c878-11e9-a36a-35ce21c8b830.png">
-<meta property="og:image" content="https://miracle-xing.github.io/images/2019/08/27/8f63f9d0-c87a-11e9-a36a-35ce21c8b830.png">
-<meta property="og:updated_time" content="2019-08-28T01:49:27.441Z">
+<meta property="og:updated_time" content="2019-08-28T11:56:39.299Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SparkSQL 入门">
-<meta name="twitter:description" content="1. 概览1.1 简述SparkSQL 是 Spark 计算框架的一个模块。与基础的 Spark RDD API 不同，SparkSQL 为 Spark 提供了更多的数据结构 schema 信息。在内部，SparkSQL 使用这些额外的数据结构信息做进一步的优化操作。与 SparkSQL 交互的方式有多种，包括SQL 语句交互、Dataset API 交互。当使用 SparkSQL 获取数据处理结">
-<meta name="twitter:image" content="https://miracle-xing.github.io/images/2019/08/27/6e0cbcb0-c878-11e9-a36a-35ce21c8b830.png">
+<meta name="twitter:title" content="DataFrame 操作详解">
+<meta name="twitter:description" content="DataFrame 和 Dataset 是（分布式的）类似于表的集合，具有定义好的行和列。每个列必须具有与所有其他列相同的行数（尽管您可以使用 null 来指定值的缺失），并且每个列都有类型信息，这些信息必须与集合中的每一行一致。这是因为内部存在一个 schema 的概念，其定义了分布式集合中存储的数据的类型。 1. SchemaSchema 定义了 DataFrame 的列名和类型。您可以手动定">
   
     <link rel="alternative" href="/atom.xml" title="邢大强的blog" type="application/atom+xml">
   
@@ -170,22 +166,22 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-SparkSQL-入门" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-DataFrame-操作详解" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      SparkSQL 入门
+      DataFrame 操作详解
     </h1>
   
 
         
         
 
-<a href="/2019/08/27/SparkSQL-入门/" class="archive-article-date">
-  	<time datetime="2019-08-27T03:20:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-27</time>
+<a href="/2019/08/28/DataFrame-操作详解/" class="archive-article-date">
+  	<time datetime="2019-08-28T02:33:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-28</time>
 </a>
         
       </header>
@@ -195,70 +191,106 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="1-概览"><a href="#1-概览" class="headerlink" title="1. 概览"></a>1. 概览</h1><h2 id="1-1-简述"><a href="#1-1-简述" class="headerlink" title="1.1 简述"></a>1.1 简述</h2><p>SparkSQL 是 Spark 计算框架的一个模块。与基础的 Spark RDD API 不同，SparkSQL 为 Spark 提供了更多的<strong>数据结构 schema</strong> 信息。在内部，SparkSQL 使用这些额外的数据结构信息做进一步的<strong>优化操作</strong>。与 SparkSQL 交互的方式有多种，包括<strong>SQL 语句交互</strong>、<strong>Dataset API 交互</strong>。当使用 SparkSQL 获取数据处理结果时，无论使用什么样的交互方式，无论什么样的语言编写的程序，其底层的执行引擎都是相同的。这就意味着，Spark 开发人员可以很容易在不同 API 之间来回切换，而不同担心性能方面的问题。</p>
-<a id="more"></a>
-<p><img src="/images/2019/08/27/6e0cbcb0-c878-11e9-a36a-35ce21c8b830.png" alt="spark框架.png"></p>
-<h2 id="1-2-SparkSQL-的用法之一：SQL-语句交互"><a href="#1-2-SparkSQL-的用法之一：SQL-语句交互" class="headerlink" title="1.2 SparkSQL 的用法之一：SQL 语句交互"></a>1.2 SparkSQL 的用法之一：SQL 语句交互</h2><p>SparkSQL 的用途之一是执行 SQL 查询。SparkSQL 也可以从已有 Hive数据仓库中读取数据(Spark on Hive)。SparkSQL 语句的执行结果是一个 <strong>DataFrame或Dataset</strong> 对象。同时支持命令行执行 SQL 和 JDBC/ODBC 连接。</p>
-<h2 id="1-3-SparkSQL-的用法之二：Dataset-API-交互"><a href="#1-3-SparkSQL-的用法之二：Dataset-API-交互" class="headerlink" title="1.3 SparkSQL 的用法之二：Dataset API 交互"></a>1.3 SparkSQL 的用法之二：Dataset API 交互</h2><p>Dataset 是一个<strong>分布式的数据集合</strong>。在 Spark 1.6 版本中，Dataset 作为一个新接口添加进来，兼具 RDD 的优点（强类型、使用强大的 lambda 函数的能力）和 SparkSQL 优化引擎的优势。Dataset 可以从 JVM 对象来构建，然后使用一系列转换函数（map、flatmap、filter等）进行计算。Dataset API 在 Scala 和 Java 语言中是支持的，Python 语言不支持 Dataset API。但是，由于 Python 的动态特性，Dataset API 的许多优势，Python 语言已经具备了。R 语言类似。</p>
-<p>DataFrame(Dataset&lt;Row&gt;)是一个由<strong>命令列</strong>组成的 Dataset。<strong>概念上相当于关系型数据库中的一个表</strong>，但底层提供了更丰富的优化操作。DataFrames 可以从一系列广泛的数据来源中构建，如结构化数据文件，Hive 中的表、外部数据库、或者已有 RDD。</p>
-<p>DataFrame API 在 Scala、Java、Python、R 语言中都支持。在 Scala API 中，DataFrame 是 Dataset[Row] 的类型别名。但是在 Java API 中，开发人员需要使用 Dataset&lt;Row&gt; 来表示一个 DataFrame。</p>
-<h2 id="1-4-SparkSession"><a href="#1-4-SparkSession" class="headerlink" title="1.4 SparkSession"></a>1.4 SparkSession</h2><p>SparkSession 提供了与底层 Spark 功能交互的入口，允许使用 DataFrame 和 Dataset API 对 Spark 进行编程。最重要的是，<strong>它限制了概念的数量</strong>（SparkContext、SQLContext 和 HiveContext），并且构建了开发人员在与 Spark 交互时必须兼顾的结构。</p>
-<p>启动 spark-shell 控制台时，SparkSession 被实例化为 Spark 变量，可以直接使用。<br><img src="/images/2019/08/27/8f63f9d0-c87a-11e9-a36a-35ce21c8b830.png" alt="sparkshell.png"></p>
-<p>运行代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val myRange = spark.range(1000).toDF(&quot;number&quot;)</span><br></pre></td></tr></table></figure>
+        <p>DataFrame 和 Dataset 是（分布式的）类似于表的集合，具有定义好的行和列。每个列必须具有与所有其他列相同的行数（尽管您可以使用 null 来指定值的缺失），并且每个列都有类型信息，这些信息必须与集合中的每一行一致。这是因为内部存在一个 schema 的概念，其定义了分布式集合中存储的数据的类型。</p>
+<h1 id="1-Schema"><a href="#1-Schema" class="headerlink" title="1. Schema"></a>1. Schema</h1><p>Schema 定义了 DataFrame 的列名和类型。您可以手动定义 Schema 模式或从数据源读取 Schema 模式（通常称为读模式）。Schema 包含列类型，用于声明<strong>什么列存储了什么类型的数据</strong>。</p>
+<h1 id="2-Rows"><a href="#2-Rows" class="headerlink" title="2. Rows"></a>2. Rows</h1><p>一行（Row）只是表示数据的一条记录。DataFrame 中的每条数据记录必须是 Row 类型。我们可以从 SQL 、弹性分布式数据集（RDDs）、数据源或手动创建这些 Rows。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 返回 Row 对象数组</span><br><span class="line">Row[] collect = (Row[])spark.range(2).toDF().collect();</span><br><span class="line">for (Row r :</span><br><span class="line">        collect) &#123;</span><br><span class="line">    System.out.println(r);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>我们创建了一个 DataFrame(Dataset&lt;Row&gt;)，其中一个列包含 1000 行，值从 0 到 999。这一系列数字代表一个分布式集合。</p>
-<p><strong>注意</strong>：<br>DataFrame 的概念并不是 Spark 特有的。R 和 Python 都有类似的概念。然而，Python/R DataFrames（有一些列外）存在于一台机器上，而不是多台机器上。这限制了给定的 DataFrame 只能使用某一台特定机器上存在的资源 。但是，因为 Spark 具有 Python 和 R 的语言接口，很容易将 Pandas(Python) 的 DataFrames、R DataFrames 转换为 Spark DataFrames。</p>
-<p>DataFrame 和 Dataset 具有和 RDD 相同的概念。</p>
-<h2 id="1-5-Partition-分区"><a href="#1-5-Partition-分区" class="headerlink" title="1.5 Partition 分区"></a>1.5 Partition 分区</h2><p>为了使每个 executor 执行器并行执行任务，Spark 将数据分为 partition（分区）。每个分区是集群中的一个物理机器上的<strong>行集合</strong>。DataFrame 的分区表示了在执行过程中数据是如何在集群中物理分布的。</p>
-<p>需要注意的是，对于 DataFrames 操作，<strong>大多数情况下不需要手动或单独操作分区</strong>，因为使用 DataFrame 的高级 transformation 操作，底层会做一些优化操作，然后转化为 RDD 进行计算。</p>
-<h2 id="1-6-Transformation"><a href="#1-6-Transformation" class="headerlink" title="1.6 Transformation"></a>1.6 Transformation</h2><p>执行一个简单的转换，以在当前的 DataFrame 中找到所有偶数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 使用 Dataset API</span><br><span class="line">Dataset&lt;Row&gt; where = number.where(&quot;number % 2 = 0&quot;);</span><br><span class="line">// where.show();</span><br></pre></td></tr></table></figure>
+<h1 id="3-Column"><a href="#3-Column" class="headerlink" title="3. Column"></a>3. Column</h1><p>Column 表示一个简单的类型，如 Integer 或 String，复杂类型，如 Array 或 Map，或 Null。Spark 将跟踪所有这些类型的信息，并提供多种方式对 Column 进行转换。</p>
+<h1 id="4-Spark-DataType"><a href="#4-Spark-DataType" class="headerlink" title="4. Spark DataType"></a>4. Spark DataType</h1><p>Spark 有大量的内部类型表示，这样就可以很容易地引用在特定语言（Java、Scala）中，与 Spark 类型相匹配的类型。import org.apache.spark.sql.types.DataTypes 类中。</p>
+<p><strong>Scala type reference</strong>:<br>|Data type|Value type in Scala|API to access or create a data type|<br>|-|-|-|<br>|ByteType|Byte|ByteType|<br>|ShortType|Short|ShortType|<br>|IntegerType|Int|IntegerType|<br>|LongType|Long|LongType|<br>|FloatType|Float|FloatType|<br>|DoubleType|Double|DoubleType|<br>|DecimalType|java.math.BigDecimal|DecimalType|<br>|StringType|String|StringType|<br>|BinaryType|Array[Byte]|BinaryType|<br>|BooleanType|Boolean|BooleanType|<br>|TimestampType|java.sql.Timestamp|TimestampType|<br>|DateType|java.sql.Date|DateType|<br>|ArrayType|scala.collection.Seq|ArrayType(elementType, [containsNull]. Note: The default value of containsNull is true.|<br>|MapType|scala.collection.Map|MapType(keyType, valueType, [valueContainsNull). Note: The default value of valueContainsNull is true.|<br>|StructType|org.apache.spark.sql.Row|StructType(fields). Note: fields is an Array of StructFields. Also, fields with the same name are not allowed.|<br>|StructField|The value type in Scala of the data type of this field(for example, Int for a StructField  with the data type IntegerType)|StructField(name, dataType, [nullable]). Note: The default value of nullable is true.|</p>
+<p><strong>Java type reference</strong>:<br>|Data type|Value type in Java|API to access or create a data type|<br>|-|-|-|<br>|ByteType|byte or Byte|DataTypes.ByteType|<br>|ShortType|short or Short|DataTypes.ShortType|<br>|IntegerType|int or Integer|DataTypes.IntegerType|<br>|LongType|long or Long|DataTypes.LongType|<br>|FloatType|float or Float|DataTypes.FloatType|<br>|DoubleType|double or Double|DataTypes.DoubleType|<br>|DecimalType|java.math.BigDecimal|DataTypes.createDecimalType(); DataTypes.createDecimalType(precision, scale).<br>|StringType|String|DataTypes.StringType|<br>|BinaryType|byte[]|DataTypes.BinaryType|<br>|TimestmapType|java.sql.Timestamp|DataTypes.TimestampType|<br>|DateType|java.sql.Date|DataTypes.DateType|<br>|ArrayType|java.util.List|DataTypes.createArrayType(elementType). Note: The value of containsNull will be true; DataTypes.createArrayType(elementType, containsNull).|<br>|MapType|java.util.Map|DataTypes.createMapType(keyType, valueType). Note: The value of valueContainsNull will be true. DataTypes.createMapType(keyType, valueType, valueContainsNull)|<br>|StructType|org.apache.spark.sql.Row|DataTypes.createStructType(fields). Note: fields is a List or an array of StructFields. Also, two fields with the same name are not allowed.|<br>|StructField|The value type in Java of the data type of this field(for example, int for a StructField with the data typee IntegerType)|DataTypes.createStructField(name, dataType, nullable)|</p>
+<p><strong>Java</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 使用 List&lt;Row&gt;、Schema 创建 DataFrame</span><br><span class="line"> * 注意： 创建 StructField、StructType，要使用 DataTypes 的工厂方法</span><br><span class="line"> */</span><br><span class="line">List&lt;Row&gt; rows = new ArrayList&lt;&gt;();</span><br><span class="line">rows.add(RowFactory.create(&quot;张三&quot;, 20, &quot;北京&quot;));</span><br><span class="line">rows.add(RowFactory.create(&quot;李四&quot;, 22, &quot;上海&quot;));</span><br><span class="line">StructField[] fields = new StructField[]&#123;</span><br><span class="line">        DataTypes.createStructField(&quot;name&quot;, DataTypes.StringType, false),</span><br><span class="line">        DataTypes.createStructField(&quot;age&quot;, DataTypes.IntegerType, false),</span><br><span class="line">        DataTypes.createStructField(&quot;address&quot;, DataTypes.StringType, false)</span><br><span class="line">&#125;;</span><br><span class="line">StructType schema = DataTypes.createStructType(fields);</span><br><span class="line">Dataset&lt;Row&gt; listSchemaDF = spark.createDataFrame(rows, schema);</span><br><span class="line">listSchemaDF.show();</span><br><span class="line">listSchemaDF.printSchema();</span><br></pre></td></tr></table></figure>
 
-<p><strong>注意</strong>：这些操作没有输出。这是因为我们只声明了一个抽象转换（Transformation) where。Spark 将不会对转换进行操作，知道我们调用一个 Action 操作。</p>
-<h2 id="1-7-延迟计算"><a href="#1-7-延迟计算" class="headerlink" title="1.7 延迟计算"></a>1.7 延迟计算</h2><p>延迟计算意味着 Spark 将等到最后一刻才执行一系列 Transformation。在 SparkSQL 中，不会在执行某个 Transformation 操作时立即修改数据，Spark 会构建一个应用于源数据的 Plan。直到最后 Action 时执行代码，Spark 将这个计划从原始的 DataFrame 转换为 Physical Plan，该计划将在整个集群中高效地运行，因为 Spark 可以从端到端优化整个数据流。</p>
-<p>例如 DataFrame 的<strong>谓词下推</strong> pushdown 优化方式：如果我们构建一个大型的 Spark 作业，在最后指定一个过滤器 where，只需要从源数据中获取一行。最有效的执行方式从数据源过滤所需的单个记录。Spark 实际上是通过自动将过滤器下推来优化的。</p>
-<h2 id="1-8-Action"><a href="#1-8-Action" class="headerlink" title="1.8 Action"></a>1.8 Action</h2><p>为了触发计算，需要运行一个 Action 操作。Action 操作使 Spark 通过执行一系列 Transformation 转换，得到计算结果。最简单的 Action 操作是 <strong>count</strong>，它给出了 DataFrame 中记录的总数（行数）。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(where.count());</span><br></pre></td></tr></table></figure>
+<h1 id="5-DataFrame-基本操作"><a href="#5-DataFrame-基本操作" class="headerlink" title="5. DataFrame 基本操作"></a>5. DataFrame 基本操作</h1><p>从定义上看，一个 DataFrame 包括一系列的 records（记录，就像 table 中的 rows），这些行的类型是 Row 类型，包括一系列的 columns（就像表格中的列）。Schema 定义了每一列的列名和数据类型。DataFrame 的分区定义了 DataFrame 或 Dataset 在整个集群中的物理分布情况。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 创建 DataFrame</span><br><span class="line">Dataset&lt;Row&gt; df = spark.read().json(&quot;E:\\Java\\IntelliJ IDEA\\spark\\in\\2015-summary.json&quot;);</span><br><span class="line">// 查看 Schema</span><br><span class="line">df.printSchema();</span><br><span class="line">// 查看 schema</span><br><span class="line">System.out.println(df.schema());</span><br></pre></td></tr></table></figure>
 
-<p>输出：500</p>
-<p>有三种类型的 Action：</p>
-<ul>
-<li>在控制台中查看数据的 Action</li>
-<li>数据收集的 Action 操作</li>
-<li>输出到第三方存储系统的 Action 操作</li>
-</ul>
-<p>在执行这个 count 操作时，启动了一个 Spark job，运行过滤器 where 转换（一个窄依赖转换），然后是一个聚合（一个宽依赖转换），它在每个分区基础上执行计数，然后是一个收集 Action，它将我们的结果返回到 driver 端。通过检查 Spark UI，可以看到所有这一切。</p>
-<h2 id="1-9-注册为表或视图"><a href="#1-9-注册为表或视图" class="headerlink" title="1.9 注册为表或视图"></a>1.9 注册为表或视图</h2><p>可以通过一个简单的方法 将任何 DataFrame 转换为一个表或视图：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">number.createOrReplaceTempView(&quot;number&quot;);</span><br><span class="line">Dataset&lt;Row&gt; sql = spark.sql(&quot;select * from number where number % 2 =0&quot;);</span><br></pre></td></tr></table></figure>
+<p>一个 Schema 就是一个 StructType，由多个 StructField 类型的 fields 组成，每个 field 包括一个列名称、一个列类型、一个布尔型的标识（是否可以有缺失值和 Null 值）。</p>
+<h1 id="6-Columns-操作"><a href="#6-Columns-操作" class="headerlink" title="6. Columns 操作"></a>6. Columns 操作</h1><p>Spark 中的列类似于表格中的列。可以从 DataFrame 中选择列、操作列和删除列。对 Spark 来说，列是逻辑结构，它仅仅表示通过一个表达式按每条记录计算出的一个值。这意味着，要得到一个 column 列的真实值，我们需要一行 row 数据，为了得到一行数据，我们需要有一个 DataFrame。<strong>不能在 DataFrame 的上下文之外操作单个列</strong>。必须在 DataFrame 内使用 Spark 转换来操作列。</p>
+<p>有许多不同的方法来构造和引用列，但最简单的两种方法是使用 <strong>col()</strong> 或 <strong>column()</strong>函数。要使用这些函数中的任何一个，需要传入一个列名：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// in Scala</span><br><span class="line">import org.apache.spark.sql.functions.&#123;col, column&#125;</span><br><span class="line">col(&quot;someColumnName&quot;)</span><br><span class="line">column(&quot;someColumnName&quot;)</span><br></pre></td></tr></table></figure>
 
-<p>现在我们可以用 SQL 查询我们的数据了。使用 spark.sql(sqlString)，spark 是我们的 SparkSession 变量，返回一个新的 DataFrame。</p>
-<p>Spark 中的 DataFrames（和 SQL ) 已经有大量可用的操作。您可以使用和导入数百个函数来帮助您更快地解决大数据问题。</p>
-<h1 id="2-重要概念"><a href="#2-重要概念" class="headerlink" title="2. 重要概念"></a>2. 重要概念</h1><h2 id="2-1-DataFrame"><a href="#2-1-DataFrame" class="headerlink" title="2.1 DataFrame"></a>2.1 DataFrame</h2><ul>
-<li>SparkSQL 从 Spark 1.3 开始引入了一个名为 DataFrame 的表格式数据抽象。</li>
-<li>DataFrame 是用于处理结构化和半结构化的数据抽象。</li>
-<li>DataFrame 利用其 <strong>Schema</strong> 以比原始 RDDs 更有效的方式存储数据。</li>
-<li>DataFrame 利用 RDD 的不可变的、内存计算的、弹性的、分布式的和并行的特性，并对数据应用一个称为 Schema 的数据结构，允许 Spark 管理 Schema，以比 Java 序列化更有效的方式在集群节点之间传递数据。</li>
-<li>与 RDD 不同，DataFrame 中的数据被组织到指定的 columns 中，就像关系数据库中的表一样。</li>
+<p>如前所述，这个列可能存在于我们的 DataFrames 中，也可能不存在。在将列名称与我们 Catalog 中维护的列进行比较之前，列不会被解析，即列是 <strong>unresolved</strong>。</p>
+<p><strong>注意</strong>：<br>我们刚才提到的两种不同的方法引用列。Scala 有一些独特的语言特性，允许使用更多的简写方式来引用列。以下的语法糖执行完全相同的事情，即创建一个列，但不提供性能改进：<br><strong>$”myColumn”</strong><br><strong>‘myColumn</strong><br>$允许我们将一个字符串指定为一个特殊的字符串，该字符串应该引用一个表达式。标记(‘)是一种特殊的东西，称为符号；这是一个特定于 Scala 语言的，指向某个标识符。它们都执行相同的操作，是按名称引用列的简写方法。当您阅读不同对的人的 Spark 代码时，可能会看到前面提到的所有引用。</p>
+<p><strong>表达式 expression</strong><br><strong>列是表达式</strong>。表达式是什么？表达式是在 DataFrame 中数据记录的一个或多个值上的一组转换。把它想象成一个函数，它将一个或多个列名作为输入，表达式会解析它们，为数据集中的每个记录返回一个单一值。</p>
+<p>在最简单的情况下，expr(“someCol”)等价于 col(“someCol”)。<br><strong>列操作是表达式功能的一个子集</strong>。<br>expr(“someCol - 5”) 与执行 col(“someCol”) - 5，或甚至 expr(“someCol”) - 5 的转换相同。这是因为 Spark 将它们编译为一个逻辑树，逻辑树指定了操作的顺序。</p>
+<p><strong>一些 DataFrames 操作列的示例</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 创建 DataFrame</span><br><span class="line">Dataset&lt;Row&gt; df = spark.read().json(&quot;E:\\Java\\IntelliJ IDEA\\spark\\in\\2015-summary.json&quot;);</span><br><span class="line">// Dataset API</span><br><span class="line">df.select(&quot;DEST_COUNTRY_NAME&quot;).show(5);</span><br><span class="line">// SQL</span><br><span class="line">df.createOrReplaceTempView(&quot;flight&quot;);</span><br><span class="line">spark.sql(&quot;select DEST_COUNTRY_NAME from flight limit 5&quot;).show();</span><br></pre></td></tr></table></figure>
+
+<p><strong>可以使用相同的查询样式选择多个列，只需在 select 方法调用中添加更多的列名字符串参数</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// Dataset API</span><br><span class="line">df.select(&quot;DEST_COUNTRY_NAME&quot;,&quot;ORIGIN_COUNTRY_NAME&quot;).show(5);</span><br><span class="line">// SQL</span><br><span class="line">df.createOrReplaceTempView(&quot;flight&quot;);</span><br><span class="line">spark.sql(&quot;select DEST_COUNTRY_NAME, ORIGIN_COUNTRY_NAME from flight limit 5&quot;).show();</span><br></pre></td></tr></table></figure>
+
+<p><strong>可以用许多不同的方式引用列，可以交替使用它们</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// in Scala</span><br><span class="line">import org.apache.spark.sql.functions.&#123;expr, col, column&#125;</span><br><span class="line">df.select(</span><br><span class="line">    df.col(&quot;DEST_COUNTRY_NAME&quot;),</span><br><span class="line">    col(&quot;DEST_COUNTRY_NAME&quot;),</span><br><span class="line">    column(&quot;DEST_COUNTRY_NAME&quot;),</span><br><span class="line">    &apos;DEST_COUNTRY_NAME,</span><br><span class="line">    $&quot;DEST_COUNTRY_NAME&quot;,</span><br><span class="line">    expr(&quot;DEST_COUNTRY_NAME&quot;))</span><br><span class="line">  .show(2)</span><br></pre></td></tr></table></figure>
+
+<p><strong>一个常见的错误是混合使用列对象和列字符串。例如，下列代码将导致编译错误</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.select(col(&quot;DEST_COUNTRY_NAME&quot;), &quot;EST_COUNTRY_NAME&quot;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>expr 是我们可以使用的最灵活的引用。它可以引用一个简单的列或一个列字符串操作。<br>为了说明这一点，让我们更改列名，然后通过 AS 关键字来更改它</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// Dataset API</span><br><span class="line">df.select(functions.expr(&quot;DEST_COUNTRY_NAME as destination&quot;)).show(2);</span><br><span class="line">// SQL</span><br><span class="line">df.createOrReplaceTempView(&quot;flight&quot;);</span><br><span class="line">spark.sql(&quot;select DEST_COUNTRY_NAME as dest from flight limit 2&quot;).show();</span><br></pre></td></tr></table></figure>
+
+<h1 id="7-字面常量转换为-Spark-类型（Literals）"><a href="#7-字面常量转换为-Spark-类型（Literals）" class="headerlink" title="7. 字面常量转换为 Spark 类型（Literals）"></a>7. 字面常量转换为 Spark 类型（Literals）</h1><p>有时，我们需要将显式字面常量值传递给 Spark，它只是一个值（而不是一个新列）。这可能是一个常数值或者我们以后需要比较的值。我们的方法是通过 Literals，将给定编程语言的字面值转换为 Spark 能够理解的值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// Dataset API</span><br><span class="line">df.select(functions.expr(&quot;*&quot;), functions.lit(1).as(&quot;One&quot;)).show();</span><br><span class="line">// SQL</span><br><span class="line">df.createOrReplaceTempView(&quot;flight&quot;);</span><br><span class="line">spark.sql(&quot;select *, 1 as One from flight&quot;).show();</span><br></pre></td></tr></table></figure>
+
+<h1 id="8-添加列"><a href="#8-添加列" class="headerlink" title="8. 添加列"></a>8. 添加列</h1><p>将新列添加到 DataFrame 中，这是通过在 DataFrame 上使用 withColumn 方法来实现的，例如，让我们添加一个列，将数字 1 添加为一个列，列名为 numberOne：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//  Dataset API</span><br><span class="line">df.withColumn(&quot;numberOne&quot;, functions.lit(1)).show();</span><br><span class="line">// SQL</span><br><span class="line">df.createOrReplaceTempView(&quot;flight&quot;);</span><br><span class="line">spark.sql(&quot;select *, 1 as One from flight&quot;).show();</span><br></pre></td></tr></table></figure>
+
+<p>另一个例子：设置一个布尔标志，表示源国与目标国相同：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.withColumn(&quot;ifSame&quot;, functions.expr(&quot;DEST_COUNTRY_NAME = ORIGIN_COUNTRY_NAME&quot;)).filter(&quot;ifSame = true&quot;).show();</span><br></pre></td></tr></table></figure>
+
+<p>注意：withColumn 函数由两个参数：<strong>列名</strong> 和 <strong>为 DataFrame 中的给定行创建值的表达式</strong>。</p>
+<p>我们也可以这样 重命名列：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 复制某列但重新定义列名</span><br><span class="line">df.withColumn(&quot;destination&quot;, functions.expr(&quot;DEST_COUNTRY_NAME&quot;)).show();</span><br></pre></td></tr></table></figure>
+
+<h1 id="9-重命名列"><a href="#9-重命名列" class="headerlink" title="9. 重命名列"></a>9. 重命名列</h1><p>虽然我们可以按照刚才描述的方式重命名列，但是另一种方法是使用 withcolumnrename 方法。这会将第一个参数中的字符串的名称重命名为第二个参数中的字符串：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 重命名列</span><br><span class="line">df.withColumnRenamed(&quot;DEST_COUNTRY_NAME&quot;,&quot;dest&quot;).show();</span><br></pre></td></tr></table></figure>
+
+<h1 id="10-删除列"><a href="#10-删除列" class="headerlink" title="10. 删除列"></a>10. 删除列</h1><p>可能已经注意到我们可以通过使用 select 来实现这一点。然而，还有一个专门的方法叫做 drop：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 删除列</span><br><span class="line">df.drop(&quot;DEST_COUNTRY_NAME&quot;).show();</span><br></pre></td></tr></table></figure>
+
+<h1 id="11-更改列类型"><a href="#11-更改列类型" class="headerlink" title="11. 更改列类型"></a>11. 更改列类型</h1><p>有时，可能性需要列从一种类型转换为另一种类型，例如，如果有一组 StringType 应该是整数。我们可以将列从一种类型转换为另一种类型，例如，让我们将 count 列从整数转换为类型 Long：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 更改列类型</span><br><span class="line">df.withColumn(&quot;count&quot;, functions.col(&quot;count&quot;).cast(&quot;int&quot;)).printSchema();</span><br><span class="line"></span><br><span class="line">// SQL</span><br><span class="line">df.createOrReplaceTempView(&quot;flight&quot;);</span><br><span class="line">spark.sql(&quot;select *, cast(count as int) as count2 from flight&quot;).printSchema();</span><br></pre></td></tr></table></figure>
+
+<h1 id="12-过滤行"><a href="#12-过滤行" class="headerlink" title="12. 过滤行"></a>12. 过滤行</h1><p>为了过滤行，我们创建一个计算值为 true 或 false 的表达式。然后用一个等于 false 的表达式过滤掉这些行。使用 DataFrames 执行此操作的最常见方法是将表达式创建为字符串，或者使用一组列操作构建表达式。执行此操作有两种方法：您可以使用 where 或 filter，它们都将执行相同的操作，并在使用 DataFrames 时接受相同的参数类型。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// API</span><br><span class="line">df.filter(functions.col(&quot;count&quot;).$less(2)).show(2);</span><br><span class="line">df.where(&quot;count &lt; 2&quot;).show(2);</span><br><span class="line"></span><br><span class="line">// SQL</span><br><span class="line">df.createOrReplaceTempView(&quot;flight&quot;);</span><br><span class="line">spark.sql(&quot;select * from flight where count &lt; 2&quot;).show(2);</span><br></pre></td></tr></table></figure>
+
+<p>你可能希望将多个过滤器放入相同的表达式中。尽管这是可能的，但它并不总是有用的，因为 Spark 会自动执行所有的过滤操作，而不考虑过滤器的排序。这意味着，如果你想指定多个过滤器，只需将它们按顺序连接起来，让 Spark 处理其余部分：</p>
+<p>多重过滤：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// API</span><br><span class="line">df.where(&quot;count &lt; 2&quot;).where(&quot;DEST_COUNTRY_NAME != &apos;United States&apos;&quot;).show();</span><br><span class="line">// SQL</span><br><span class="line">df.createOrReplaceTempView(&quot;flight&quot;);</span><br><span class="line">spark.sql(&quot;select * from flight where count &lt; 2 and DEST_COUNTRY_NAME != &apos;United States&apos;&quot;).show();</span><br></pre></td></tr></table></figure>
+
+<h1 id="13-行去重"><a href="#13-行去重" class="headerlink" title="13. 行去重"></a>13. 行去重</h1><p>一个常见的用例是在一个 DataFrame 中提取唯一的或不同的值。这些值可以在一个或多个列中。我们这样做的方法是在 DataFrame 上使用不同的方法，它允许我们对该 DataFrame 中的任何行进行删除重复行。例如，让我们在数据集中获取唯一的起源地。当然，这是一个转换，它将返回一个新的 DataFrame，只有唯一的行：</p>
+<p>去除重复航线：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// API</span><br><span class="line">System.out.println(df.select(&quot;DEST_COUNTRY_NAME&quot;, &quot;ORIGIN_COUNTRY_NAME&quot;).distinct().count());</span><br><span class="line"></span><br><span class="line">// SQL</span><br><span class="line">df.createOrReplaceTempView(&quot;flight&quot;);</span><br><span class="line">spark.sql(&quot;select count(distinct(DEST_COUNTRY_NAME, ORIGIN_COUNTRY_NAME)) as count from flight&quot;).show();</span><br></pre></td></tr></table></figure>
+
+<h1 id="14-DataFrame-union"><a href="#14-DataFrame-union" class="headerlink" title="14. DataFrame union"></a>14. DataFrame union</h1><p>DataFrame 是<strong>不可变</strong>的。这意味着用户不能向 DataFrame 追加，因为这会改变它。要附加到 DataFrame，必须将原始的 DataFrame 与新的 DataFrame 结合起来 。这只是连接了两个 DataFrames。对于 Union 2 DataFrames，<strong>必须确保他们具有相同的模式和列数（Schema）</strong>，否则，union 将会失败。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Person&gt; p1 = new ArrayList&lt;&gt;();</span><br><span class="line">p1.add(new Person(&quot;张三&quot;, 20, &quot;北京&quot;));</span><br><span class="line">p1.add(new Person(&quot;李四&quot;, 22, &quot;上海&quot;));</span><br><span class="line">Dataset&lt;Row&gt; df1 = spark.createDataFrame(p1, Person.class);</span><br><span class="line"></span><br><span class="line">List&lt;Person&gt; p2 = new ArrayList&lt;&gt;();</span><br><span class="line">p2.add(new Person(&quot;wangwu&quot;, 20, &quot;北京&quot;));</span><br><span class="line">p2.add(new Person(&quot;qianliu&quot;, 22, &quot;上海&quot;));</span><br><span class="line">Dataset&lt;Row&gt; df2 = spark.createDataFrame(p2, Person.class);</span><br><span class="line"></span><br><span class="line">Dataset&lt;Row&gt; union = df1.union(df2);</span><br><span class="line">union.show();</span><br></pre></td></tr></table></figure>
+
+<h1 id="15-行排序"><a href="#15-行排序" class="headerlink" title="15. 行排序"></a>15. 行排序</h1><p>在对 DataFrame 中的值进行排序时，我们总是希望对 DataFrame 顶部的最大或最小值进行排序。有两个相同的操作可以实现：sort 和 orderBy。它们接受列表达式，字符串以及多个列。默认 是按升序排序：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">df.sort(&quot;count&quot;).show(5);</span><br><span class="line"></span><br><span class="line">// 二次排序</span><br><span class="line">df.orderBy(&quot;count&quot;, &quot;DEST_COUNTRY_NAME&quot;).show(5);</span><br><span class="line"></span><br><span class="line">// 如果要指定升序、降序，需要用asc 和 desc 函数</span><br><span class="line">df.orderBy(functions.desc(&quot;ORIGIN_COUNTRY_NAME&quot;),functions.desc(&quot;count&quot;)).show();</span><br></pre></td></tr></table></figure>
+
+<p>出于优化的目的，有时建议在另一组转换之前对每个分区进行排序。可以使用 sortWithinPartitons 方法来执行以下操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.sortWithinPartitions(&quot;count&quot;).show();</span><br></pre></td></tr></table></figure>
+
+<h1 id="16-Limit"><a href="#16-Limit" class="headerlink" title="16. Limit"></a>16. Limit</h1><p>通常，你可能想要限制从 DataFrame 中提取的内容；例如，您可能只想要一些 DataFrame 的前十位。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// API</span><br><span class="line">df.sortWithinPartitions(&quot;count&quot;).limit(10).show();</span><br><span class="line">// SQL</span><br><span class="line">df.sortWithinPartitions(&quot;count&quot;).createOrReplaceTempView(&quot;flight&quot;);</span><br><span class="line">spark.sql(&quot;select * from flight limit 10&quot;).show();</span><br></pre></td></tr></table></figure>
+
+<h1 id="17-Repartition-和-Coalesce"><a href="#17-Repartition-和-Coalesce" class="headerlink" title="17. Repartition 和 Coalesce"></a>17. Repartition 和 Coalesce</h1><p>一个重要的优化方式是根据一些经常过滤的列对数据进行分区，它控制跨集群的数据的物理布局，包括分区计划和分区数量。</p>
+<p><strong>Repartition</strong> 将导致数据的完全 shuffle，无论是否需要重新 shuffle。这意味着<strong>只有当将来的分区数目大于当前的分区数目时，或者当你希望通过一组列进行分区时</strong>，你才应该使用 <strong>Repartition</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 获取当前 分区数量</span><br><span class="line">System.out.println(df.rdd().getNumPartitions());</span><br><span class="line">// 重分区</span><br><span class="line">Dataset&lt;Row&gt; repartition = df.repartition(2);</span><br><span class="line">System.out.println(repartition.rdd().getNumPartitions());</span><br><span class="line"></span><br><span class="line">// 如果需要经常对某个列进行过滤，那么基于该列进行重新分区是值得的</span><br><span class="line">Dataset&lt;Row&gt; dest_country_name = df.repartition(5, functions.col(&quot;DEST_COUNTRY_NAME&quot;));</span><br></pre></td></tr></table></figure>
+
+<p>另一方面，<strong>Coalesce</strong> 不会导致完全 shuffle，并尝试合并分区。<br>下面操作将根据目标国家的名称将你的数据转移到 5 个分区中，然后合并它们（没有完全shuffle）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 合并成 2 个分区</span><br><span class="line">Dataset&lt;Row&gt; coalesce = dest_country_name.coalesce(2);</span><br></pre></td></tr></table></figure>
+
+<h1 id="18-收集数据到-driver"><a href="#18-收集数据到-driver" class="headerlink" title="18. 收集数据到 driver"></a>18. 收集数据到 driver</h1><ul>
+<li>collect： 从整个 DataFrame 中获取所有数据</li>
+<li>take: 选取 DataFrame 的前几行</li>
+<li>show: 打印出几行数据</li>
 </ul>
-<h2 id="2-2-Dataset"><a href="#2-2-Dataset" class="headerlink" title="2.2 Dataset"></a>2.2 Dataset</h2><ul>
-<li>从 Spark 1.6 版本开始提供 Dataset API, Dataset API提供了：<ul>
-<li>面向对象的编程风格</li>
-<li>像 RDD API 一样的<strong>编译时类型安全，编译时异常，运行时异常</strong></li>
-<li>利用 Schema 处理结构化数据的优势</li>
-</ul>
-</li>
-<li>Dataset 是结构化数据集，数据集泛型可以是 Row(DataFrame)，也可以是特定的数据类型。</li>
-<li>Java 和 Spark 在编译时将指导数据集中数据的类型。</li>
-</ul>
-<h2 id="2-3-DataFrame-和-Dataset"><a href="#2-3-DataFrame-和-Dataset" class="headerlink" title="2.3 DataFrame 和 Dataset"></a>2.3 DataFrame 和 Dataset</h2><ul>
-<li>从 Spark 2.0 开始，DataFrame API 和 Dataset API 合并。</li>
-<li>Dataset 提供了两个截然不同的 API 特性：strong typed API 和 untyped API。</li>
-<li>可以将 DataFrame 看作是 Dataset 的 untyped 类型：Dataset&lt;Row&gt;，Row 是一个 untyped 的 JVM 对象。</li>
-<li>Dataset 是强类型 JVM 对象的集合。</li>
-</ul>
-<h1 id="3-代码实战"><a href="#3-代码实战" class="headerlink" title="3. 代码实战"></a>3. 代码实战</h1><p>创建 DataFrame 方式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// 集合创建 DataFrame</span><br><span class="line">List&lt;Person&gt; personList = new ArrayList&lt;&gt;();</span><br><span class="line">personList.add(new Person(&quot;张三&quot;, 20, &quot;深圳&quot;));</span><br><span class="line">personList.add(new Person(&quot;李四&quot;, 22, &quot;天津&quot;));</span><br><span class="line">Dataset&lt;Row&gt; dataFrame = spark.createDataFrame(personList, Person.class);</span><br><span class="line">dataFrame.printSchema();</span><br><span class="line">dataFrame.show();</span><br><span class="line"></span><br><span class="line">// RDD 创建 DataFrame</span><br><span class="line">JavaSparkContext jsc = new JavaSparkContext(spark.sparkContext());</span><br><span class="line">JavaRDD&lt;Person&gt; parallelize = jsc.parallelize(personList);</span><br><span class="line">Dataset&lt;Row&gt; dataFrame1 = spark.createDataFrame(parallelize, Person.class);</span><br><span class="line">dataFrame1.printSchema();</span><br><span class="line">dataFrame1.show();</span><br><span class="line"></span><br><span class="line">// Json/CSV 文件创建 DataFrame</span><br><span class="line">Dataset&lt;Row&gt; json = spark.read().json(&quot;E:\\Java\\IntelliJ IDEA\\spark\\in\\2015-summary.json&quot;);</span><br><span class="line">json.createOrReplaceTempView(&quot;summary&quot;);</span><br><span class="line">Dataset&lt;Row&gt; sql = spark.sql(&quot;select * from summary where count &gt; 50 order by count desc limit 10&quot;);</span><br><span class="line">sql.show();</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">df.take(2);</span><br><span class="line">df.collect();</span><br><span class="line">// Whether truncate long strings. If true, strings more than 20 characters will</span><br><span class="line">// be truncated and all cells will be aligned right</span><br><span class="line">df.show(5, false);</span><br></pre></td></tr></table></figure>
+
+<p>更多相关操作参考官网：<br><a href="http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.sql.Dataset" target="_blank" rel="noopener">http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.sql.Dataset</a></p>
+
       
 
       
@@ -266,21 +298,6 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spark</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
 
       
@@ -331,7 +348,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://miracle-xing.github.io/2019/08/27/SparkSQL-入门/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://miracle-xing.github.io/2019/08/28/DataFrame-操作详解/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -345,18 +362,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/08/28/DataFrame-操作详解/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          DataFrame 操作详解
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/08/18/自定义分区器-二次排序/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">自定义分区器 + 二次排序</div>
+    <a href="/2019/08/27/SparkSQL-入门/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">SparkSQL 入门</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -386,7 +394,7 @@
   
 
   
-  <div id="SOHUCS" sid="SparkSQL-入门" ></div> 
+  <div id="SOHUCS" sid="DataFrame-操作详解" ></div> 
 <script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
 <script type="text/javascript">
     window.changyan.api.config({
@@ -415,7 +423,7 @@ if(true){
   	repo: 'gitalk_comment',
   	owner: 'Miracle-Xing',
   	admin: ['Miracle-Xing'],
-  	id: 'Tue Aug 27 2019 11:20:33 GMT+0800',
+  	id: 'Wed Aug 28 2019 10:33:25 GMT+0800',
   	distractionFreeMode: 'true'
 })
 gitalk.render('gitalk-container') 
