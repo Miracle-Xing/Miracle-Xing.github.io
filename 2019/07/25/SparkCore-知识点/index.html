@@ -822,7 +822,7 @@ client 向 yarn 的 RM 申请 container，用于运行 AM，RM 在 NodeManager �
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
 <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-<script src="{{ site.baseurl }}/js/md5.min.js"></script>
+
 <script>
 const gitalk = new Gitalk({
   clientID: 'cffabda338955fb33e72',
@@ -833,7 +833,7 @@ const gitalk = new Gitalk({
   // 50个字符串则会报错.
   // id: location.pathname.split('/').pop().substring(0, 49),
   // id: location.pathname,
-  id: md5( location.pathname),
+  id: title,
   admin: ['Miracle-Xing'],
   // facebook-like distraction free mode
   distractionFreeMode: false
