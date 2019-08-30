@@ -24,7 +24,7 @@
 <meta property="og:description" content="概念 Spark是计算框架，不是存储框架。类似Hadoop中的MR  Spark是分布式的内存计算框架，Spark在计算的时候，内存不够用，数据会写到磁盘。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://miracle-xing.github.io/images/2019/07/22/42616bf0-abd7-11e9-87f2-3dee39091945.png">
-<meta property="og:updated_time" content="2019-08-29T18:41:52.688Z">
+<meta property="og:updated_time" content="2019-08-30T10:31:24.484Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark 概念及应用程序架构">
 <meta name="twitter:description" content="概念 Spark是计算框架，不是存储框架。类似Hadoop中的MR  Spark是分布式的内存计算框架，Spark在计算的时候，内存不够用，数据会写到磁盘。">
@@ -254,7 +254,7 @@ ga('send', 'pageview');
 </li>
 </ol>
 <p><strong>Scala 一行代码实现 wordcount</strong>：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">textFile.flatMap(line=&gt;line.split(&quot; &quot;)).map(word=&gt;(word,1)).reduceByKey(_+_).sortBy(_._2,false).collect().foreach(println)</span><br></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">textFile.flatMap(line=&gt;line.split(<span class="string">" "</span>)).map(word=&gt;(word,<span class="number">1</span>)).reduceByKey(_+_).sortBy(_._2,<span class="literal">false</span>).collect().foreach(println)</span><br></pre></td></tr></table></figure>
 
 <hr>
 <h1 id="Spark-应用程序架构"><a href="#Spark-应用程序架构" class="headerlink" title="Spark 应用程序架构"></a>Spark 应用程序架构</h1><ol>
