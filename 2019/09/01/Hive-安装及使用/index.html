@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>Hive 安装及使用 | 邢大强的blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Hive,">
+  
+
+  <meta name="description" content="1. Hive 安装 官网下载安装包 解压到指定文件夹 tar -zxvf apache-hive-2.3.6-bin.tar.gz -C /opt/modules/   在 HDFS 上创建相关目录 bin/hdfs dfs -mkdir -p /tmpbin/hdfs dfs -mkdir -p /user/hive/warehousebin/hdfs dfs -chmod g+w /tmpb">
+<meta name="keywords" content="Hive">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hive 安装及使用">
+<meta property="og:url" content="https://miracle-xing.github.io/2019/09/01/Hive-安装及使用/index.html">
+<meta property="og:site_name" content="邢大强的blog">
+<meta property="og:description" content="1. Hive 安装 官网下载安装包 解压到指定文件夹 tar -zxvf apache-hive-2.3.6-bin.tar.gz -C /opt/modules/   在 HDFS 上创建相关目录 bin/hdfs dfs -mkdir -p /tmpbin/hdfs dfs -mkdir -p /user/hive/warehousebin/hdfs dfs -chmod g+w /tmpb">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-09-01T05:01:35.152Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hive 安装及使用">
+<meta name="twitter:description" content="1. Hive 安装 官网下载安装包 解压到指定文件夹 tar -zxvf apache-hive-2.3.6-bin.tar.gz -C /opt/modules/   在 HDFS 上创建相关目录 bin/hdfs dfs -mkdir -p /tmpbin/hdfs dfs -mkdir -p /user/hive/warehousebin/hdfs dfs -chmod g+w /tmpb">
+
+  
+
+  
+    <link rel="icon" href="/assets/img/m.png">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-38189205-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-Hive-安装"><span class="toc-text">1. Hive 安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-MySQL-安装"><span class="toc-text">2. MySQL 安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-Hive-使用-MySQL-数据库"><span class="toc-text">3. Hive 使用 MySQL 数据库</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-Hive-使用"><span class="toc-text">4. Hive 使用</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Hive-安装及使用" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Hive 安装及使用</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.09.01</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Miracle</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/笔记/">笔记</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="1-Hive-安装"><a href="#1-Hive-安装" class="headerlink" title="1. Hive 安装"></a>1. Hive 安装</h1><ul>
+<li>官网下载安装包</li>
+<li>解压到指定文件夹<blockquote>
+<p>tar -zxvf apache-hive-2.3.6-bin.tar.gz -C /opt/modules/</p>
+</blockquote>
+</li>
+<li>在 HDFS 上创建相关目录<blockquote>
+<p>bin/hdfs dfs -mkdir -p /tmp<br>bin/hdfs dfs -mkdir -p /user/hive/warehouse<br>bin/hdfs dfs -chmod g+w /tmp<br>bin/hdfs dfs -chmod g+w /user/hive/warehouse</p>
+</blockquote>
+</li>
+<li>在 conf/hive-env.sh 中配置 HADOOP_HOME 和 HIVE_CONF_DIR</li>
+</ul>
+<h1 id="2-MySQL-安装"><a href="#2-MySQL-安装" class="headerlink" title="2. MySQL 安装"></a>2. MySQL 安装</h1><p>参考：<a href="https://www.cnblogs.com/huangxinyuan650/p/6360464.html" target="_blank" rel="noopener">https://www.cnblogs.com/huangxinyuan650/p/6360464.html</a></p>
+<ul>
+<li><p>创建用户名，密码</p>
+<blockquote>
+<p>mysqladmin -u root password 123456</p>
+</blockquote>
+</li>
+<li><p>登录</p>
+<blockquote>
+<p>mysql -uroot -p123456</p>
+</blockquote>
+</li>
+<li><p>设置远程登陆权限</p>
+<blockquote>
+<p>grant all privileges on <em>.</em> to ‘root’@’%’ identified by ‘123456’;</p>
+</blockquote>
+</li>
+<li><p>修改 user 表，删除用户信息，防止分布式环境下登录失败</p>
+<blockquote>
+<p>delete from user where host=’127.0.0.1’;</p>
+</blockquote>
+</li>
+<li><p>刷新信息并退出</p>
+<blockquote>
+<p>flush privileges;<br>quit;</p>
+</blockquote>
+</li>
+<li><p>重启</p>
+<blockquote>
+<p>service mysqld restart;</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="3-Hive-使用-MySQL-数据库"><a href="#3-Hive-使用-MySQL-数据库" class="headerlink" title="3. Hive 使用 MySQL 数据库"></a>3. Hive 使用 MySQL 数据库</h1><ul>
+<li>修改 Hive 设置<blockquote>
+<p>cd conf/<br>cp hive-default.xml.template hive-site.xml<br>vim hive-site.xml</p>
+</blockquote>
+</li>
+<li>Shell 操作<blockquote>
+<p>:,$d    // 删除当前行至文档末尾</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">name</span>&gt;</span>javax.jdo.option.ConnectionDriverName<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>com.mysql.jdbc.Driver<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">                 <span class="tag">&lt;<span class="name">name</span>&gt;</span>javax.jdo.option.ConnectionURL<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">                 <span class="tag">&lt;<span class="name">value</span>&gt;</span>jdbc:mysql://CentOS01:3306/metastore?createDatabaseIfNotExist=true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">                 <span class="tag">&lt;<span class="name">name</span>&gt;</span>javax.jdo.option.ConnectionUserName<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">                 <span class="tag">&lt;<span class="name">value</span>&gt;</span>root<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">                 <span class="tag">&lt;<span class="name">name</span>&gt;</span>javax.jdo.option.ConnectionPassword<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">                 <span class="tag">&lt;<span class="name">value</span>&gt;</span>123456<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>添加 MySQL 连接驱动<br>官方下载地址：<a href="http://ftp.ntu.edu.tw/MySQL/Downloads/Connector-J/" target="_blank" rel="noopener">http://ftp.ntu.edu.tw/MySQL/Downloads/Connector-J/</a><blockquote>
+<p>mv mysql-connector-java-5.1.45-bin.jar /opt/modules/hive236/lib/</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="4-Hive-使用"><a href="#4-Hive-使用" class="headerlink" title="4. Hive 使用"></a>4. Hive 使用</h1><ul>
+<li>启动 Hive<blockquote>
+<p>bin/hive<br>show databases;</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>报错</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WARN: Establishing SSL connection without server&apos;s identity verification is not recommended. According to MySQL 5.5.45+, 5.6.26+ and 5.7.6+ requirements SSL connection must be established by default if explicit option isn&apos;t set. For compliance with existing applications not using SSL the verifyServerCertificate property is set to &apos;false&apos;. You need either to explicitly disable SSL by setting useSSL=false, or set useSSL=true and provide truststore for server certificate verification.</span><br></pre></td></tr></table></figure>
+
+<p><strong>解决</strong>：<br>修改 hive-site.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>javax.jdo.option.ConnectionURL<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>jdbc:mysql://CentOS01:3306/metastore?useSSL=false&amp;amp;createDatabaseIfNotExist=true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>报错</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FAILED: SemanticException org.apache.hadoop.hive.ql.metadata.HiveException: java.lang.RuntimeException: Unable to instantiate org.apache.hadoop.hive.ql.metadata.SessionHiveMetaStoreClient</span><br></pre></td></tr></table></figure>
+
+<p><strong>解决</strong>：</p>
+<blockquote>
+<p>bin/schematool -dbType mysql -initSchema</p>
+</blockquote>
+
+    
+  </div>
+
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持forsigner</div>
+        <ul>
+        
+          <li class="item">
+            
+              <span>微信扫一扫</span>
+            
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            
+              <span>支付宝扫一扫</span>
+            
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2019/08/30/SparkSQL-聚合函数、UDF-自定义函数、Spark-on-Hive/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+<!-- Gitalk评论插件通用代码 -->
+<div id="gitalk-container"></div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.11.1/js/md5.js"></script>
+<script>
+const gitalk = new Gitalk({
+  clientID: 'cffabda338955fb33e72',
+  clientSecret: '27685d32607acc9c76041016860f5434fa1d65d0',
+  repo: 'gitalk_comment',
+  owner: 'Miracle-Xing',
+  // 在这里设置一下截取前50个字符串, 这是因为 github 对 label 的长度有了要求, 如果超过
+  // 50个字符串则会报错.
+  //id: location.pathname.split('/').pop().substring(0, 49),
+   id: md5(location.pathname),
+  // id: title,
+  admin: ['Miracle-Xing'],
+  // facebook-like distraction free mode
+  distractionFreeMode: false
+})
+gitalk.render('gitalk-container')
+</script>
+<!-- Gitalk代码结束 -->
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
