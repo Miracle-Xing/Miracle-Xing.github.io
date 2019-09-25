@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>Linux 操作系统（一） | 邢大强的blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Linux,">
+  
+
+  <meta name="description" content="1. Linux 来源与发展概况Linux 可以划分为 4 个部分：  Linux 内核 GNU 工具组件 图形化桌面环境 应用软件  2. Linux 内核Linux 第一版内核是 Linus Torvalds 在大学上学时开发的。 Linux 内核负责以下 4 项功能：  系统内存管理 软件程序管理 硬件设备管理 文件系统管理  2.1 系统内存管理内存管理服务器的可用物理内存和虚拟内存（sw">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 操作系统（一）">
+<meta property="og:url" content="https://miracle-xing.github.io/2019/09/19/Linux-操作系统（一）/index.html">
+<meta property="og:site_name" content="邢大强的blog">
+<meta property="og:description" content="1. Linux 来源与发展概况Linux 可以划分为 4 个部分：  Linux 内核 GNU 工具组件 图形化桌面环境 应用软件  2. Linux 内核Linux 第一版内核是 Linus Torvalds 在大学上学时开发的。 Linux 内核负责以下 4 项功能：  系统内存管理 软件程序管理 硬件设备管理 文件系统管理  2.1 系统内存管理内存管理服务器的可用物理内存和虚拟内存（sw">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/19/a8529110-da6b-11e9-a04b-03d4cc20f5f1.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/19/d5a34140-da6c-11e9-a04b-03d4cc20f5f1.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/19/110706a0-da76-11e9-a04b-03d4cc20f5f1.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/19/9297e280-da7f-11e9-a04b-03d4cc20f5f1.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/19/22e18cd0-daba-11e9-a04b-03d4cc20f5f1.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/19/bb09ef70-dabf-11e9-a04b-03d4cc20f5f1.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/19/b4cfc030-dac4-11e9-a04b-03d4cc20f5f1.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/19/d581d920-dac5-11e9-a04b-03d4cc20f5f1.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/19/b6bcc650-dac8-11e9-a04b-03d4cc20f5f1.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/19/be069e90-dac8-11e9-a04b-03d4cc20f5f1.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/19/2fe7afc0-dacb-11e9-a04b-03d4cc20f5f1.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/19/35e88d40-dacb-11e9-a04b-03d4cc20f5f1.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/19/bc40cb50-dacb-11e9-a04b-03d4cc20f5f1.png">
+<meta property="og:updated_time" content="2019-09-19T11:21:19.803Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux 操作系统（一）">
+<meta name="twitter:description" content="1. Linux 来源与发展概况Linux 可以划分为 4 个部分：  Linux 内核 GNU 工具组件 图形化桌面环境 应用软件  2. Linux 内核Linux 第一版内核是 Linus Torvalds 在大学上学时开发的。 Linux 内核负责以下 4 项功能：  系统内存管理 软件程序管理 硬件设备管理 文件系统管理  2.1 系统内存管理内存管理服务器的可用物理内存和虚拟内存（sw">
+<meta name="twitter:image" content="https://miracle-xing.github.io/images/2019/09/19/a8529110-da6b-11e9-a04b-03d4cc20f5f1.png">
+
+  
+
+  
+    <link rel="icon" href="/assets/img/m.png">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-38189205-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-Linux-来源与发展概况"><span class="toc-text">1. Linux 来源与发展概况</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-Linux-内核"><span class="toc-text">2. Linux 内核</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-系统内存管理"><span class="toc-text">2.1 系统内存管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-软件程序管理"><span class="toc-text">2.2 软件程序管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-硬件设备管理"><span class="toc-text">2.3 硬件设备管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-文件系统管理"><span class="toc-text">2.4 文件系统管理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-Linux-发行版列举"><span class="toc-text">3. Linux 发行版列举</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-Shell"><span class="toc-text">4. Shell</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-基本的-bash-shell-命令"><span class="toc-text">4.1 基本的 bash shell 命令</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-man-查看命令使用手册"><span class="toc-text">5. man 查看命令使用手册</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-浏览文件系统"><span class="toc-text">6. 浏览文件系统</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-1-cd-命令，切换目录结构"><span class="toc-text">6.1 cd 命令，切换目录结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2-ls-列表命令"><span class="toc-text">6.2 ls 列表命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-3-处理文件"><span class="toc-text">6.3 处理文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-4-文件链接"><span class="toc-text">6.4 文件链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-5-移动文件（相同目录下具有可以重命名文件的作用）"><span class="toc-text">6.5 移动文件（相同目录下具有可以重命名文件的作用）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-6-删除文件"><span class="toc-text">6.6 删除文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-7-创建目录"><span class="toc-text">6.7 创建目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-8-删除目录"><span class="toc-text">6.8 删除目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-9-查看文件信息及内容（非文本编辑器）"><span class="toc-text">6.9 查看文件信息及内容（非文本编辑器）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-10-file-命令"><span class="toc-text">6.10 file 命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-11-查看整个文件的内容"><span class="toc-text">6.11 查看整个文件的内容</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-进程命令"><span class="toc-text">7. 进程命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7-1-ps-命令"><span class="toc-text">7.1 ps 命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-2-实时监控进程"><span class="toc-text">7.2 实时监控进程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-3-结束进程"><span class="toc-text">7.3 结束进程</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Linux-操作系统（一）" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Linux 操作系统（一）</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.09.19</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Miracle</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/笔记/">笔记</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="1-Linux-来源与发展概况"><a href="#1-Linux-来源与发展概况" class="headerlink" title="1. Linux 来源与发展概况"></a>1. Linux 来源与发展概况</h1><p>Linux 可以划分为 4 个部分：</p>
+<ul>
+<li>Linux 内核</li>
+<li>GNU 工具组件</li>
+<li>图形化桌面环境</li>
+<li>应用软件<br><img src="/images/2019/09/19/a8529110-da6b-11e9-a04b-03d4cc20f5f1.png" alt="图片1.png"></li>
+</ul>
+<h1 id="2-Linux-内核"><a href="#2-Linux-内核" class="headerlink" title="2. Linux 内核"></a>2. Linux 内核</h1><p>Linux 第一版内核是 Linus Torvalds 在大学上学时开发的。</p>
+<p>Linux 内核负责以下 4 项功能：</p>
+<ul>
+<li>系统内存管理</li>
+<li>软件程序管理</li>
+<li>硬件设备管理</li>
+<li>文件系统管理</li>
+</ul>
+<h2 id="2-1-系统内存管理"><a href="#2-1-系统内存管理" class="headerlink" title="2.1 系统内存管理"></a>2.1 系统内存管理</h2><p>内存管理服务器的<strong>可用物理内存</strong>和<strong>虚拟内存</strong>（swap space，位于<strong>磁盘</strong>的交换空间），内核会不断地在交换空间和实际的物理内存之间反复交换存储单元中的内容。</p>
+<p>一般按照 <strong>LRU（Least Recently Used 最近最少未使用的策略来置换内存）</strong>，内存存储单元会被按组分成很多块，这些块称为页面 （page），内核会将每个内存页面放在物理内存或 swap space，内核会维护一个内存页面表，来指明哪些页面能位于物理内存内，哪些页面能被换到磁盘上。<br><img src="/images/2019/09/19/d5a34140-da6c-11e9-a04b-03d4cc20f5f1.png" alt="图片2.png"></p>
+<p><strong>查看系统版本</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 ~]# cat /etc/centos-release</span><br><span class="line">CentOS Linux release 7.4.1708 (Core) </span><br><span class="line">[root@master01 ~]# cat /etc/redhat-release </span><br><span class="line">CentOS Linux release 7.4.1708 (Core) </span><br><span class="line">[root@master01 ~]# cat /etc/system-release</span><br><span class="line">CentOS Linux release 7.4.1708 (Core)</span><br></pre></td></tr></table></figure>
+
+<p><strong>查看系统内存使用状况</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 ~]# cat /proc/meminfo </span><br><span class="line">MemTotal:        1867024 kB</span><br><span class="line">MemFree:          739080 kB</span><br><span class="line">MemAvailable:    1038716 kB</span><br><span class="line">Buffers:            2116 kB</span><br><span class="line">Cached:           421940 kB</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>默认情况下，运行在 Linux 系统的每个进程都有各自的内存页面，<strong>进程不能访问其他进程正在使用的内存页面</strong>。内核维护着它自己的内存区域。出于安全考虑，<strong>用户进程不能访问内核进程使用的内存</strong>。</p>
+<h2 id="2-2-软件程序管理"><a href="#2-2-软件程序管理" class="headerlink" title="2.2 软件程序管理"></a>2.2 软件程序管理</h2><p>Linux 操作系统称<strong>运行中的程序</strong>为进程。</p>
+<p>进程分为<strong>前台进程</strong>和<strong>后台进程</strong>（守护进程 Daemon）：前台进程会将输出显示在屏幕上，后台进程会将输出隐藏到幕后。</p>
+<p><strong>内核</strong>控制着 Linux 系统如何管理运行在系统上的所有进程。</p>
+<p>内核创建了第一个进程（<strong>init 进程</strong>）来启动系统上的所有其他进程，当内核启动时，它会将 init 进程加载到内存中。内核在启动任何其他进程时，都会在内存中给新进程分配一块专有区域来存储该进程用到的数据和代码。</p>
+<p><strong>查看进程</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 ~]# ps 1</span><br><span class="line">   PID TTY      STAT   TIME COMMAND</span><br><span class="line">     1 ?        Ss     0:01 /usr/lib/systemd/systemd --switched-root --system --deseri</span><br><span class="line">[root@master01 ~]# ps -ef</span><br><span class="line">UID         PID   PPID  C STIME TTY          TIME CMD</span><br><span class="line">root          1      0  0 07:07 ?        00:00:01 /usr/lib/systemd/systemd --switched-</span><br><span class="line">root          2      0  0 07:07 ?        00:00:00 [kthreadd]</span><br><span class="line">root          3      2  0 07:07 ?        00:00:00 [ksoftirqd/0]</span><br><span class="line">root          5      2  0 07:07 ?        00:00:00 [kworker/0:0H]</span><br><span class="line">root          7      2  0 07:07 ?        00:00:00 [migration/0]</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>ps + 进程号：查看该进程信息<br>ps -ef：查看所有进程，format 显示。</p>
+<blockquote>
+<p>UID：程序被该 UID 所拥有<br>PID：就是这个程序的 ID<br>PPID：则是其上级父程序的ID<br>C：CPU使用的资源百分比<br>STIME：系统启动时间<br>TTY：登入者的终端机位置<br>TIME：使用掉的CPU时间<br>CMD：所下达的是什么指令</p>
+</blockquote>
+<h2 id="2-3-硬件设备管理"><a href="#2-3-硬件设备管理" class="headerlink" title="2.3 硬件设备管理"></a>2.3 硬件设备管理</h2><p>内核的另一个职责是管理硬件设备。任何 Linux 系统需要与之通信的设备，都需要在内核代码中加入该设备的驱动程序代码（drive code）。驱动程序代码相当于应用程序和硬件设备的中间人，允许内核同设备之间交换数据。</p>
+<p>在 Linux 内核中有两种方法来插入设备驱动代码：</p>
+<ol>
+<li>编译进内核的设备驱动代码；（old，每次都需要重新编译内核）</li>
+<li>可插入内核的设备驱动模块；（new，用的时候加载进内核，不用时直接从内核移走）</li>
+</ol>
+<p>Linux 系统<strong>将硬件设备当成特殊文件处理，称为设备文件</strong>：</p>
+<ol>
+<li><strong>字符型设备文件</strong>：处理数据时每次只能处理一个字符的设备。例如，调制解调器，终端；</li>
+<li><strong>块设备文件</strong>：处理数据时每次都能处理大块数据的设备。例如，硬盘；；</li>
+<li><strong>网络设备文件</strong>：采用数据包发送和接收数据的设备。例如，网卡。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 ~]# cd /dev/</span><br><span class="line">[root@master01 dev]# ll</span><br><span class="line">total 0</span><br><span class="line">crw-rw----  1 root video    10, 175 Sep 19 07:07 agpgart</span><br><span class="line">crw-------  1 root root     10, 235 Sep 19 07:07 autofs</span><br><span class="line">drwxr-xr-x  2 root root         180 Sep 19 07:07 block</span><br><span class="line">drwxr-xr-x  2 root root          80 Sep 19 07:07 bsg</span><br><span class="line">crw-------  1 root root     10, 234 Sep 19 07:07 btrfs-control</span><br></pre></td></tr></table></figure>
+
+<p>第一列显示了该文件的类别和权限，b 表示（block device）块设备，c（character device）字符型设备。</p>
+<h2 id="2-4-文件系统管理"><a href="#2-4-文件系统管理" class="headerlink" title="2.4 文件系统管理"></a>2.4 文件系统管理</h2><p>内核必须在编译时就加入所有可能用到的文件系统的支持。<br><img src="/images/2019/09/19/110706a0-da76-11e9-a04b-03d4cc20f5f1.png" alt="图片3.png"></p>
+<p>任何供 Linux 服务器访问的硬盘都必须格式化成其中的一种。</p>
+<p>Linux 内核采用<strong>虚拟文件系统（Virtual File System，VFS）</strong>作为和每个文件系统交互的接口。<br>这为 Linux 内核同任何类型的文件系统通信提供了一个标准接口。当每个文件系统被挂载和使用 时，VFS将信息都缓存在内存中。</p>
+<h1 id="3-Linux-发行版列举"><a href="#3-Linux-发行版列举" class="headerlink" title="3. Linux 发行版列举"></a>3. Linux 发行版列举</h1><ul>
+<li>Red hat：一个主要用户 Internet 服务器的商业发行版</li>
+<li>Ubuntu：一个免费的学校和家庭用的 Linux 发行版</li>
+<li>Centos：它是将 Red Hat Enterprise Linux 的源代码重新编译而成的二进制发行方式，而 Red hat 是源代码的发行方式。</li>
+</ul>
+<h1 id="4-Shell"><a href="#4-Shell" class="headerlink" title="4. Shell"></a>4. Shell</h1><ul>
+<li>Shell 是一个交互式工具，它为用户提供了启动程序、管理文件系统上的文件以及管理运行在 Linux 系统上的进程的途径。</li>
+<li>Shell 的核心是命令行提示符，命令行提示符是 Shell 的交互部分。</li>
+<li>Shell 允许你在命令行提示符中输入程序的名称，它会将程序的名称传递到内核以启动它。</li>
+<li>你也可以将 Shell 命令放在文件中作为程序执行，这些文件被称为 Shell 脚本。</li>
+</ul>
+<p>在 Linux 系统上，通常有很多种 Linux Shell 可用，不同的 Shell 有不同的编程特性，有些有利于进行浮点运算、关联数组。<br><strong>注</strong>：所有 Linux 发行版默认的 Shell 基本上都是 bash shell。</p>
+<h2 id="4-1-基本的-bash-shell-命令"><a href="#4-1-基本的-bash-shell-命令" class="headerlink" title="4.1 基本的 bash shell 命令"></a>4.1 基本的 bash shell 命令</h2><p>Bash Shell 通常在用户登录终端时默认启动。<br>默认情况下，bash shell 启动时，会默认加载 ~/.bashc, ~/.bash_profile, /etc/bashc 文件中的命令。</p>
+<p>Centos 默认 bash  shell 提示符：[root@master01 dev]#<br>格式为：[用户名@主机名 当前目录]#</p>
+<p>如何修改？<br>通过两个内置环境变量 PS1, PS2<br><strong>PS1</strong>：控制默认命令行提示符的格式    [\u@\h \W]$    在 /etc/bashrc 文件中设置<br><strong>PS2</strong>：控制后续命令行提示符的格式    &gt;</p>
+<p>提示符字符串中使用的特殊字符列表（提示符特殊字符都从反斜线\开始，\是转义字符）：<br><img src="/images/2019/09/19/9297e280-da7f-11e9-a04b-03d4cc20f5f1.png" alt="图片4.png"></p>
+<p>PS1=”[\t][\u]$“    只在当前 shell 命令行提示符会话中有效</p>
+<h1 id="5-man-查看命令使用手册"><a href="#5-man-查看命令使用手册" class="headerlink" title="5. man 查看命令使用手册"></a>5. man 查看命令使用手册</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">man date</span><br><span class="line">man more</span><br></pre></td></tr></table></figure>
+
+<p>man 命令，可以使用空格键翻页，上下键和回车键逐行反动，q退出。</p>
+<h1 id="6-浏览文件系统"><a href="#6-浏览文件系统" class="headerlink" title="6. 浏览文件系统"></a>6. 浏览文件系统</h1><p>文件系统的构建方式：<br>Windows：G:\Hexo\邢大强的blog\db.json<br>Linux：/opt/hdfsData/phone.csv</p>
+<p>Windows 会为每一个物理磁盘分区或存储设备分配一个盘符，每个分区都会有自己的目录结构，Windows 的文件路径会告诉你究竟哪块物理硬盘分区上有文件 db.json，新挂载的 U 盘上的路径可能是 F:\db.json。</p>
+<p>Linux 则将文件存储在单个目录结构中，这个目录我们称之为虚拟目录（virtual directory），虚拟目录中包含了所有存储设备的文件路径，并将其并入到一个目录结构中。</p>
+<p><strong>注</strong>：Linux 使用正斜线/ 而不是反斜线\ 来划分目录，因为在 Linux 中反斜线是用来标识转义字符的。</p>
+<p>常见的 Linux 虚拟目录结构含义：<br><img src="/images/2019/09/19/22e18cd0-daba-11e9-a04b-03d4cc20f5f1.png" alt="图片5.png"></p>
+<h2 id="6-1-cd-命令，切换目录结构"><a href="#6-1-cd-命令，切换目录结构" class="headerlink" title="6.1 cd 命令，切换目录结构"></a>6.1 cd 命令，切换目录结构</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/	// 切换到 /opt 目录下</span><br><span class="line">cd -		// 切换到上一次执行的目录</span><br><span class="line">cd .		// 切换到当前目录</span><br><span class="line">cd ..		// 切换到当前目录的父目录</span><br></pre></td></tr></table></figure>
+
+<p><strong>绝对文件路径和相对文件路径</strong>：</p>
+<ul>
+<li><strong>绝对文件路径</strong>定义了虚拟目录结构中该目录的确切位置，以虚拟目录的根目录/开始，相当于目录的全名 。用户可以通过绝对文件路径来切换到文件系统中的某个特定位置。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/modules/spark243</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;但有时基于当前目录切换更简洁，绝对路径往往过于冗长。</p>
+<ul>
+<li><strong>相对文件路径</strong>允许用户指定一个基于当前位置的目标文件路径。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd ../hadoop277/	// 切换到父目录下的 hadoop277 目录</span><br><span class="line">cd ./libs		// 切换到当前目录下的 libs 目录下</span><br><span class="line">cd logs/		// 切换到当前目录下的 logs 目录下</span><br><span class="line">cd -			// 切换到上一次执行的目录</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="6-2-ls-列表命令"><a href="#6-2-ls-列表命令" class="headerlink" title="6.2 ls 列表命令"></a>6.2 ls 列表命令</h2><p>列出系统上有哪些文件<br>ls 命令输出的列表是按<strong>字母</strong>排序的（按列排序而不是按行排序）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">man ls</span><br><span class="line">ls --color</span><br><span class="line">ls -F		// 目录后加入/</span><br><span class="line">ls -a		// 显示隐藏文件</span><br><span class="line">ls -R		// 显示当前目录下包含的目录中的所有文件（文件树）</span><br><span class="line">ls -l（ll)	// 输出长列表格式的输出</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-rw-r--r-- 1 miracle miracle 21316 May  1 13:19 LICENSE</span><br><span class="line">drwxr-xr-x 2 miracle miracle  4096 May  1 13:19 licenses</span><br><span class="line">drwxr-xr-x 2 root    root        6 Jul 21 14:57 logs</span><br><span class="line">-rw-r--r-- 1 miracle miracle 42919 May  1 13:19 NOTICE</span><br><span class="line">drwxr-xr-x 9 miracle miracle   311 May  1 13:19 python</span><br><span class="line">drwxr-xr-x 3 miracle miracle    17 May  1 13:19 R</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>文件类型，比如目录（d）、文件（-）、字符型文件（c）或块文件（b）</li>
+<li>文件的权限（所属用户、所属用户组用户、其他用户）</li>
+<li>文件的硬链接总数</li>
+<li>文件属组的用户名</li>
+<li>文件属组的组名</li>
+<li>文件的大小（Bytes）</li>
+<li>文件的上次修改时间</li>
+<li>文件名或目录名</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ls -i		// 显示文件的索引节点号（inode），每个文件都有唯一的索引节点号</span><br><span class="line">ls -l -a -F	// 单横线选项可以自由组合</span><br><span class="line">ls -laF</span><br></pre></td></tr></table></figure>
+
+<p><strong>ls 过滤文件功能</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ll LICENSE</span><br><span class="line">ll a?</span><br><span class="line">ll a*</span><br><span class="line">ll &#123;aa,ab&#125;</span><br><span class="line">ll /opt/modules/spark243/</span><br></pre></td></tr></table></figure>
+
+<p>标准路径通配符：?代表一个字符，*代表零个或多个字符，{}中逗号分隔表示多选。</p>
+<h2 id="6-3-处理文件"><a href="#6-3-处理文件" class="headerlink" title="6.3 处理文件"></a>6.3 处理文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">touch test				// 创建空文件（若已存在文件则只改变已有文件的访问时间和修改时间，不改变文件内容）</span><br><span class="line">cp test ../../hdfsData/		// 复制文件到目的位置，通过相对路径</span><br><span class="line">cp test /opt/modules/		// 通过绝对路径</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/2019/09/19/bb09ef70-dabf-11e9-a04b-03d4cc20f5f1.png" alt="图片6.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp -p	test1 test3	// 保留文件属性</span><br><span class="line">cp -r	dir1 dir2	// 递归地复制文件</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-4-文件链接"><a href="#6-4-文件链接" class="headerlink" title="6.4 文件链接"></a>6.4 文件链接</h2><ol>
+<li><p><strong>符号链接（软链接）</strong><br>软链接文件是一个独立的文件（不同的 inode 信息），只需要存储源文件的信息，并不需要存储源文件中的数据。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp -s test test3</span><br><span class="line">ln -s test test3</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>硬链接</strong><br>创建一个文件（具有和源文件相同的 inode 信息），引用硬链接文件等同于引用了源文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cp -l test test1</span><br><span class="line">ln test test1</span><br><span class="line">ls -il	// 注意索引节点号和链接计数</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p><strong>注</strong>：可以创建一个指向同一个文件的多个链接，但不要创建指向其他符号链接文件的多个符号链接。这样会生成一个链接文件链，不但容易混淆，还容易断掉，造成各种各样的问题。</p>
+<h2 id="6-5-移动文件（相同目录下具有可以重命名文件的作用）"><a href="#6-5-移动文件（相同目录下具有可以重命名文件的作用）" class="headerlink" title="6.5 移动文件（相同目录下具有可以重命名文件的作用）"></a>6.5 移动文件（相同目录下具有可以重命名文件的作用）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv test2 test6	// （如果 test6 文件存在的话会被覆盖，谨慎使用。）移动文件，源文件的相关属性是不变的。</span><br><span class="line">mv test5 data7/</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-6-删除文件"><a href="#6-6-删除文件" class="headerlink" title="6.6 删除文件"></a>6.6 删除文件</h2><p>rm (remove 移除）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rm （-i） ee	// 提示你是否删除</span><br><span class="line">注意：linux 中没有回收站或垃圾箱，所以文件一旦删除，就无法找回。慎用 rm -rf ！！！</span><br><span class="line"></span><br><span class="line">rm -f aa	// 强制删除而不进行提示</span><br><span class="line">rm -f a*	// 路径通配符</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-7-创建目录"><a href="#6-7-创建目录" class="headerlink" title="6.7 创建目录"></a>6.7 创建目录</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir dir3</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-8-删除目录"><a href="#6-8-删除目录" class="headerlink" title="6.8 删除目录"></a>6.8 删除目录</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rmdir dir3	// rmdir 命令只能删除空目录</span><br><span class="line">man rmdir</span><br><span class="line">rm -r dir	// 递归删除目录中的文件 ，及目录本身</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-9-查看文件信息及内容（非文本编辑器）"><a href="#6-9-查看文件信息及内容（非文本编辑器）" class="headerlink" title="6.9 查看文件信息及内容（非文本编辑器）"></a>6.9 查看文件信息及内容（非文本编辑器）</h2><p><strong>stat 命令</strong> 可以提供文件系统上某个文件的所有状态信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 hdfsData]# stat test </span><br><span class="line">  File: ‘test’</span><br><span class="line">  Size: 0         	Blocks: 0          IO Block: 4096   regular empty file</span><br><span class="line">Device: fd00h/64768d	Inode: 2640122     Links: 1</span><br><span class="line">Access: (0644/-rw-r--r--)  Uid: (    0/    root)   Gid: (    0/    root)</span><br><span class="line">Access: 2019-09-19 17:51:13.503035041 +0800</span><br><span class="line">Modify: 2019-09-19 17:51:13.503035041 +0800</span><br><span class="line">Change: 2019-09-19 17:51:13.503035041 +0800</span><br><span class="line"> Birth: -</span><br></pre></td></tr></table></figure>
+
+<p>文件都是一个个 block 块组成的<br>stat 没有提供文件类型的信息</p>
+<h2 id="6-10-file-命令"><a href="#6-10-file-命令" class="headerlink" title="6.10 file 命令"></a>6.10 file 命令</h2><p>用于查看文件类型的工具，它能够探测文件的内部并决定文件是什么类型的。避免打开后内容都是乱码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 hdfsData]# file phone.csv </span><br><span class="line">phone.csv: UTF-8 Unicode (with BOM) text, with CRLF line terminators</span><br><span class="line">[root@master01 bin]# file spark-sql</span><br><span class="line">spark-sql: a /usr/bin/env bash script, ASCII text executable</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-11-查看整个文件的内容"><a href="#6-11-查看整个文件的内容" class="headerlink" title="6.11 查看整个文件的内容"></a>6.11 查看整个文件的内容</h2><ul>
+<li><p><strong>cat 命令</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat phone.csv</span><br><span class="line">cat -n phone.csv	// 给所有行加上行号</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>more 命令</strong><br>会显示文本文件的内容，但会在显示每页数据之后停下来（分页，避免大文件加载慢/卡死）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">more phone.csv</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;more 命令选项：<br>&nbsp;&nbsp;&nbsp;<img src="/images/2019/09/19/b4cfc030-dac4-11e9-a04b-03d4cc20f5f1.png" alt="图片7.png"></p>
+<ul>
+<li><strong>less 命令</strong><br>是 more 命令的升级版本。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">less phone.csv</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;less 命令支持了 more 命令支持的所有参数，同时还多了一些选项，包括 less 可以识别上下键和上下翻页键，大写的 G 直接跳转到文末。</p>
+<ul>
+<li><strong>tail 命令</strong><br>默认情况下它会显示文件末尾的 10 行<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tail phone.csv</span><br><span class="line">tail -n 20 phone.csv	// 可以通过 -n [行数] 指定显示的行数</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;<img src="/images/2019/09/19/d581d920-dac5-11e9-a04b-03d4cc20f5f1.png" alt="图片8.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tail -f test	// f 选项会让 tail 命令保持活动状态并不断地显示添加到文件中的内容。这是**实时监测系统日志**的绝妙方式。</span><br><span class="line">echo &apos;hello&apos; &gt;&gt; test	// 另一个命令行窗口不断添加内容到 test 文件，tail 命令窗口会实时显示最新的内容</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>head 命令</strong><br>会显示文件开头那些行的内容，默认情况下，它会显示文件前十行的文本。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">head  test</span><br><span class="line">head -n 20 test</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>-f 选项 head 命令不支持，因为通常文件的开头不会改变。</p>
+<p>head 命令和 tail 命令是你不知道文件内容而想支持大致内容时的利器，而无需加载全部文件。</p>
+<h1 id="7-进程命令"><a href="#7-进程命令" class="headerlink" title="7. 进程命令"></a>7. 进程命令</h1><p>运行在系统上的程序，我们称之为进程。</p>
+<h2 id="7-1-ps-命令"><a href="#7-1-ps-命令" class="headerlink" title="7.1 ps 命令"></a>7.1 ps 命令</h2><p><strong>ps 命令</strong>就是用来监测进程的命令，但是它有数不清的参数，大多数运维工程师只需要掌握他们需要信息的一组参数就足够了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">man ps</span><br><span class="line">[root@master01 hdfsData]# ps	//  默认情况下只会显示运行在当前控制台下的属于当前用户的进程。</span><br><span class="line">   PID TTY          TIME CMD</span><br><span class="line">  1481 pts/0    00:00:00 bash</span><br></pre></td></tr></table></figure>
+
+<p>PID 是进程号；TTY 是运行在哪个终端的名称；TIME 是进程已占用的 CPU 时间，CMD 是进程名称。</p>
+<p>ps 命令支持 3 个不同类型的命令行参数（其他命令都是相同的道理）</p>
+<ol>
+<li>Unix 风格的参数，前面加单破折线 -</li>
+<li>BSD（伯克利软件发行版，是加州大学伯克利分校开发的 Unix 版本），前面不加破折线</li>
+<li>GNU 风格的长参数，前面加双破折线 –<br>不同风格的参数其实有很多重叠的地方。<br><img src="/images/2019/09/19/b6bcc650-dac8-11e9-a04b-03d4cc20f5f1.png" alt="图片9.png"><br><img src="/images/2019/09/19/be069e90-dac8-11e9-a04b-03d4cc20f5f1.png" alt="图片10.png"></li>
+</ol>
+<p>只需要记住满足自己需要的参数就可以了，例如如果你想查看系统上运行的所有进程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 ~]# ps -ef</span><br><span class="line">UID         PID   PPID  C STIME TTY          TIME CMD</span><br><span class="line">root          1      0  0 07:07 ?        00:00:01 /usr/lib/systemd/systemd --switched-</span><br><span class="line">root          2      0  0 07:07 ?        00:00:00 [kthreadd]</span><br><span class="line">root          3      2  0 07:07 ?        00:00:00 [ksoftirqd/0]</span><br><span class="line">root          5      2  0 07:07 ?        00:00:00 [kworker/0:0H]</span><br><span class="line">root          7      2  0 07:07 ?        00:00:00 [migration/0]</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>ps -ef：查看所有进程，format 显示。</p>
+<blockquote>
+<p>UID：程序被该 UID 所拥有<br>PID：就是这个程序的 ID<br>PPID：则是其上级父程序的ID<br>C：CPU使用的资源百分比<br>STIME：系统启动时间<br>TTY：登入者的终端机位置<br>TIME：使用掉的CPU时间<br>CMD：所下达的是什么指令</p>
+</blockquote>
+<br>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root       1470    979  0 07:08 ?        00:00:00 sshd: root@pts/0</span><br></pre></td></tr></table></figure>
+
+<p>其中 sshd 进程就是 Secure Shell，也就是 SSH 的服务端的会话，负责监听远程 SSH 连接。<br>sshd: root@pts/0 就是我们的终端进程会直接启动一个 bash shell 交互命令 行，bash shell 通常在用户登录终端时默认启动。</p>
+<h2 id="7-2-实时监控进程"><a href="#7-2-实时监控进程" class="headerlink" title="7.2 实时监控进程"></a>7.2 实时监控进程</h2><p>ps 命令只能显示<strong>某个特定时间点</strong>的信息，如果你想观察进程的趋势，用 ps 命令就不方便了。</p>
+<p><strong>top 命令</strong>可以实时显示进程信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 hdfsData]# top</span><br><span class="line">top - 18:40:40 up 11:33,  1 user,  load average: 0.00, 0.01, 0.05</span><br><span class="line">Tasks: 148 total,   2 running, 146 sleeping,   0 stopped,   0 zombie</span><br><span class="line">%Cpu(s):  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st</span><br><span class="line">KiB Mem :  1867024 total,   625692 free,   662924 used,   578408 buff/cache</span><br><span class="line">KiB Swap:  4063228 total,  4063228 free,        0 used.   972264 avail Mem </span><br><span class="line"></span><br><span class="line">   PID USER      PR  NI    VIRT    RES    SHR S %CPU %MEM     TIME+ COMMAND          </span><br><span class="line"> 11977 root      20   0       0      0      0 S  0.3  0.0   0:00.34 kworker/0:3      </span><br><span class="line">     1 root      20   0  125504   3948   2496 S  0.0  0.2   0:02.42 systemd          </span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第一行显示了当前时间，系统的运行时间，登入的用户数，以及系统的 CPU 平均负载（最近 1 分钟，最近 5 分钟，最近 15 分钟）3 个值；</li>
+<li>第二行显示进程信息，多少进程在运行、休眠、停止或僵化状态；</li>
+<li>第三行显示 CPU 信息；</li>
+<li>第四行显示系统内存的状态（总共有多少内存，当前使用了多少，还有多少空闲）；</li>
+<li>第五行显示交换空间的内存状态（总共有多少 swap，当前使用了多少，还有多少空闲）。</li>
+<li>进程的详细列表（和 ps 命令输出类似，只列举有代表性的）：<blockquote>
+<p>PID: 进程的进程号<br>USER: 进程属主的名字<br>PR: 进程的优先级<br>NI: 进程的谦让度<br>S: 进程的状态（D 代表可中断的休眠状态，R 代表在运行的状态，S 代表休眠状态，T 代表停止状态， Z 表示僵化状态）<br>%CPU: 进程使用的 CPU 时间比例<br>%MEM: 进程使用的内存占可用内存的比例<br>TIME+: 进程自启动到目前为止的 CPU 时间总量<br>COMMAND: 进程程序名称</p>
+</blockquote>
+</li>
+</ul>
+<p>默认情况下，top 命令在启动时会按照 %CPU 值来排序，你可以键入交互式命令来重新排序。<br><img src="/images/2019/09/19/2fe7afc0-dacb-11e9-a04b-03d4cc20f5f1.png" alt="图片11.png"><br><img src="/images/2019/09/19/35e88d40-dacb-11e9-a04b-03d4cc20f5f1.png" alt="图片12.png"><br>常见的有 M 按内存使用率排序，P 按 CPU 使用率排序，q 退出 top 命令</p>
+<p>用户在 top 命令的输出上有很大的控制权，用这个工具，你就能经常找出占用系统大部分资源的罪魁祸首了。</p>
+<h2 id="7-3-结束进程"><a href="#7-3-结束进程" class="headerlink" title="7.3 结束进程"></a>7.3 结束进程</h2><p>在 Linux 上，进程之间是通过信号来通信的。<br>进程的信号就是预定义好的一个消息，进程能识别它并决定作出相应反应。<br><img src="/images/2019/09/19/bc40cb50-dacb-11e9-a04b-03d4cc20f5f1.png" alt="图片13.png"></p>
+<ul>
+<li><p><strong>kill 命令</strong><br>默认情况下，kill 命令会向命令行中列出的全部 PID 发送一个 TERM 信号，遗憾的是，kill 命令只能用进程的 <strong>PID</strong> 而不能用命令名。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 hdfsData]# ./hello.sh &amp;	// 加上&amp;，守护进程，后台运行 </span><br><span class="line">[1] 15310</span><br><span class="line"></span><br><span class="line">kill 15310</span><br><span class="line">kill -15 15310</span><br><span class="line">kill -s TERM 15310</span><br><span class="line">kill -s KILL 15310</span><br><span class="line">kill -9 15310</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>killall 命令</strong><br>killall 命令支持通过进程名 而不是进程号来结束进程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">killall -help</span><br><span class="line">kill hello.sh</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>killall 命令也支持通配符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">killall hell*</span><br></pre></td></tr></table></figure>
+    
+  </div>
+
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持forsigner</div>
+        <ul>
+        
+          <li class="item">
+            
+              <span>微信扫一扫</span>
+            
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            
+              <span>支付宝扫一扫</span>
+            
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2019/09/04/Spark-Streaming-入门/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2019/09/19/Linux-操作系统（二）/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+<!-- Gitalk评论插件通用代码 -->
+<div id="gitalk-container"></div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.11.1/js/md5.js"></script>
+<script>
+const gitalk = new Gitalk({
+  clientID: 'cffabda338955fb33e72',
+  clientSecret: '27685d32607acc9c76041016860f5434fa1d65d0',
+  repo: 'gitalk_comment',
+  owner: 'Miracle-Xing',
+  // 在这里设置一下截取前50个字符串, 这是因为 github 对 label 的长度有了要求, 如果超过
+  // 50个字符串则会报错.
+  //id: location.pathname.split('/').pop().substring(0, 49),
+   id: md5(location.pathname),
+  // id: title,
+  admin: ['Miracle-Xing'],
+  // facebook-like distraction free mode
+  distractionFreeMode: false
+})
+gitalk.render('gitalk-container')
+</script>
+<!-- Gitalk代码结束 -->
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

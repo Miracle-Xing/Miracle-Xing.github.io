@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>Linux 操作系统（二） | 邢大强的blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Linux,">
+  
+
+  <meta name="description" content="1. 监测磁盘空间1.1 df 命令1234567[root@master01 hdfsData]# df	// 查看所有已挂载磁盘的使用情况Filesystem              1K-blocks    Used Available Use% Mounted on/dev/mapper/centos-root  52403200 8191828  44211372  16% /devt">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 操作系统（二）">
+<meta property="og:url" content="https://miracle-xing.github.io/2019/09/19/Linux-操作系统（二）/index.html">
+<meta property="og:site_name" content="邢大强的blog">
+<meta property="og:description" content="1. 监测磁盘空间1.1 df 命令1234567[root@master01 hdfsData]# df	// 查看所有已挂载磁盘的使用情况Filesystem              1K-blocks    Used Available Use% Mounted on/dev/mapper/centos-root  52403200 8191828  44211372  16% /devt">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/20/a3d1c500-db49-11e9-a04b-03d4cc20f5f1.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/20/ab897a40-db49-11e9-a04b-03d4cc20f5f1.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/20/8c50a190-db4d-11e9-a04b-03d4cc20f5f1.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/20/9e551960-db4e-11e9-a04b-03d4cc20f5f1.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/22/ea8851e0-dd2d-11e9-b99d-4ff3ddaf46fc.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/22/f78ed2b0-dd2d-11e9-b99d-4ff3ddaf46fc.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/23/3e078f60-ddb6-11e9-b99d-4ff3ddaf46fc.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/23/462ea840-ddb6-11e9-b99d-4ff3ddaf46fc.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/23/770b8510-ddba-11e9-b99d-4ff3ddaf46fc.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/23/80373cb0-ddba-11e9-b99d-4ff3ddaf46fc.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/23/95503cf0-ddba-11e9-b99d-4ff3ddaf46fc.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/23/979c76e0-ddba-11e9-b99d-4ff3ddaf46fc.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/23/ed178d30-ddba-11e9-b99d-4ff3ddaf46fc.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/23/25845de0-ddbd-11e9-b99d-4ff3ddaf46fc.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/23/43f248a0-ddbd-11e9-b99d-4ff3ddaf46fc.png">
+<meta property="og:updated_time" content="2019-09-25T02:33:00.833Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux 操作系统（二）">
+<meta name="twitter:description" content="1. 监测磁盘空间1.1 df 命令1234567[root@master01 hdfsData]# df	// 查看所有已挂载磁盘的使用情况Filesystem              1K-blocks    Used Available Use% Mounted on/dev/mapper/centos-root  52403200 8191828  44211372  16% /devt">
+<meta name="twitter:image" content="https://miracle-xing.github.io/images/2019/09/20/a3d1c500-db49-11e9-a04b-03d4cc20f5f1.png">
+
+  
+
+  
+    <link rel="icon" href="/assets/img/m.png">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-38189205-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-监测磁盘空间"><span class="toc-text">1. 监测磁盘空间</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-df-命令"><span class="toc-text">1.1 df 命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-du-命令"><span class="toc-text">1.2 du 命令</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-处理数据文件"><span class="toc-text">2. 处理数据文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-sort-排序数据"><span class="toc-text">2.1 sort 排序数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-搜索数据"><span class="toc-text">2.2 搜索数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-压缩数据"><span class="toc-text">2.3 压缩数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-1-bzip2-命令"><span class="toc-text">2.3.1 bzip2 命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-2-gzip-命令"><span class="toc-text">2.3.2 gzip 命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-3-zip-命令"><span class="toc-text">2.3.3 zip 命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-4-tar-命令"><span class="toc-text">2.3.4 tar 命令</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-环境变量"><span class="toc-text">3. 环境变量</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-查看环境变量"><span class="toc-text">3.1 查看环境变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-1-printenv命令"><span class="toc-text">3.1.1 printenv命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-2-echo-命令"><span class="toc-text">3.1.2 echo 命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-3-set-命令"><span class="toc-text">3.1.3 set 命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-设置局部环境变量"><span class="toc-text">3.2 设置局部环境变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-设置全局环境变量"><span class="toc-text">3.3 设置全局环境变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-unset-删除环境变量"><span class="toc-text">3.4 unset 删除环境变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-5-默认的-shell-环境变量"><span class="toc-text">3.5 默认的 shell 环境变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-6-可变数组"><span class="toc-text">3.6 可变数组</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-Bash-shell-的启动文件"><span class="toc-text">4. Bash shell 的启动文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-非登录-shell-的交互-shell（例如你在命令行提示符下敲入-bash-启动）"><span class="toc-text">4.1 非登录 shell 的交互 shell（例如你在命令行提示符下敲入 bash 启动）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-非交互式-shell-（系统执行-shell-脚本-时用的就是这种-shell）"><span class="toc-text">4.2 非交互式 shell （系统执行 shell 脚本 时用的就是这种 shell）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-别名"><span class="toc-text">5. 别名</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-Vim-文本编辑器"><span class="toc-text">6. Vim 文本编辑器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-1-普通模式"><span class="toc-text">6.1 普通模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2-命令行模式"><span class="toc-text">6.2 命令行模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-3-复制和粘贴"><span class="toc-text">6.3 复制和粘贴</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-4-可视模式"><span class="toc-text">6.4 可视模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-5-查找和替换"><span class="toc-text">6.5 查找和替换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-5-插入模式"><span class="toc-text">6.5 插入模式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-文件权限"><span class="toc-text">7. 文件权限</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7-1-查看权限"><span class="toc-text">7.1 查看权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-2-改变权限"><span class="toc-text">7.2 改变权限</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-1-八进制模式"><span class="toc-text">7.2.1 八进制模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-2-符号模式"><span class="toc-text">7.2.2 符号模式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8-wc-命令"><span class="toc-text">8. wc 命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9-shell-脚本基础"><span class="toc-text">9. shell 脚本基础</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#10-反引号"><span class="toc-text">10. 反引号</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#11-重定向"><span class="toc-text">11. 重定向</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#11-1-输出重定向"><span class="toc-text">11.1 输出重定向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-2-输入重定向"><span class="toc-text">11.2 输入重定向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-3-管道"><span class="toc-text">11.3 管道</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Linux-操作系统（二）" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Linux 操作系统（二）</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.09.19</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Miracle</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/笔记/">笔记</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="1-监测磁盘空间"><a href="#1-监测磁盘空间" class="headerlink" title="1. 监测磁盘空间"></a>1. 监测磁盘空间</h1><h2 id="1-1-df-命令"><a href="#1-1-df-命令" class="headerlink" title="1.1 df 命令"></a>1.1 df 命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 hdfsData]# df	// 查看所有已挂载磁盘的使用情况</span><br><span class="line">Filesystem              1K-blocks    Used Available Use% Mounted on</span><br><span class="line">/dev/mapper/centos-root  52403200 8191828  44211372  16% /</span><br><span class="line">devtmpfs                   917596       0    917596   0% /dev</span><br><span class="line">tmpfs                      933512       0    933512   0% /dev/shm</span><br><span class="line">tmpfs                      933512    9284    924228   1% /run</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>命令输出格式：</p>
+<ul>
+<li>Filesystem：设备文件位置</li>
+<li>Size：设备总空间大小</li>
+<li>Used：已使用空间大小</li>
+<li>Avail：可用空间大小</li>
+<li>Use%：已用空间所占的比例</li>
+<li>Mounted on：设备挂载位置</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 hdfsData]# df -h		// -h 会将输出的磁盘空间按人类可读的形式显示，通常用 M、G 代替</span><br><span class="line">Filesystem               Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/mapper/centos-root   50G  7.9G   43G  16% /</span><br><span class="line">devtmpfs                 897M     0  897M   0% /dev</span><br><span class="line">tmpfs                    912M     0  912M   0% /dev/shm</span><br><span class="line">tmpfs                    912M  9.1M  903M   1% /run</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>当你发现某个磁盘快没有存储空间，需要查找删除无用的大文件怎么做呢？</p>
+<h2 id="1-2-du-命令"><a href="#1-2-du-命令" class="headerlink" title="1.2 du 命令"></a>1.2 du 命令</h2><p>du 显示某个特定目录的磁盘使用情况（默认是当前目录）<br>du 会显示当前目录下的所有文件、目录和子目录的磁盘使用情况。</p>
+<p>那么如何知道每个单独的文件和目录占用 了多大的磁盘空间？<br>-c 显示所有已列出文件总的大小<br>-h 按人类可读的格式输出大小<br>-s 显示每个输出参数的总计</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 hdfsData]# du -csh *</span><br><span class="line">104K	Flight1.csv</span><br><span class="line">4.0K	hello.sh</span><br><span class="line">140K	phone.csv</span><br><span class="line">4.0K	student</span><br><span class="line">124K	test</span><br><span class="line">100M	traffic</span><br><span class="line">101M	total</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-处理数据文件"><a href="#2-处理数据文件" class="headerlink" title="2. 处理数据文件"></a>2. 处理数据文件</h1><h2 id="2-1-sort-排序数据"><a href="#2-1-sort-排序数据" class="headerlink" title="2.1 sort 排序数据"></a>2.1 sort 排序数据</h2><p>默认 sort 会按照字典序来排序文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 hdfsData]# cat test </span><br><span class="line">jai</span><br><span class="line">djoa</span><br><span class="line">adfjig</span><br><span class="line">eff</span><br><span class="line">arb</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">[root@master01 hdfsData]# sort test </span><br><span class="line">adfjig</span><br><span class="line">arb</span><br><span class="line">b</span><br><span class="line">b</span><br><span class="line">djoa</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">sort 命令会把数字当做字符执行标准的字符排序。</span><br><span class="line">sort -n test	// -n 选项会让 sort 把数字识别成数字而不是字符。</span><br><span class="line">man sort</span><br></pre></td></tr></table></figure>
+
+<p><strong>sort 命令参数</strong>：<br><img src="/images/2019/09/20/a3d1c500-db49-11e9-a04b-03d4cc20f5f1.png" alt="图片14.png"><br><img src="/images/2019/09/20/ab897a40-db49-11e9-a04b-03d4cc20f5f1.png" alt="图片15.png"></p>
+<p><strong>根据第三列用户 ID 进行数值排序</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 hdfsData]# sort -t &quot;:&quot; -k 3 -n /etc/passwd</span><br><span class="line">root:x:0:0:root:/root:/bin/bash</span><br><span class="line">bin:x:1:1:bin:/bin:/sbin/nologin</span><br><span class="line">daemon:x:2:2:daemon:/sbin:/sbin/nologin</span><br><span class="line">adm:x:3:4:adm:/var/adm:/sbin/nologin</span><br><span class="line">lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p><strong>反向排序</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 hdfsData]# sort -t &quot;:&quot; -k 3 -nr /etc/passwd</span><br><span class="line">nfsnobody:x:65534:65534:Anonymous NFS User:/var/lib/nfs:/sbin/nologin</span><br><span class="line">miracle:x:1000:1000:miracle:/home/miracle:/bin/bash</span><br><span class="line">polkitd:x:999:998:User for polkitd:/:/sbin/nologin</span><br><span class="line">libstoragemgmt:x:998:996:daemon account for libstoragemgmt:/var/run/lsm:/sbin/nologin</span><br><span class="line">colord:x:997:995:User for colord:/var/lib/colord:/sbin/nologin</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p><strong>管道符加入排序要求，更容易看到目录下哪个文件占用空间最多</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 hdfsData]# du -s * | sort -nr</span><br><span class="line">102328	traffic</span><br><span class="line">140	phone.csv</span><br><span class="line">104	Flight1.csv</span><br><span class="line">4	test</span><br><span class="line">4	student</span><br><span class="line">4	hello.sh</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2-搜索数据"><a href="#2-2-搜索数据" class="headerlink" title="2.2 搜索数据"></a>2.2 搜索数据</h2><p>grep 命令会到输入中或你指定的文件中查找包含匹配指定模式的字符的行。</p>
+<p><strong>筛选出包含 a 字符的行</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 hdfsData]# grep a test </span><br><span class="line">jawoef</span><br><span class="line">bra</span><br><span class="line">ba</span><br><span class="line">a</span><br></pre></td></tr></table></figure>
+
+<p><strong>反向搜索（输出不匹配该模式的行）-v</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 hdfsData]# grep -v a test </span><br><span class="line">eerg</span><br><span class="line"></span><br><span class="line">sergg</span><br><span class="line">e</span><br><span class="line">rrv</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p><strong>显示匹配所在的行的行号</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 hdfsData]# grep -n a test </span><br><span class="line">1:jawoef</span><br><span class="line">15:bra</span><br><span class="line">19:ba</span><br><span class="line">22:a</span><br></pre></td></tr></table></figure>
+
+<p><strong>显示匹配的行的行数</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 hdfsData]# grep -c a test 	// -c 选项只显示匹配行数，不显示内容</span><br><span class="line">4</span><br></pre></td></tr></table></figure>
+
+<p><strong>正则匹配</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 hdfsData]# grep -e a -e b test 	// 可以添加多个正则匹配，满足其一即可</span><br><span class="line">jawoef</span><br><span class="line">brh</span><br><span class="line">bra</span><br><span class="line">ba</span><br><span class="line">brtnrn</span><br><span class="line">a</span><br><span class="line"></span><br><span class="line">[root@master01 hdfsData]# grep -e [ab] test </span><br><span class="line">jawoef</span><br><span class="line">brh</span><br><span class="line">bra</span><br><span class="line">ba</span><br><span class="line">brtnrn</span><br><span class="line">a</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-3-压缩数据"><a href="#2-3-压缩数据" class="headerlink" title="2.3 压缩数据"></a>2.3 压缩数据</h2><p><img src="/images/2019/09/20/8c50a190-db4d-11e9-a04b-03d4cc20f5f1.png" alt="图片16.png"></p>
+<p>compress 工具可以忽略，因为已经在 Linux 系统上很少看到了。</p>
+<h3 id="2-3-1-bzip2-命令"><a href="#2-3-1-bzip2-命令" class="headerlink" title="2.3.1 bzip2 命令"></a>2.3.1 bzip2 命令</h3><ul>
+<li><strong>bzip2</strong>：用来压缩文件（逐渐普及的新压缩包）</li>
+<li>bzcat：用来显示压缩的文本文件的内容</li>
+<li>bunzip2：用来解压缩 .bz2 文件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bzip2 test	// 默认情况下，bzip2 命令尝试压缩原始文件，并用压缩后的文件（同样的文件名后加 .bz2 扩展名）替换它</span><br></pre></td></tr></table></figure>
+
+<p><strong>观察解压缩前后文件大小变化</strong>：<br><img src="/images/2019/09/20/9e551960-db4e-11e9-a04b-03d4cc20f5f1.png" alt="图片17.png"></p>
+<p><strong>bzcat 查看压缩文件内容</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 hdfsData]# bzcat test.bz2 </span><br><span class="line">jawoef</span><br><span class="line">eerg</span><br><span class="line"></span><br><span class="line">sergg</span><br><span class="line">e</span><br><span class="line">rrv</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-2-gzip-命令"><a href="#2-3-2-gzip-命令" class="headerlink" title="2.3.2 gzip 命令"></a>2.3.2 gzip 命令</h3><p>到目前为止，Linux 上最流行的文件压缩工具就是 gzip 工具了，gzip 是 GNU 项目发起的替代原来 Unix 的 compress 工具的压缩工具。</p>
+<ul>
+<li>gzip：用来压缩文件</li>
+<li>zcat：用来查看压缩过的文本文件的内容</li>
+<li>gunzip：用来解压文件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">gzip test	// 压缩</span><br><span class="line">zcat test.gz	// 查看压缩文本文件内容</span><br><span class="line">gunzip test.gz	// 解压文件</span><br><span class="line">gzip -r test	// -r 会递归将目录下所有的文件都进行 gz 压缩，针对大文件，压缩效率更高。</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-3-zip-命令"><a href="#2-3-3-zip-命令" class="headerlink" title="2.3.3 zip 命令"></a>2.3.3 zip 命令</h3><ul>
+<li>zip：创建一个压缩文件</li>
+<li>zipsplit：将现有 zip 文件分割成多个更小的固定大小的文件</li>
+<li>unzip：从压缩过的 zip 文件中提取文件和目录</li>
+</ul>
+<p>zip 使用方式 [压缩后的文件名] [需要进行压缩的文件名]：如果压缩后文件名不带 .zip 后缀，会自动加入。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 hdfsData]# zip test1 test</span><br><span class="line">  adding: test (deflated 25%)</span><br><span class="line">[root@master01 hdfsData]# ll</span><br><span class="line">total 102588</span><br><span class="line">-rw-r--r-- 1 root root    103626 Jul 23 22:32 Flight1.csv</span><br><span class="line">-rwxr-xr-x 1 root root        56 Sep 19 19:05 hello.sh</span><br><span class="line">-rw-r--r-- 1 root root    140293 Sep  2 15:14 phone.csv</span><br><span class="line">-rw-r--r-- 1 root root        45 Sep  2 11:11 student</span><br><span class="line">-rw-r--r-- 1 root root        75 Sep 20 10:15 test</span><br><span class="line">-rw-r--r-- 1 root root       214 Sep 20 14:20 test1.zip</span><br><span class="line">-rw-r--r-- 1 root root 104783207 Aug 14 16:30 traffic</span><br></pre></td></tr></table></figure>
+
+<p>zip 工具的强大之处在于，它能够将整个目录下的文件都压缩进单个文件。这让它成为归档整个目录结构的理想工具。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">zip -r hadoop hadoop-2.7.5</span><br><span class="line">unzip hadoop.zip</span><br><span class="line"></span><br><span class="line">zipsplit -n 200000 hadoop.zip	// 将 zip 文件分割成若干小文件，大小不超过 -n 后的参数值</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-4-tar-命令"><a href="#2-3-4-tar-命令" class="headerlink" title="2.3.4 tar 命令"></a>2.3.4 tar 命令</h3><p>zip 命令能够很好的将数据压缩和归档进单个文件，但它并不是 Unix 和 Linux 中的标准归档工具。目前，Unix 和 Linux 最广泛使用的归档工具（将多个文件和目录归档到单个文件）是 tar 命令：<br><img src="/images/2019/09/22/ea8851e0-dd2d-11e9-b99d-4ff3ddaf46fc.png" alt="图片18.png"><br><img src="/images/2019/09/22/f78ed2b0-dd2d-11e9-b99d-4ff3ddaf46fc.png" alt="图片19.png"></p>
+<p>有些选项经常一起使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">tar -cvf hadoop.tar hadoop-2.7.5/</span><br><span class="line">[root@master01 hdfsData]# tar -cvf a.tar student test	// 可以归档多个文件，以空格分隔拼接</span><br><span class="line">student</span><br><span class="line">test</span><br><span class="line">[root@master01 hdfsData]# ll</span><br><span class="line">total 102596</span><br><span class="line">-rw-r--r-- 1 root root     10240 Sep 23 09:58 a.tar</span><br><span class="line">-rw-r--r-- 1 root root    103626 Jul 23 22:32 Flight1.csv</span><br><span class="line">-rwxr-xr-x 1 root root        56 Sep 19 19:05 hello.sh</span><br><span class="line">-rw-r--r-- 1 root root    140293 Sep  2 15:14 phone.csv</span><br><span class="line">-rw-r--r-- 1 root root        45 Sep  2 11:11 student</span><br><span class="line">-rw-r--r-- 1 root root        75 Sep 20 10:15 test</span><br><span class="line">-rw-r--r-- 1 root root 104783207 Aug 14 16:30 traffic</span><br><span class="line">[root@master01 hdfsData]# tar -tf a.tar		// 列出 a.tar 的内容，但不解压文件</span><br><span class="line">student</span><br><span class="line">test</span><br><span class="line"></span><br><span class="line">tar -xvf a.tar	// 从 a.tar 中提取内容</span><br><span class="line"></span><br><span class="line">tar -zcvf b.tgz student test	// 归档文件并使用 gzip 压缩</span><br><span class="line">tar -zxvf b.tgz	// 提取 gzip 解压后的内容</span><br></pre></td></tr></table></figure>
+
+<p><strong>注</strong>：tgz 和 tar.gz 是同一种格式，不同写法。</p>
+<h1 id="3-环境变量"><a href="#3-环境变量" class="headerlink" title="3. 环境变量"></a>3. 环境变量</h1><p>Base shell 用环境变量来存储有关 shell 会话和工作环境的信息。<br>环境变量分为两类：<strong>全局变量</strong>和<strong>局部变量</strong></p>
+<p><strong>全局变量</strong>：不仅对 shell 会话可见，对所有 shell 创建的子进程也可见。<br><strong>局部变量</strong>：只对创建它们的 shell 可见，即只能在定义它们的进程中可见。</p>
+<p><strong>系统环境变量一律使用全大写字母以区别普通用户的环境变量。</strong></p>
+<h2 id="3-1-查看环境变量"><a href="#3-1-查看环境变量" class="headerlink" title="3.1 查看环境变量"></a>3.1 查看环境变量</h2><h3 id="3-1-1-printenv命令"><a href="#3-1-1-printenv命令" class="headerlink" title="3.1.1 printenv命令"></a>3.1.1 printenv命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 hdfsData]# printenv 	// 用于查看所有全局变量</span><br><span class="line">XDG_SESSION_ID=295</span><br><span class="line">SPARK_HOME=/opt/modules/spark243</span><br><span class="line">HOSTNAME=master01</span><br><span class="line">TERM=xterm</span><br><span class="line">SHELL=/bin/bash</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-1-2-echo-命令"><a href="#3-1-2-echo-命令" class="headerlink" title="3.1.2 echo 命令"></a>3.1.2 echo 命令</h3><p>用于打印信息，并可用于查看环境变量的值，当引用环境变量时，必须在环境变量的名称前放置一个 $ 符号：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 hdfsData]# echo $HOME</span><br><span class="line">/root</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-1-3-set-命令"><a href="#3-1-3-set-命令" class="headerlink" title="3.1.3 set 命令"></a>3.1.3 set 命令</h3><p>会显示为某个特定进程设置的<strong>所有环境变量（全局变量和局部变量）</strong>，可以看到 printenv 命令显示的全局环境变量都在 set 命令的输出中。</p>
+<h2 id="3-2-设置局部环境变量"><a href="#3-2-设置局部环境变量" class="headerlink" title="3.2 设置局部环境变量"></a>3.2 设置局部环境变量</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 hdfsData]# test=testing</span><br><span class="line">[root@master01 hdfsData]# echo $test</span><br><span class="line">testing</span><br><span class="line">[root@master01 hdfsData]# test1=&quot;a b c&quot;		// 字符串包含空格时一定要加引号</span><br><span class="line">[root@master01 hdfsData]# echo $test1</span><br><span class="line">a b c</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-3-设置全局环境变量"><a href="#3-3-设置全局环境变量" class="headerlink" title="3.3 设置全局环境变量"></a>3.3 设置全局环境变量</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 ~]# test=hello</span><br><span class="line">[root@master01 ~]# export test</span><br><span class="line">[root@master01 ~]# export test=hello</span><br><span class="line">[root@master01 ~]# echo $test</span><br><span class="line">hello</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-4-unset-删除环境变量"><a href="#3-4-unset-删除环境变量" class="headerlink" title="3.4 unset 删除环境变量"></a>3.4 unset 删除环境变量</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unset test</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-5-默认的-shell-环境变量"><a href="#3-5-默认的-shell-环境变量" class="headerlink" title="3.5 默认的 shell 环境变量"></a>3.5 默认的 shell 环境变量</h2><p>shell 交互式命令行提示符就是 CLI（Command Line Interface）<br>列举一些 bash shell 的默认环境变量：<br><img src="/images/2019/09/23/3e078f60-ddb6-11e9-b99d-4ff3ddaf46fc.png" alt="图片20.png"><br><img src="/images/2019/09/23/462ea840-ddb6-11e9-b99d-4ff3ddaf46fc.png" alt="图片21.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 ~]# echo $PATH</span><br><span class="line">/opt/modules/jdk1.8.0_181/bin:/opt/modules/zookeeper-3.4.14/bin:/opt/modules/spark243/sbin:/opt/modules/spark243/bin:/opt/modules/hadoop277/sbin:/opt/modules/hadoop277/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin</span><br></pre></td></tr></table></figure>
+
+<p>PATH 中的每个目录都有冒号分隔。PATH 变量同时显示了 shell 查找命令的顺序。<br>PATH 定义了命令行输入命令的搜索路径。</p>
+<p>如果想要在虚拟目录中的任何位置执行某个可执行程序，就把这个可执行程序的目录添加到 PATH 中。<br>程序员通常用的办法是将<strong>单点符</strong>也加入到 PATH 环境变量里。这个单点符代表当前目录。</p>
+<h2 id="3-6-可变数组"><a href="#3-6-可变数组" class="headerlink" title="3.6 可变数组"></a>3.6 可变数组</h2><p>环境变量很好的一个功能是它们可以作为数组使用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 ~]# arr=(1 2 3 4 5)	// 利用环境变量定义数组</span><br><span class="line">[root@master01 ~]# echo $arr		// 只显示数组第一个值</span><br><span class="line">1</span><br><span class="line">[root@master01 ~]# echo $arr[3]	// 错误的引用方式</span><br><span class="line">1[3]</span><br><span class="line">[root@master01 ~]# echo $&#123;arr[3]&#125;	// 正确的引用方式</span><br><span class="line">4	</span><br><span class="line">[root@master01 ~]# echo $&#123;arr[*]&#125;	// * 显示所有</span><br><span class="line">1 2 3 4 5</span><br><span class="line">[root@master01 ~]# echo $&#123;arr[8]&#125;	// 超出数组长度，显示空</span><br><span class="line"></span><br><span class="line">[root@master01 ~]# arr[0]=5		// 可以根据索引改变数组值</span><br><span class="line">[root@master01 ~]# echo $&#123;arr[*]&#125;</span><br><span class="line">5 2 3 4 5</span><br><span class="line">[root@master01 ~]# unset arr[0]	// 删除索引值</span><br><span class="line">[root@master01 ~]# echo $&#123;arr[*]&#125;</span><br><span class="line">2 3 4 5</span><br><span class="line">[root@master01 ~]# echo $&#123;arr[0]&#125;</span><br><span class="line"></span><br><span class="line">[root@master01 ~]# echo $&#123;arr[1]&#125;	// 索引值为空，索引位置保留。</span><br><span class="line">2</span><br><span class="line">[root@master01 ~]# unset arr		// 删除整个数组</span><br><span class="line">[root@master01 ~]# echo $&#123;arr[*]&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="4-Bash-shell-的启动文件"><a href="#4-Bash-shell-的启动文件" class="headerlink" title="4. Bash shell 的启动文件"></a>4. Bash shell 的启动文件</h1><p>bash shell 检查的启动文件取决于你启动 bash shell 的方式。<br><strong>登录时当做默认登录 shell</strong>：<br>/etc/profile &gt; ~/.bash_profile &gt; ~/.bash_login &gt; ~/.profile<br>后三个 $HOME 下的启动文件提供了一个用户专属的启动文件来定义用户专有的环境变量，它们是隐藏文件。~/.bash_profile 启动文件会去首先执行 HOME 目录中叫 .bashrc 的启动文件。~/.bashrc 又首先会执行叫 /etc/bashrc 的启动文件。</p>
+<h2 id="4-1-非登录-shell-的交互-shell（例如你在命令行提示符下敲入-bash-启动）"><a href="#4-1-非登录-shell-的交互-shell（例如你在命令行提示符下敲入-bash-启动）" class="headerlink" title="4.1 非登录 shell 的交互 shell（例如你在命令行提示符下敲入 bash 启动）"></a>4.1 非登录 shell 的交互 shell（例如你在命令行提示符下敲入 bash 启动）</h2><p>只会执行 ~/.bashrc 文件</p>
+<p>通用的 /etc/bashrc 启动文件会被系统上每个启动交互式 shell 会话的用户执行。</p>
+<h2 id="4-2-非交互式-shell-（系统执行-shell-脚本-时用的就是这种-shell）"><a href="#4-2-非交互式-shell-（系统执行-shell-脚本-时用的就是这种-shell）" class="headerlink" title="4.2 非交互式 shell （系统执行 shell 脚本 时用的就是这种 shell）"></a>4.2 非交互式 shell （系统执行 shell 脚本 时用的就是这种 shell）</h2><p>默认不加载启动文件。</p>
+<h1 id="5-别名"><a href="#5-别名" class="headerlink" title="5. 别名"></a>5. 别名</h1><p>命令别名允许为通用命令能创建一个别名，这样可以用最少的键入调用想要的命令。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 ~]# alias -p	// 查看已有的别名列表</span><br><span class="line">alias cp=&apos;cp -i&apos;</span><br><span class="line">alias egrep=&apos;egrep --color=auto&apos;</span><br><span class="line">alias fgrep=&apos;fgrep --color=auto&apos;</span><br><span class="line">alias grep=&apos;grep --color=auto&apos;</span><br><span class="line">alias l.=&apos;ls -d .* --color=auto&apos;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 ~]# alias li=&apos;ls -ilaF&apos;	// 创建自己的命令别名</span><br><span class="line">注：命令别名的行为和局部变量一致，只在定义它们的 shell 进程中有效。</span><br><span class="line">[root@master01 ~]# bash</span><br><span class="line">[root@master01 ~]# li</span><br><span class="line">bash: li: command not found...</span><br><span class="line">[root@master01 ~]# exit</span><br><span class="line">exit</span><br><span class="line">[root@master01 ~]# li</span><br><span class="line">total 160</span><br><span class="line">100663361 drwxr-xr-x. 17 root root  4096 Sep 23 11:15 ./</span><br><span class="line">       64 dr-xr-xr-x. 17 root root   244 Jul 19 02:54 ../</span><br><span class="line">100663372 -rw-------.  1 root root  1590 Jul 19 07:58 anaconda-ks.cfg</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h1 id="6-Vim-文本编辑器"><a href="#6-Vim-文本编辑器" class="headerlink" title="6. Vim 文本编辑器"></a>6. Vim 文本编辑器</h1><p>Vim 编辑器使用控制台图形模式来模拟文本编辑窗口，允许查看文件中的行，在文件中移动，以及插入、编辑和替换文本。<br>Vim 编辑器在内存缓冲区中处理数据。不要用来打开超大文件，否则会启动很慢并且会占用很多内存。</p>
+<p>Vim 编辑器有几种操作模式：<strong>普通模式，插入模式，命令行模式，可视模式</strong>。</p>
+<h2 id="6-1-普通模式"><a href="#6-1-普通模式" class="headerlink" title="6.1 普通模式"></a>6.1 普通模式</h2><p>在你刚打开要编辑的文件，Vim 编辑器会进入普通模式，在普通模式中 Vim 编辑器会将按键解释成命令。在普通模式你可以用方向键在文本区域移动光标。<br>除了方向键，其他的特殊键位：<br><img src="/images/2019/09/23/770b8510-ddba-11e9-b99d-4ff3ddaf46fc.png" alt="图片22.png"><br><img src="/images/2019/09/23/80373cb0-ddba-11e9-b99d-4ff3ddaf46fc.png" alt="图片23.png"></p>
+<p>编辑数据的特殊键位：<br><img src="/images/2019/09/23/95503cf0-ddba-11e9-b99d-4ff3ddaf46fc.png" alt="图片24.png"><br><img src="/images/2019/09/23/979c76e0-ddba-11e9-b99d-4ff3ddaf46fc.png" alt="图片25.png"></p>
+<p>有些编辑命令允许使用数据修饰符来指定重复该命令多少次，例如：5x 删除从光标当前位置开始的两个字符，命令 5dd 会阐述从光标当前所在行开始的 5 行。</p>
+<h2 id="6-2-命令行模式"><a href="#6-2-命令行模式" class="headerlink" title="6.2 命令行模式"></a>6.2 命令行模式</h2><p>命令行模式提供了一个可供输入额外命令来控制 Vim 中行为的交互式命令。<br>要进入命令行模式，在普通模式下按下<strong>冒号键</strong>。</p>
+<p>命令行模式的特殊命令：<br><img src="/images/2019/09/23/ed178d30-ddba-11e9-b99d-4ff3ddaf46fc.png" alt="图片26.png"><br>set number 显示行号</p>
+<h2 id="6-3-复制和粘贴"><a href="#6-3-复制和粘贴" class="headerlink" title="6.3 复制和粘贴"></a>6.3 复制和粘贴</h2><p>在普通模式下，<br><strong>剪切</strong>：当使用 x 和 dd 等删除操作删除数据时，实际上它会将数据保存在一个单独的寄存位置中，你可以使用 p 命令来取回数据（p 命令会将文本插入到当前光标之后）。<br><strong>复制</strong>：yy 复制整行，yw 复制单词，y$ 表示复制到行尾，复制后用 p 命令粘贴，自定义复制可以用可视模式。</p>
+<h2 id="6-4-可视模式"><a href="#6-4-可视模式" class="headerlink" title="6.4 可视模式"></a>6.4 可视模式</h2><p>会在你移动光标时高亮显示选中的文本。要进入可视模式，移动光标到要选中的位置，按下 v 键。在覆盖了要复制的文本后，按 y 键来激活复制命令，使用 p 命令粘贴。<br>在覆盖了要剪切的文本后，按下 x 或 d 键来激活删除命令，使用 p 命令粘贴。</p>
+<h2 id="6-5-查找和替换"><a href="#6-5-查找和替换" class="headerlink" title="6.5 查找和替换"></a>6.5 查找和替换</h2><p><strong>查找</strong>：在普通模式下按下划线（/）键，输入要查找的文本按回车键，光标会调到文本出现的下一个位置，如果要继续查找同一个单词，使用 n 键表示 next 下一个。</p>
+<p><strong>替换</strong>：在命令行模式下执行<br>:s/old/new/g 或 :s/old/new    // 替换 old 下一次出现的地方，用 new 来替换<br>:n,m/old/new/g    // 替换行号 n 和 m 之间所有 old<br>:%s/old/new/g    // 替换整个文件中的所有 old</p>
+<h2 id="6-5-插入模式"><a href="#6-5-插入模式" class="headerlink" title="6.5 插入模式"></a>6.5 插入模式</h2><p>在插入模式下，Vim 会将你在当前光标位置输入的每个键都插入到缓冲区。要进入插入模式，按下 i 键。要退出插入模式回到普通模式，按下键盘上的退出键（esc）。</p>
+<h1 id="7-文件权限"><a href="#7-文件权限" class="headerlink" title="7. 文件权限"></a>7. 文件权限</h1><h2 id="7-1-查看权限"><a href="#7-1-查看权限" class="headerlink" title="7.1 查看权限"></a>7.1 查看权限</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 ~]# ll</span><br><span class="line">total 80</span><br><span class="line">-rw-------. 1 root root  1590 Jul 19 07:58 anaconda-ks.cfg</span><br><span class="line">drwxr-xr-x. 2 root root     6 Jul 19 00:11 Desktop</span><br><span class="line">drwxr-xr-x. 2 root root     6 Jul 19 00:11 Documents</span><br><span class="line">drwxr-xr-x. 2 root root     6 Jul 19 00:11 Downloads</span><br><span class="line">-rw-r--r--. 1 root root  1618 Jul 19 00:02 initial-setup-ks.cfg</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>-：代表文件<br>d：代表目录<br>l：代表符号链接<br>c：代表字符型设备<br>b：代表块设备<br>n：代表网络设备</p>
+<p>3组三字符的码，每一组三字符码表示三重访问权限：<br>r：代表可读的<br>w：代表可写的<br>x：代表对象是可执行的<br><img src="/images/2019/09/23/25845de0-ddbd-11e9-b99d-4ff3ddaf46fc.png" alt="图片27.png"></p>
+<p><strong>使用八进制模式的安全性设置来表示这 3 组 rwx 权限的值</strong>。<br><img src="/images/2019/09/23/43f248a0-ddbd-11e9-b99d-4ff3ddaf46fc.png" alt="图片28.png"></p>
+<h2 id="7-2-改变权限"><a href="#7-2-改变权限" class="headerlink" title="7.2 改变权限"></a>7.2 改变权限</h2><p>chmod 命令用来改变文件和目录的安全性设置。chmod 后可跟八进制模式或符号模式来设置安全性设置。八进制模式直接赋予文件的标准的3位八进制权限码。</p>
+<h3 id="7-2-1-八进制模式"><a href="#7-2-1-八进制模式" class="headerlink" title="7.2.1 八进制模式"></a>7.2.1 八进制模式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 hdfsData]# touch test</span><br><span class="line">[root@master01 hdfsData]# ll</span><br><span class="line">total 102580</span><br><span class="line">-rw-r--r-- 1 root root    103626 Jul 23 22:32 Flight1.csv</span><br><span class="line">-rwxr-xr-x 1 root root        56 Sep 19 19:05 hello.sh</span><br><span class="line">-rw-r--r-- 1 root root    140293 Sep  2 15:14 phone.csv</span><br><span class="line">-rw-r--r-- 1 root root        45 Sep  2 11:11 student</span><br><span class="line">-rw-r--r-- 1 root root         0 Sep 25 09:43 test</span><br><span class="line">-rw-r--r-- 1 root root 104783207 Aug 14 16:30 traffic</span><br><span class="line">[root@master01 hdfsData]# chmod 760 test </span><br><span class="line">[root@master01 hdfsData]# ll</span><br><span class="line">total 102580</span><br><span class="line">-rw-r--r-- 1 root root    103626 Jul 23 22:32 Flight1.csv</span><br><span class="line">-rwxr-xr-x 1 root root        56 Sep 19 19:05 hello.sh</span><br><span class="line">-rw-r--r-- 1 root root    140293 Sep  2 15:14 phone.csv</span><br><span class="line">-rw-r--r-- 1 root root        45 Sep  2 11:11 student</span><br><span class="line">-rwxrw---- 1 root root         0 Sep 25 09:43 test</span><br><span class="line">-rw-r--r-- 1 root root 104783207 Aug 14 16:30 traffic</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-2-2-符号模式"><a href="#7-2-2-符号模式" class="headerlink" title="7.2.2 符号模式"></a>7.2.2 符号模式</h3><p>[ugoa][+-=][rwxXugo]<br>u 代表用户，g 代表组，o 代表其他，a 代表上述所有。</p>
+<ul>
+<li>代表增加权限，- 代表移除权限，= 代表将权限设置成后面的值。<br>X 如果对象是目录，则赋予执行权限，u 将权限设置成属主一致，g 将权限设置成属组一致，o 将权限设置成跟其他用户一致。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 hdfsData]# chmod g+x test </span><br><span class="line">[root@master01 hdfsData]# ll</span><br><span class="line">total 102580</span><br><span class="line">-rw-r--r-- 1 root root    103626 Jul 23 22:32 Flight1.csv</span><br><span class="line">-rwxr-xr-x 1 root root        56 Sep 19 19:05 hello.sh</span><br><span class="line">-rw-r--r-- 1 root root    140293 Sep  2 15:14 phone.csv</span><br><span class="line">-rw-r--r-- 1 root root        45 Sep  2 11:11 student</span><br><span class="line">-rwxrwx--- 1 root root         0 Sep 25 09:43 test</span><br><span class="line">-rw-r--r-- 1 root root 104783207 Aug 14 16:30 traffic</span><br><span class="line">[root@master01 hdfsData]# chmod o+u test </span><br><span class="line">[root@master01 hdfsData]# ll</span><br><span class="line">total 102580</span><br><span class="line">-rw-r--r-- 1 root root    103626 Jul 23 22:32 Flight1.csv</span><br><span class="line">-rwxr-xr-x 1 root root        56 Sep 19 19:05 hello.sh</span><br><span class="line">-rw-r--r-- 1 root root    140293 Sep  2 15:14 phone.csv</span><br><span class="line">-rw-r--r-- 1 root root        45 Sep  2 11:11 student</span><br><span class="line">-rwxrwxrwx 1 root root         0 Sep 25 09:43 test</span><br><span class="line">-rw-r--r-- 1 root root 104783207 Aug 14 16:30 traffic</span><br><span class="line">[root@master01 hdfsData]# chmod o-w test </span><br><span class="line">[root@master01 hdfsData]# ll</span><br><span class="line">total 102580</span><br><span class="line">-rw-r--r-- 1 root root    103626 Jul 23 22:32 Flight1.csv</span><br><span class="line">-rwxr-xr-x 1 root root        56 Sep 19 19:05 hello.sh</span><br><span class="line">-rw-r--r-- 1 root root    140293 Sep  2 15:14 phone.csv</span><br><span class="line">-rw-r--r-- 1 root root        45 Sep  2 11:11 student</span><br><span class="line">-rwxrwxr-x 1 root root         0 Sep 25 09:43 test</span><br><span class="line">-rw-r--r-- 1 root root 104783207 Aug 14 16:30 traffic</span><br><span class="line">[root@master01 hdfsData]# chmod o=g test </span><br><span class="line">[root@master01 hdfsData]# ll</span><br><span class="line">total 102580</span><br><span class="line">-rw-r--r-- 1 root root    103626 Jul 23 22:32 Flight1.csv</span><br><span class="line">-rwxr-xr-x 1 root root        56 Sep 19 19:05 hello.sh</span><br><span class="line">-rw-r--r-- 1 root root    140293 Sep  2 15:14 phone.csv</span><br><span class="line">-rw-r--r-- 1 root root        45 Sep  2 11:11 student</span><br><span class="line">-rwxrwxrwx 1 root root         0 Sep 25 09:43 test</span><br><span class="line">-rw-r--r-- 1 root root 104783207 Aug 14 16:30 traffic</span><br><span class="line">[root@master01 hdfsData]# chmod u-rwx test </span><br><span class="line">[root@master01 hdfsData]# ll</span><br><span class="line">total 102580</span><br><span class="line">-rw-r--r-- 1 root root    103626 Jul 23 22:32 Flight1.csv</span><br><span class="line">-rwxr-xr-x 1 root root        56 Sep 19 19:05 hello.sh</span><br><span class="line">-rw-r--r-- 1 root root    140293 Sep  2 15:14 phone.csv</span><br><span class="line">-rw-r--r-- 1 root root        45 Sep  2 11:11 student</span><br><span class="line">----rwxrwx 1 root root         0 Sep 25 09:43 test</span><br><span class="line">-rw-r--r-- 1 root root 104783207 Aug 14 16:30 traffic</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>chmod 命令还提供了一些选项，-R 会把权限递归地作用到文件和子目录中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod -R u+rwx tmp3</span><br></pre></td></tr></table></figure>
+
+<h1 id="8-wc-命令"><a href="#8-wc-命令" class="headerlink" title="8. wc 命令"></a>8. wc 命令</h1><p>wc 命令后面跟文件，它默认会输出4个值。<br>文本的行数；    // -l<br>文本的词数；    // -w<br>文本的字节数；    // -c<br>文件名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 hdfsData]# wc phone.csv </span><br><span class="line">   542   2106 140293 phone.csv</span><br><span class="line">[root@master01 hdfsData]# wc traffic </span><br><span class="line">  1000000   2000000 104783207 traffic</span><br></pre></td></tr></table></figure>
+
+<h1 id="9-shell-脚本基础"><a href="#9-shell-脚本基础" class="headerlink" title="9. shell 脚本基础"></a>9. shell 脚本基础</h1><p>shell 脚本的关键点在于可以输出多个命令并处理每个命令的结果，而非像之前的 shell 命令行交互界面上每次键入一条命令。</p>
+<p>创建 shell 脚本时，需要在文件的第一行指定要使用的解析器</p>
+<p>#! bin/bash<br>通常在 shell 脚本的行里，# 用做注释行，shell 脚本中 的注释行是不被 shell 执行的。但第一行是个特例，它指定执行的解析器。</p>
+<h1 id="10-反引号"><a href="#10-反引号" class="headerlink" title="10. 反引号"></a>10. 反引号</h1><p>反引号和波浪线 ~ 位于同一键位<br>反引号允许你把 shell 命令的输出赋给变量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 hdfsData]# test=`date`</span><br><span class="line">[root@master01 hdfsData]# echo $test </span><br><span class="line">Wed Sep 25 10:12:49 CST 2019</span><br><span class="line">[root@master01 hdfsData]# test=`echo &apos;&apos;hello world&apos;&apos;`</span><br><span class="line">[root@master01 hdfsData]# echo $test </span><br><span class="line">hello world</span><br></pre></td></tr></table></figure>
+
+<h1 id="11-重定向"><a href="#11-重定向" class="headerlink" title="11. 重定向"></a>11. 重定向</h1><p>bash shell 提供了一些操作符允许你将某个命令的输入输出重定向到另一个位置（比如文件上）</p>
+<h2 id="11-1-输出重定向"><a href="#11-1-输出重定向" class="headerlink" title="11.1 输出重定向"></a>11.1 输出重定向</h2><p>将命令的输出发送到一个文件中，两种操作符 &gt;   &gt;&gt;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 hdfsData]# date &gt; file</span><br><span class="line">[root@master01 hdfsData]# cat file </span><br><span class="line">Wed Sep 25 10:16:00 CST 2019</span><br><span class="line">[root@master01 hdfsData]# date &gt;&gt; file</span><br><span class="line">[root@master01 hdfsData]# cat file </span><br><span class="line">Wed Sep 25 10:16:00 CST 2019</span><br><span class="line">Wed Sep 25 10:16:08 CST 2019</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>：文件不存在默认创建，如果文件存在，则会用新的文件数据覆盖已经存在的文件</p>
+<blockquote>
+<p>：文件不存在默认创建，如果文件存在，则会追加数据。</p>
+</blockquote>
+</blockquote>
+<h2 id="11-2-输入重定向"><a href="#11-2-输入重定向" class="headerlink" title="11.2 输入重定向"></a>11.2 输入重定向</h2><p>&lt; ：将文件的内容重定向到命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 hdfsData]# wc &lt; file</span><br><span class="line"> 2 12 58</span><br><span class="line">[root@master01 hdfsData]# wc file </span><br><span class="line"> 2 12 58 file</span><br></pre></td></tr></table></figure>
+
+<p>内联输入重定向符号 &lt;&lt;<br>允许你在命令行上指定输入重定向的数据，你必须指定一个文本标记来划分输入数据的开始和结尾。你可以用<strong>任何字符串的值</strong>来作为文本标记，但在数据的<strong>开始</strong>和<strong>结尾</strong>必须一致。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 hdfsData]# wc &lt;&lt; aa </span><br><span class="line">&gt; hello world</span><br><span class="line">&gt; thanks</span><br><span class="line">&gt; ;</span><br><span class="line">&gt; aa</span><br><span class="line"> 3  4 21</span><br><span class="line">[root@master01 hdfsData]# echo $PS2</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+
+<p>shell 会使用 PS2 环境变量定义的次提示符来提示输入数据。</p>
+<h2 id="11-3-管道"><a href="#11-3-管道" class="headerlink" title="11.3 管道"></a>11.3 管道</h2><p>取代将命令的输出重定向到文件，你可以重定向输出到另一个命令，这个过程称为管道连接。<br>不要以为管道链接会一个一个运行，Linux 系统实际会同时运行这两个命令，在系统内部将 它们连接起来。在第一个命令产生输出的同时，输出会被立即送给第二个命令。传输数据不会用到任何中间文件或缓冲区域。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 hdfsData]# ls &gt; file </span><br><span class="line">[root@master01 hdfsData]# cat file </span><br><span class="line">file</span><br><span class="line">Flight1.csv</span><br><span class="line">hello.sh</span><br><span class="line">phone.csv</span><br><span class="line">student</span><br><span class="line">test</span><br><span class="line">traffic</span><br><span class="line">[root@master01 hdfsData]# sort &lt; file </span><br><span class="line">file</span><br><span class="line">Flight1.csv</span><br><span class="line">hello.sh</span><br><span class="line">phone.csv</span><br><span class="line">student</span><br><span class="line">test</span><br><span class="line">traffic</span><br><span class="line">[root@master01 hdfsData]# ls | sort</span><br><span class="line">file</span><br><span class="line">Flight1.csv</span><br><span class="line">hello.sh</span><br><span class="line">phone.csv</span><br><span class="line">student</span><br><span class="line">test</span><br><span class="line">traffic</span><br></pre></td></tr></table></figure>
+
+
+    
+  </div>
+
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持forsigner</div>
+        <ul>
+        
+          <li class="item">
+            
+              <span>微信扫一扫</span>
+            
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            
+              <span>支付宝扫一扫</span>
+            
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2019/09/19/Linux-操作系统（一）/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+<!-- Gitalk评论插件通用代码 -->
+<div id="gitalk-container"></div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.11.1/js/md5.js"></script>
+<script>
+const gitalk = new Gitalk({
+  clientID: 'cffabda338955fb33e72',
+  clientSecret: '27685d32607acc9c76041016860f5434fa1d65d0',
+  repo: 'gitalk_comment',
+  owner: 'Miracle-Xing',
+  // 在这里设置一下截取前50个字符串, 这是因为 github 对 label 的长度有了要求, 如果超过
+  // 50个字符串则会报错.
+  //id: location.pathname.split('/').pop().substring(0, 49),
+   id: md5(location.pathname),
+  // id: title,
+  admin: ['Miracle-Xing'],
+  // facebook-like distraction free mode
+  distractionFreeMode: false
+})
+gitalk.render('gitalk-container')
+</script>
+<!-- Gitalk代码结束 -->
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
