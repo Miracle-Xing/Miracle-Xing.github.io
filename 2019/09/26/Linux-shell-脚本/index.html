@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>Linux shell  脚本 | 邢大强的blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Linux,Shell,">
+  
+
+  <meta name="description" content="1. 数学运算相关命令expr 用来处理数学表达式，它可以识别一些不同的数学和字符串操作符（注意操作符两侧的空格和转义） 1234[root@master01 ~]# expr 1 + 56[root@master01 ~]# expr 5 \* 210  在 shell 脚本中使用 expr 命令： 12345#! /bin/basha=3b=4c=`expr $a \* $b`echo $c">
+<meta name="keywords" content="Linux,Shell">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux shell  脚本">
+<meta property="og:url" content="https://miracle-xing.github.io/2019/09/26/Linux-shell-脚本/index.html">
+<meta property="og:site_name" content="邢大强的blog">
+<meta property="og:description" content="1. 数学运算相关命令expr 用来处理数学表达式，它可以识别一些不同的数学和字符串操作符（注意操作符两侧的空格和转义） 1234[root@master01 ~]# expr 1 + 56[root@master01 ~]# expr 5 \* 210  在 shell 脚本中使用 expr 命令： 12345#! /bin/basha=3b=4c=`expr $a \* $b`echo $c">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/26/d1cbe8b0-e039-11e9-a7e1-77f8999fd6cf.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/26/20903f00-e03a-11e9-a7e1-77f8999fd6cf.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/27/8e0230a0-e0c8-11e9-a7e1-77f8999fd6cf.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/27/7bcf9c90-e0ca-11e9-a7e1-77f8999fd6cf.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/27/a439bc10-e0cf-11e9-a7e1-77f8999fd6cf.png">
+<meta property="og:image" content="https://miracle-xing.github.io/images/2019/09/27/19c9dca0-e100-11e9-a7e1-77f8999fd6cf.png">
+<meta property="og:updated_time" content="2019-09-29T02:23:03.523Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux shell  脚本">
+<meta name="twitter:description" content="1. 数学运算相关命令expr 用来处理数学表达式，它可以识别一些不同的数学和字符串操作符（注意操作符两侧的空格和转义） 1234[root@master01 ~]# expr 1 + 56[root@master01 ~]# expr 5 \* 210  在 shell 脚本中使用 expr 命令： 12345#! /bin/basha=3b=4c=`expr $a \* $b`echo $c">
+<meta name="twitter:image" content="https://miracle-xing.github.io/images/2019/09/26/d1cbe8b0-e039-11e9-a7e1-77f8999fd6cf.png">
+
+  
+
+  
+    <link rel="icon" href="/assets/img/m.png">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-38189205-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-数学运算相关命令"><span class="toc-text">1. 数学运算相关命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-条件语句-if"><span class="toc-text">2. 条件语句 if</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-例一"><span class="toc-text">2.1 例一</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-例二"><span class="toc-text">2.2 例二</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-例三"><span class="toc-text">2.3 例三</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-test-命令"><span class="toc-text">3. test 命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-数值比较（注意空格）"><span class="toc-text">3.1 数值比较（注意空格）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-1-例一"><span class="toc-text">3.1.1 例一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-2-例二"><span class="toc-text">3.1.2 例二</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-3-例三"><span class="toc-text">3.1.3 例三</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-字符串比较（注意空格）"><span class="toc-text">3.2 字符串比较（注意空格）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-1-例一"><span class="toc-text">3.2.1 例一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-2-例二"><span class="toc-text">3.2.2 例二</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-3-例三"><span class="toc-text">3.2.3 例三</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-文件比较"><span class="toc-text">3.3 文件比较</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-1-例一"><span class="toc-text">3.3.1 例一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-2-例二"><span class="toc-text">3.3.2 例二</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-复合条件测试"><span class="toc-text">4. 复合条件测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-if-then-语句的高级特性"><span class="toc-text">5. if-then 语句的高级特性</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-case-命令"><span class="toc-text">7. case 命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8-循环语句-for"><span class="toc-text">8. 循环语句 for</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#8-1-例一"><span class="toc-text">8.1 例一</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-2-例二"><span class="toc-text">8.2 例二</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-3-例三"><span class="toc-text">8.3 例三</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-4-例四"><span class="toc-text">8.4 例四</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-5-例五"><span class="toc-text">8.5 例五</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-6-例六"><span class="toc-text">8.6 例六</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-7-嵌套循环"><span class="toc-text">8.7 嵌套循环</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-8-特殊的环境变量-IFS"><span class="toc-text">8.8 特殊的环境变量 IFS</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9-while-命令"><span class="toc-text">9. while 命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#9-1-例一"><span class="toc-text">9.1 例一</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-2-例二"><span class="toc-text">9.2 例二</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#10-until-命令"><span class="toc-text">10. until 命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#11-break-和-continue"><span class="toc-text">11. break 和 continue</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#11-1-例一"><span class="toc-text">11.1 例一</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-2-例二"><span class="toc-text">11.2 例二</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-3-例三"><span class="toc-text">11.3 例三</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-4-例四"><span class="toc-text">11.4 例四</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-5-例五"><span class="toc-text">11.5 例五</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-6-例六"><span class="toc-text">11.6 例六</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-Linux-shell-脚本" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Linux shell  脚本</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.09.26</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Miracle</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/笔记/">笔记</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="1-数学运算相关命令"><a href="#1-数学运算相关命令" class="headerlink" title="1. 数学运算相关命令"></a>1. 数学运算相关命令</h1><p><strong>expr</strong> 用来处理数学表达式，它可以识别一些不同的数学和字符串操作符（注意操作符两侧的空格和转义）<br><img src="/images/2019/09/26/d1cbe8b0-e039-11e9-a7e1-77f8999fd6cf.png" alt="图片1.png"><br><img src="/images/2019/09/26/20903f00-e03a-11e9-a7e1-77f8999fd6cf.png" alt="图片2.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 ~]# expr 1 + 5</span><br><span class="line">6</span><br><span class="line">[root@master01 ~]# expr 5 \* 2</span><br><span class="line">10</span><br></pre></td></tr></table></figure>
+
+<p>在 shell 脚本中使用 expr 命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line">a=3</span><br><span class="line">b=4</span><br><span class="line">c=`expr <span class="variable">$a</span> \* <span class="variable">$b</span>`</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$c</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 hdfsData]# ./test </span><br><span class="line">12</span><br></pre></td></tr></table></figure>
+
+<p>shell 提供一个执行数学表达式更简单的方法，$[operation] 你可以用美元符号和方括号将数学表达式圈起来（注意不需要转义）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line">a=3</span><br><span class="line">b=4</span><br><span class="line">d=$[a+b]</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$d</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 hdfsData]# ./test </span><br><span class="line">7</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-条件语句-if"><a href="#2-条件语句-if" class="headerlink" title="2. 条件语句 if"></a>2. 条件语句 if</h1><p><strong>Bash shell 的 if 语句会运行 if 行定义的那个命令。如果该命令退出状态码是0（该命令成功运行），位于 then 部分的命令就会执行。</strong></p>
+<h2 id="2-1-例一"><a href="#2-1-例一" class="headerlink" title="2.1 例一"></a>2.1 例一</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line"><span class="keyword">if</span> date</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  <span class="comment"># 语句块</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">'进入if语句了'</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]# ./if_demo1 </span><br><span class="line">Thu Sep 26 17:11:04 CST 2019</span><br><span class="line">进入if语句了</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2-例二"><a href="#2-2-例二" class="headerlink" title="2.2 例二"></a>2.2 例二</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line"><span class="keyword">if</span> aaa  <span class="comment"># 返回非0状态码</span></span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">'进入aaa代码段了'</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> date</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">'进入date代码段了'</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]# ./if_demo2</span><br><span class="line">./if_demo2: line 2: aaa: command not found</span><br><span class="line">Thu Sep 26 17:32:05 CST 2019</span><br><span class="line">进入date代码段了</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-3-例三"><a href="#2-3-例三" class="headerlink" title="2.3 例三"></a>2.3 例三</h2><p>加入else 分支</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line"><span class="keyword">if</span> aaa</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">'我在aaa代码块'</span></span><br><span class="line"><span class="keyword">else</span> <span class="comment"># 加入else分支，非0状态码执行该语句块</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">'我在else分支'</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]# ./if_demo3</span><br><span class="line">./if_demo3: line 2: aaa: command not found</span><br><span class="line">我在else分支</span><br></pre></td></tr></table></figure>
+
+<p>嵌套多条件的 if then 语句</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line"><span class="keyword">if</span> aaa</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">'我在aaa代码块'</span></span><br><span class="line"><span class="keyword">elif</span> date</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">'我在date代码块'</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">'我在else代码块'</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]# ./if_demo4</span><br><span class="line">./if_demo4: line 2: aaa: command not found</span><br><span class="line">Thu Sep 26 18:45:31 CST 2019</span><br><span class="line">我在date代码块</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-test-命令"><a href="#3-test-命令" class="headerlink" title="3. test 命令"></a>3. test 命令</h1><p>格式1：test condition<br>格式2：[ condition ] 必须在左括号和右括号左侧各加一个空格，否则会报错。</p>
+<p>test 命令可以判断3类条件：<br>数值比较<br>字符串比较<br>文件比较</p>
+<h2 id="3-1-数值比较（注意空格）"><a href="#3-1-数值比较（注意空格）" class="headerlink" title="3.1 数值比较（注意空格）"></a>3.1 数值比较（注意空格）</h2><p><img src="/images/2019/09/27/8e0230a0-e0c8-11e9-a7e1-77f8999fd6cf.png" alt="图片3.png"></p>
+<h3 id="3-1-1-例一"><a href="#3-1-1-例一" class="headerlink" title="3.1.1 例一"></a>3.1.1 例一</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line"><span class="comment"># 数值条件</span></span><br><span class="line"><span class="keyword">if</span> [ 6 -gt 3 ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"6 大于 3"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]# ./test_demo1 </span><br><span class="line">6 大于 3</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-1-2-例二"><a href="#3-1-2-例二" class="headerlink" title="3.1.2 例二"></a>3.1.2 例二</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a=10</span><br><span class="line">b=11</span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$a</span> -eq <span class="variable">$b</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"a 等于 b"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"a 不等于 b"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]# ./test_demo1 </span><br><span class="line">a 不等于 b</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-1-3-例三"><a href="#3-1-3-例三" class="headerlink" title="3.1.3 例三"></a>3.1.3 例三</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a=33.3  <span class="comment"># bash shell 只能处理整数</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$a</span> -gt 20 ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"a 大于 20"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]# ./test_demo1 </span><br><span class="line">./test_demo1: line 18: [: 33.3: integer expression expected</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-2-字符串比较（注意空格）"><a href="#3-2-字符串比较（注意空格）" class="headerlink" title="3.2 字符串比较（注意空格）"></a>3.2 字符串比较（注意空格）</h2><p><img src="/images/2019/09/27/7bcf9c90-e0ca-11e9-a7e1-77f8999fd6cf.png" alt="图片4.png"><br><strong>注意</strong>：</p>
+<ul>
+<li>test 的比较会将所有的标点和大写也考虑在内。</li>
+<li>要转义大于小于号，否则会被当做重定向符号。</li>
+<li>test 命令字符串比较会使用标准的 ASCII 顺序，根据每个字符的 ASCII 数值来决定排序顺序。</li>
+<li>test 命令使用标准的数学比较符号来表示字符串的比较，而用文本代码表示数值比较。</li>
+</ul>
+<h3 id="3-2-1-例一"><a href="#3-2-1-例一" class="headerlink" title="3.2.1 例一"></a>3.2.1 例一</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line"><span class="comment"># 字符串比较</span></span><br><span class="line"><span class="keyword">if</span> [ aa = aa ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"字符串相等"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]# ./test_demo2</span><br><span class="line">字符串相等</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-2-例二"><a href="#3-2-2-例二" class="headerlink" title="3.2.2 例二"></a>3.2.2 例二</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">username=miracle</span><br><span class="line">testuser=miracle</span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$testuser</span> = <span class="variable">$username</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"Welcome <span class="variable">$testuser</span>!"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"Incorrect username!"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]# ./test_demo2</span><br><span class="line">Welcome miracle!</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-3-例三"><a href="#3-2-3-例三" class="headerlink" title="3.2.3 例三"></a>3.2.3 例三</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a=a</span><br><span class="line">b=b</span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$a</span> \&gt; <span class="variable">$b</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"<span class="variable">$a</span> 的ASCII值大于 <span class="variable">$b</span>"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"<span class="variable">$a</span> 的ASCII值小于 <span class="variable">$b</span>"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]# ./test_demo2</span><br><span class="line">a 的ASCII值小于 b</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-3-文件比较"><a href="#3-3-文件比较" class="headerlink" title="3.3 文件比较"></a>3.3 文件比较</h2><p><img src="/images/2019/09/27/a439bc10-e0cf-11e9-a7e1-77f8999fd6cf.png" alt="图片5.png"></p>
+<h3 id="3-3-1-例一"><a href="#3-3-1-例一" class="headerlink" title="3.3.1 例一"></a>3.3.1 例一</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line"><span class="keyword">if</span> [ -d <span class="variable">$HOME</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  ls <span class="variable">$HOME</span></span><br><span class="line">  <span class="keyword">if</span> [ -r <span class="variable">$HOME</span> ]</span><br><span class="line">  <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"<span class="variable">$HOME</span> 可读"</span></span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"<span class="variable">$HOME</span> 不存在"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]# ./test_demo3</span><br><span class="line">anaconda-ks.cfg  Downloads	       Pictures       root@slave01  Templates</span><br><span class="line">Desktop		 initial-setup-ks.cfg  Public	      root@slave02  Videos</span><br><span class="line">Documents	 Music		       root@master02  root@slave03  zookeeper.out</span><br><span class="line">/root 可读</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3-2-例二"><a href="#3-3-2-例二" class="headerlink" title="3.3.2 例二"></a>3.3.2 例二</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ test_demo3 -nt test_demo2 ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"test_demo3 is newer than test_demo2"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"test_demo3 is older than test_demo2"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]# ./test_demo3</span><br><span class="line">test_demo3 is newer than test_demo2</span><br></pre></td></tr></table></figure>
+
+<h1 id="4-复合条件测试"><a href="#4-复合条件测试" class="headerlink" title="4. 复合条件测试"></a>4. 复合条件测试</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line"><span class="keyword">if</span> date &amp;&amp; [ -n aaa ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"first run"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ 2 -gt 3 ] || [ -f <span class="variable">$HOME</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"second run"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]# ./test_demo4</span><br><span class="line">Fri Sep 27 16:19:51 CST 2019</span><br><span class="line">first run</span><br></pre></td></tr></table></figure>
+
+<h1 id="5-if-then-语句的高级特性"><a href="#5-if-then-语句的高级特性" class="headerlink" title="5. if-then 语句的高级特性"></a>5. if-then 语句的高级特性</h1><ul>
+<li>用于数学表达式的双括号</li>
+<li>用于高级字符串处理功能的双方括号。</li>
+</ul>
+<p>(( )) 双括号命令允许你将高级数学表达式放入比较中，test 命令只允许在比较中进行简单的算数操作。<br><img src="/images/2019/09/27/19c9dca0-e100-11e9-a7e1-77f8999fd6cf.png" alt="图片6.png"><br><strong>注意</strong>：</p>
+<ul>
+<li>双括号两侧的空格可以省略</li>
+<li>不需要将双括号中表达式里的大于小于号转义。</li>
+</ul>
+<p>[[ ]] 双方括号支持 test 命令的特性，并新增了另一个特性模式（正则表达式）匹配。<br><strong>注意</strong>：双方括号两侧的空格必须存在，否则报错。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line"><span class="keyword">if</span> ((10 ** 2 &gt; 90))</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  ((v2=10**2))</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"v2 = <span class="variable">$v2</span>"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$USER</span> = root ]]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"yes"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]# ./test_demo5</span><br><span class="line">v2 = 100</span><br><span class="line">yes</span><br></pre></td></tr></table></figure>
+
+<h1 id="7-case-命令"><a href="#7-case-命令" class="headerlink" title="7. case 命令"></a>7. case 命令</h1><p>为了避免在一组可能的值中寻找特定值而写出很长的 if-then-else 语句，引入 case 命令。<br>case 命令会检查单个变量列表格式的多个值。<br>通过竖线操作符来分割模式</p>
+<ul>
+<li>会捕获所有跟列出的模式都不匹配的值。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line"><span class="keyword">case</span> <span class="variable">$USER</span> <span class="keyword">in</span></span><br><span class="line">root)</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"Welcome root"</span>;;</span><br><span class="line">miracle)</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"Welcome miracle"</span>;;</span><br><span class="line">*)</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"Welcome other"</span>;;</span><br><span class="line"><span class="keyword">esac</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]# ./case_demo1 </span><br><span class="line">Welcome root</span><br></pre></td></tr></table></figure>
+
+<h1 id="8-循环语句-for"><a href="#8-循环语句-for" class="headerlink" title="8. 循环语句 for"></a>8. 循环语句 for</h1><h2 id="8-1-例一"><a href="#8-1-例一" class="headerlink" title="8.1 例一"></a>8.1 例一</h2><p>元素按照空格切分</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> China USA UK Japan</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"The next country is <span class="variable">$c</span>"</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$c</span> <span class="comment"># 循环最后一次赋值可以继续使用</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]# ./for_demo1 </span><br><span class="line">The next country is China</span><br><span class="line">The next country is USA</span><br><span class="line">The next country is UK</span><br><span class="line">The next country is Japan</span><br><span class="line">Japan</span><br></pre></td></tr></table></figure>
+
+<h2 id="8-2-例二"><a href="#8-2-例二" class="headerlink" title="8.2 例二"></a>8.2 例二</h2><ul>
+<li>单引号需要转义</li>
+<li>元素如果带空格，使用引号括起来<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">test</span> <span class="keyword">in</span> I\<span class="string">'m a boy, "you are a girl"</span></span><br><span class="line"><span class="string">do</span></span><br><span class="line"><span class="string">  echo "The next is $test"</span></span><br><span class="line"><span class="string">done</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]# ./for_demo2</span><br><span class="line">The next is I&apos;m</span><br><span class="line">The next is a</span><br><span class="line">The next is boy,</span><br><span class="line">The next is you are a girl</span><br></pre></td></tr></table></figure>
+
+<h2 id="8-3-例三"><a href="#8-3-例三" class="headerlink" title="8.3 例三"></a>8.3 例三</h2><p>从变量读取迭代列表</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line">countries=<span class="string">"China USA UK Japan"</span></span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> <span class="variable">$countries</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"The next is <span class="variable">$c</span>"</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]# ./for_demo3</span><br><span class="line">The next is China</span><br><span class="line">The next is USA</span><br><span class="line">The next is UK</span><br><span class="line">The next is Japan</span><br></pre></td></tr></table></figure>
+
+<h2 id="8-4-例四"><a href="#8-4-例四" class="headerlink" title="8.4 例四"></a>8.4 例四</h2><p>从文件读取迭代列表</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> `cat countries`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"The next is <span class="variable">$c</span>"</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]# ./for_demo4</span><br><span class="line">The next is 中国</span><br><span class="line">The next is 美国</span><br><span class="line">The next is 英国</span><br><span class="line">The next is 日本</span><br></pre></td></tr></table></figure>
+
+<h2 id="8-5-例五"><a href="#8-5-例五" class="headerlink" title="8.5 例五"></a>8.5 例五</h2><p>C 语言风格的 for 循环</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line"><span class="keyword">for</span> ((i=0; i&lt;5; i++))</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="variable">$i</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]# ./for_demo5</span><br><span class="line">0</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td></tr></table></figure>
+
+<h2 id="8-6-例六"><a href="#8-6-例六" class="headerlink" title="8.6 例六"></a>8.6 例六</h2><p>C 语言风格的多个条件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line"><span class="keyword">for</span> ((a=1,b=10;a&lt;=10,b&gt;2;a++,b--))</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"<span class="variable">$a</span> - <span class="variable">$b</span>"</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]# ./for_demo6</span><br><span class="line">1 - 10</span><br><span class="line">2 - 9</span><br><span class="line">3 - 8</span><br><span class="line">4 - 7</span><br><span class="line">5 - 6</span><br><span class="line">6 - 5</span><br><span class="line">7 - 4</span><br><span class="line">8 - 3</span><br></pre></td></tr></table></figure>
+
+<h2 id="8-7-嵌套循环"><a href="#8-7-嵌套循环" class="headerlink" title="8.7 嵌套循环"></a>8.7 嵌套循环</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line"><span class="keyword">for</span> (( a=1; a&lt;=3; a++ ))</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"start loop <span class="variable">$a</span>"</span></span><br><span class="line">  <span class="keyword">for</span> (( b=1; b &lt;=3; b++ ))</span><br><span class="line">  <span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"inside loop <span class="variable">$b</span>"</span></span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]# ./for_demo7</span><br><span class="line">start loop 1</span><br><span class="line">inside loop 1</span><br><span class="line">inside loop 2</span><br><span class="line">inside loop 3</span><br><span class="line">start loop 2</span><br><span class="line">inside loop 1</span><br><span class="line">inside loop 2</span><br><span class="line">inside loop 3</span><br><span class="line">start loop 3</span><br><span class="line">inside loop 1</span><br><span class="line">inside loop 2</span><br><span class="line">inside loop 3</span><br></pre></td></tr></table></figure>
+
+<h2 id="8-8-特殊的环境变量-IFS"><a href="#8-8-特殊的环境变量-IFS" class="headerlink" title="8.8 特殊的环境变量 IFS"></a>8.8 特殊的环境变量 IFS</h2><p>IFS，称为内部字段分隔符（Interal Field Separator），IFS 环境变量定义了 bash shell 用作字段分隔符的一系列字符。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]<span class="comment"># set | grep IFS</span></span><br><span class="line">IFS=$<span class="string">' \t\n'</span></span><br><span class="line">    <span class="built_in">local</span> option option2 i IFS=<span class="string">' 	</span></span><br><span class="line"><span class="string">    IFS='</span> 	</span><br><span class="line">        <span class="built_in">local</span> IFS=<span class="string">'</span></span><br><span class="line"><span class="string">        local IFS='</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>默认情况下，bash shell 会将空格、制表符、换行符定义为字段分隔符。</p>
+<h1 id="9-while-命令"><a href="#9-while-命令" class="headerlink" title="9. while 命令"></a>9. while 命令</h1><p>允许你在 while 语句行定义多个测试命令，只有最后一个测试命令的退出状态码会被用来决定什么时候结束循环。</p>
+<h2 id="9-1-例一"><a href="#9-1-例一" class="headerlink" title="9.1 例一"></a>9.1 例一</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line">a=10</span><br><span class="line"><span class="keyword">while</span> [ <span class="variable">$a</span> -gt 0 ]</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="variable">$a</span></span><br><span class="line">  (( a-- ))</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]# ./while_demo1 </span><br><span class="line">10</span><br><span class="line">9</span><br><span class="line">8</span><br><span class="line">7</span><br><span class="line">6</span><br><span class="line">5</span><br><span class="line">4</span><br><span class="line">3</span><br><span class="line">2</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+
+<h2 id="9-2-例二"><a href="#9-2-例二" class="headerlink" title="9.2 例二"></a>9.2 例二</h2><p>定义多个测试命令，只有最后一个测试命令的退出状态码会被用来决定结束循环。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line">a=10</span><br><span class="line"><span class="keyword">while</span> <span class="built_in">echo</span> <span class="variable">$a</span></span><br><span class="line">[ <span class="variable">$a</span> -gt 0 ]</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"This is flag"</span></span><br><span class="line">  (( a-- ))</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]# ./while_demo2</span><br><span class="line">10</span><br><span class="line">This is flag</span><br><span class="line">9</span><br><span class="line">This is flag</span><br><span class="line">8</span><br><span class="line">This is flag</span><br><span class="line">7</span><br><span class="line">This is flag</span><br><span class="line">6</span><br><span class="line">This is flag</span><br><span class="line">5</span><br><span class="line">This is flag</span><br><span class="line">4</span><br><span class="line">This is flag</span><br><span class="line">3</span><br><span class="line">This is flag</span><br><span class="line">2</span><br><span class="line">This is flag</span><br><span class="line">1</span><br><span class="line">This is flag</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
+
+<h1 id="10-until-命令"><a href="#10-until-命令" class="headerlink" title="10. until 命令"></a>10. until 命令</h1><p>until 命令和 while 命令工作的方式完全相反，until 命令要求你指定一个通常输出非零退出状态码的测试命令，一旦测试命令返回退出状态码 0 ，则循环就结束了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line">a=10</span><br><span class="line">until [ <span class="variable">$a</span> -eq 0 ]      <span class="comment"># 指定非 0 状态码的条件</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="variable">$a</span></span><br><span class="line">  (( a-- ))</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]# ./until_demo1 </span><br><span class="line">10</span><br><span class="line">9</span><br><span class="line">8</span><br><span class="line">7</span><br><span class="line">6</span><br><span class="line">5</span><br><span class="line">4</span><br><span class="line">3</span><br><span class="line">2</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+
+<h1 id="11-break-和-continue"><a href="#11-break-和-continue" class="headerlink" title="11. break 和 continue"></a>11. break 和 continue</h1><h2 id="11-1-例一"><a href="#11-1-例一" class="headerlink" title="11.1 例一"></a>11.1 例一</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line"><span class="keyword">for</span> a <span class="keyword">in</span> 1 2 3 4 5 6 7</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="keyword">if</span> [ <span class="variable">$a</span> -eq 5 ]</span><br><span class="line">  <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">break</span>       <span class="comment"># 跳出循环</span></span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="variable">$a</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]# ./break_demo1 </span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td></tr></table></figure>
+
+<h2 id="11-2-例二"><a href="#11-2-例二" class="headerlink" title="11.2 例二"></a>11.2 例二</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line">a=10</span><br><span class="line"><span class="keyword">while</span> [ <span class="variable">$a</span> -gt 0 ]</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="keyword">if</span> [ <span class="variable">$a</span> -eq 5 ]</span><br><span class="line">  <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">break</span></span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="variable">$a</span></span><br><span class="line">  (( a-- ))</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]# ./break_demo2</span><br><span class="line">10</span><br><span class="line">9</span><br><span class="line">8</span><br><span class="line">7</span><br><span class="line">6</span><br></pre></td></tr></table></figure>
+
+<h2 id="11-3-例三"><a href="#11-3-例三" class="headerlink" title="11.3 例三"></a>11.3 例三</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line"><span class="keyword">for</span> ((a=1; a&lt;4; a++))</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"Outer loop: <span class="variable">$a</span>"</span></span><br><span class="line">  <span class="keyword">for</span> ((b=1; b&lt;100; b++))</span><br><span class="line">  <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">if</span> [ <span class="variable">$b</span> -eq 5 ]</span><br><span class="line">    <span class="keyword">then</span></span><br><span class="line">      <span class="built_in">break</span>     <span class="comment"># 默认跳出最靠近的循环</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Inner loop: <span class="variable">$b</span>"</span></span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]# ./break_demo3</span><br><span class="line">Outer loop: 1</span><br><span class="line">Inner loop: 1</span><br><span class="line">Inner loop: 2</span><br><span class="line">Inner loop: 3</span><br><span class="line">Inner loop: 4</span><br><span class="line">Outer loop: 2</span><br><span class="line">Inner loop: 1</span><br><span class="line">Inner loop: 2</span><br><span class="line">Inner loop: 3</span><br><span class="line">Inner loop: 4</span><br><span class="line">Outer loop: 3</span><br><span class="line">Inner loop: 1</span><br><span class="line">Inner loop: 2</span><br><span class="line">Inner loop: 3</span><br><span class="line">Inner loop: 4</span><br></pre></td></tr></table></figure>
+
+<h2 id="11-4-例四"><a href="#11-4-例四" class="headerlink" title="11.4 例四"></a>11.4 例四</h2><p>break 指定跳出层级</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line"><span class="keyword">for</span> ((a=1; a&lt;4; a++))</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"Outer loop: <span class="variable">$a</span>"</span></span><br><span class="line">  <span class="keyword">for</span> ((b=1; b&lt;100; b++))</span><br><span class="line">  <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">if</span> [ <span class="variable">$b</span> -eq 5 ]</span><br><span class="line">    <span class="keyword">then</span></span><br><span class="line">      <span class="built_in">break</span> 2   <span class="comment"># 指明 break 要跳出的层级，若不指明，默认层级为1</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Inner loop: <span class="variable">$b</span>"</span></span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]# ./break_demo3</span><br><span class="line">Outer loop: 1</span><br><span class="line">Inner loop: 1</span><br><span class="line">Inner loop: 2</span><br><span class="line">Inner loop: 3</span><br><span class="line">Inner loop: 4</span><br></pre></td></tr></table></figure>
+
+<h2 id="11-5-例五"><a href="#11-5-例五" class="headerlink" title="11.5 例五"></a>11.5 例五</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line"><span class="keyword">for</span> ((a=1; a&lt;15; a++))</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="keyword">if</span> [ <span class="variable">$a</span> -gt 5 ] &amp;&amp; [ <span class="variable">$a</span> -lt 10 ]</span><br><span class="line">  <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">continue</span>    <span class="comment"># 跳过本次循环</span></span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"Iteration number: <span class="variable">$a</span>"</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]# ./continue_demo1 </span><br><span class="line">Iteration number: 1</span><br><span class="line">Iteration number: 2</span><br><span class="line">Iteration number: 3</span><br><span class="line">Iteration number: 4</span><br><span class="line">Iteration number: 5</span><br><span class="line">Iteration number: 10</span><br><span class="line">Iteration number: 11</span><br><span class="line">Iteration number: 12</span><br><span class="line">Iteration number: 13</span><br><span class="line">Iteration number: 14</span><br></pre></td></tr></table></figure>
+
+<h2 id="11-6-例六"><a href="#11-6-例六" class="headerlink" title="11.6 例六"></a>11.6 例六</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line"><span class="keyword">for</span> ((a=1; a&lt;=5; a++))</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"Iteration <span class="variable">$a</span>"</span></span><br><span class="line">  <span class="keyword">for</span> ((b=1; b&lt;3; b++))</span><br><span class="line">  <span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"b= <span class="variable">$b</span>"</span></span><br><span class="line">    <span class="keyword">if</span> [ <span class="variable">$a</span> -gt 2 ] &amp;&amp; [ <span class="variable">$a</span> -lt 4 ]</span><br><span class="line">    <span class="keyword">then</span></span><br><span class="line">      <span class="built_in">continue</span> 2        <span class="comment"># 指明要继续的循环层级</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    c=$[a*b]</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"The result of <span class="variable">$a</span> * <span class="variable">$b</span> is <span class="variable">$c</span>"</span></span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">[root@master01 scripts]# ./continue_demo2</span><br><span class="line">Iteration 1</span><br><span class="line">b= 1</span><br><span class="line">The result of 1 * 1 is 1</span><br><span class="line">b= 2</span><br><span class="line">The result of 1 * 2 is 2</span><br><span class="line">Iteration 2</span><br><span class="line">b= 1</span><br><span class="line">The result of 2 * 1 is 2</span><br><span class="line">b= 2</span><br><span class="line">The result of 2 * 2 is 4</span><br><span class="line">Iteration 3</span><br><span class="line">b= 1</span><br><span class="line">Iteration 4</span><br><span class="line">b= 1</span><br><span class="line">The result of 4 * 1 is 4</span><br><span class="line">b= 2</span><br><span class="line">The result of 4 * 2 is 8</span><br><span class="line">Iteration 5</span><br><span class="line">b= 1</span><br><span class="line">The result of 5 * 1 is 5</span><br><span class="line">b= 2</span><br><span class="line">The result of 5 * 2 is 10</span><br></pre></td></tr></table></figure>
+
+
+    
+  </div>
+
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持forsigner</div>
+        <ul>
+        
+          <li class="item">
+            
+              <span>微信扫一扫</span>
+            
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            
+              <span>支付宝扫一扫</span>
+            
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2019/09/19/Linux-操作系统（二）/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2019/09/29/Shell-脚本编程（高级）/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+<!-- Gitalk评论插件通用代码 -->
+<div id="gitalk-container"></div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.11.1/js/md5.js"></script>
+<script>
+const gitalk = new Gitalk({
+  clientID: 'cffabda338955fb33e72',
+  clientSecret: '27685d32607acc9c76041016860f5434fa1d65d0',
+  repo: 'gitalk_comment',
+  owner: 'Miracle-Xing',
+  // 在这里设置一下截取前50个字符串, 这是因为 github 对 label 的长度有了要求, 如果超过
+  // 50个字符串则会报错.
+  //id: location.pathname.split('/').pop().substring(0, 49),
+   id: md5(location.pathname),
+  // id: title,
+  admin: ['Miracle-Xing'],
+  // facebook-like distraction free mode
+  distractionFreeMode: false
+})
+gitalk.render('gitalk-container')
+</script>
+<!-- Gitalk代码结束 -->
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
